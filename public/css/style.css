@@ -1,0 +1,328 @@
+body {
+  overflow-x: hidden;
+  background-color:#f0f0f0 ;
+  /*font-family: "Times New Roman", Times, serif;*/
+}
+*{
+	box-sizing: border-box;
+}
+@media (max-width: 991.98px) {
+  #top {
+    font-size: 0.738rem;
+    text-align: center;
+  }
+}
+
+#top .slogan {
+  color: #fff;
+}
+
+#top .slogan .btn {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+#top {
+  background: #555;
+  padding: 10px 0;
+  
+}
+
+
+#top a {
+  color: #fff;
+}
+
+#top ul.menu {
+  padding-top: 5px;
+  margin: 0;
+  font-size: 0.738rem;
+}
+
+#top ul.menu > li {
+  margin-right: 0;
+}
+
+#top ul.menu > li a {
+  color: #eee;
+}
+
+#top ul.menu > li + li:before {
+  content: "|\00a0";
+  padding: 0 5px;
+  color: #f8f9fa;
+}
+
+#top ul.menu > .active {
+  color: #999;
+}
+
+#top #login-modal .modal-header {
+  background: #429244;
+}
+
+#top #login-modal .modal-header h5 {
+  color: #fff;
+}
+
+#top #login-modal a {
+  color: #429244;
+}
+
+#top #login-modal p {
+  font-weight: 350;
+  margin-bottom: 20px;
+}
+
+
+
+/*MEGA MENU */
+
+
+.menu-large {
+  position: static !important;
+}
+
+.menu-large .megamenu {
+  padding: 20px;
+  width: 100%;
+ /* max-width: 1500px;*/
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  margin-top: -1px;
+}
+
+.menu-large a.nav-link {
+  padding: 7px !important;
+  padding-left: 0 !important;
+}
+
+.navbar {
+  border-bottom: 1px solid #e6e6e6;
+  background-color: #fff;
+}
+
+.navbar .navbar-nav > .nav-item > .nav-link {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  padding: 30px 15px !important;
+  color: white;
+}
+ .cityname .nav-item > .nav-link
+ {
+  
+ }
+.cityname .nav-link{
+  text-transform: capitalize;
+  font-size: 15px !important;
+  color: rgba(0,0,0,1) !important;
+}
+
+@media (max-width: 991.98px) {
+  .navbar .navbar-nav > .nav-item > .nav-link {
+    padding: 10px 15px !important;
+  }
+}
+
+
+
+@media (max-width: 991.98px) {
+  .navbar .dropdown-menu {
+    position: relative !important;
+    border: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+}
+
+.navbar .megamenu {
+  padding: 30px !important;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+
+@media (max-width: 991.98px) {
+  .navbar .megamenu {
+    padding: 15px !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+}
+
+.navbar .menu-large h5 {
+  font-size: 1.125rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding-bottom: 10px;
+  border-bottom: dotted 1px #555;
+}
+
+@media (max-width: 767.98px) {
+  .navbar .menu-large h5 {
+    font-size: 0.9rem;
+  }
+}
+
+.navbar .menu-large ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navbar .menu-large ul .nav-item {
+  list-style-type: none;
+  border-bottom: solid 1px #eee;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 0;
+}
+
+.navbar .menu-large ul .nav-item a {
+  color: #999;
+  font-size: 0.738rem;
+  display: block;
+  padding: 0 !important;
+}
+
+.navbar .menu-large ul .nav-item a:hover {
+  color: #429244 !important;
+  text-decoration: none;
+}
+
+.navbar .menu-large .banner {
+  margin-bottom: 10px;
+}
+
+.navbar #basket-overview {
+  padding: 0;
+}
+
+.navbar .navbar-btn {
+  color: #fff;
+  margin-right: 10px;
+}
+.navbar .menu-large p {
+  font-size: 1.125rem;
+  font-weight:bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding-bottom: 10px;
+  border-bottom: dotted 1px #555 ;
+}
+.navbar .navbar-nav > .nav-item > .nav-link.active, .navbar .navbar-nav > .nav-item > .nav-link:hover, .navbar .navbar-nav > .nav-item > .nav-link:focus {
+  background: #2226adf2;
+}
+
+ @media only screen and (max-width: 960px) {
+  
+    .scroller{
+      height: 65vh;
+      overflow: scroll;
+    }
+}
+
+/*end of our Mega menu*/
+
+
+
+/* removing the green border (from small screen) that wrape the cameroon map */
+
+ @media only screen and (min-width: 800px) {
+  
+     .border-green {
+       border: 20px solid green;
+     padding: 50px;
+     margin-bottom: 15px;
+  }
+}
+
+
+
+#region > li {
+
+	list-style-type: none;
+}
+
+
+.search-option{
+	background-color:#1010104f;
+	border: 1px solid #d5d3d8;
+
+}
+/*MAIN CATEGORY STYLE */
+
+#main-cat {
+  text-align: center;
+}
+
+#main-cat .box .icon {
+  position: absolute;
+  font-size: 120px;
+  width: 100%;
+  text-align: center;
+  top: -20px;
+  left: 0;
+  height: 100%;
+  float: left;
+  color: #eee;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  z-index: 1;
+
+}
+
+#main-cat .box h3 {
+  position: relative;
+  margin: 0 0 10px;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  z-index: 2;
+}
+
+#main-cat .box h3 a:hover {
+  text-decoration: none;
+}
+
+#main-cat .box p {
+  position: relative;
+  color: #555;
+  z-index: 2;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.box {
+  background: #fff;
+  margin: 0 0 30px;
+  border: solid 1px #e6e6e6;
+  padding: 20px;
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+/*end of main category styling*/
+
+
+/*FOOTER STYLING*/
+
+#footer {
+  background: grey;
+  
+}
+
+#footer ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+#footer ul a {
+  color: #fff;
+}
