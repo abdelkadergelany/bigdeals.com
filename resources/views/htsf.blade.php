@@ -6,6 +6,13 @@
 @stop
 
 @section('contains')
+<div class="container">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{url('welcom')}}">Home</a></li>
+            <li class="breadcrumb-item active"><a href="{{url('htsf')}}">How to sell fast</a></li>
+            
+        </ul>
+    </div>
 
    <div class="container">
         <div class="row">

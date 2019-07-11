@@ -7,12 +7,23 @@
 
 @section('contains')
 
+<div class="container">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{url('welcom')}}">Home</a></li>
+            <li class="breadcrumb-item active"><a href="{{url('contact')}}">Contact us</a></li>
+            
+        </ul>
+    </div>
+
    <div class="container">
         <div class="row">
 
             <!-- *** PAGES MENU WITH MARGIN BOTTOM ***-->
          @include('layouts/partials/_left_navbar')
             <!-- *** PAGES MENU END***-->
+
+
+
  <div class="col-lg-9 col-md-8">
                 <div class="card mb-4">
                     <div class="card-header">
