@@ -15,6 +15,30 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
+
+
+
+
+Route::get('/faq', function () {
+    return view('faq');
+})->name('faq');
+
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+
+Route::get('/htsf', function () {
+    return view('htsf');
+})->name('htsf');
+
+
+
+
 Route:: match (['get','post'],'/admin','AdminController@login');
 
 Route:: get ('/logout','AdminController@logout');

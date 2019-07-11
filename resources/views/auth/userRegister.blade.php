@@ -3,13 +3,20 @@
 <link rel="stylesheet" href="{{asset('css/style.css')}}">
 @stop
 @section('contains')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
+<div class="container border-green">
+                <h2 class="position_text">Sign Up on Bigdeals</h2><br><br>
+            <div class="row">
+                <div class="col-sm-5 col-md-5 col-lg-6 border_left">
+                    <p class="lead contentregister">Advantages to Sign Up</p>
+                    <img class="iconesignup" src="img/posting.jpg" alt="posting">
+                    <span >Start posting your own ads.</span><br>
+                    <img class="iconesignup" src="img/favorite.jpg" alt="favorite">
+                    <span>Mark ads as favorite and view them later.</span><br>
+                    <img class="iconesignup" src="img/manage.jpg" alt="manage">
+                    <span>View and manage your ads at your convenience.</span><br><br>
+                </div>
+                
+                <div class="col-sm-7 col-md-7 col-lg-6 contentregister">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -73,7 +80,5 @@
                     </form>
                 </div>
             </div>
-        </div>
     </div>
-</div>
 @stop

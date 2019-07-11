@@ -13,7 +13,7 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="nav navbar-nav ml-auto">
 							<li class="nav-item active">
-								<a class="nav-link nav-pages" href="#"><i class="fas fa-home"></i>Home</a>
+								<a class="nav-link nav-pages" href="{{url('welcome')}}"><i class="fas fa-home"></i>Home</a>
 							</li>
 							<li>
 								<div class="dropdown show">

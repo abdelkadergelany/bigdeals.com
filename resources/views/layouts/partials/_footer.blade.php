@@ -41,11 +41,11 @@
             <h4 class="mb-3">Help & Support</h4>
             <hr>
             <ul class="list-unstyled">
-                <li><a href="category.html">FAQ</a></li>
-                <li><a href="category.html">How to sell fast</a></li>
-                <li><a href="category.html">Membership</a></li>
-                <li><a href="category.html">Contact us</a></li>
-                <li><a href="category.html">Blog</a></li>
+                <li><a href="{{url('faq')}}">FAQ</a></li>
+                <li><a href="{{url('htsf')}}">How to sell fast</a></li>
+                <li><a href="#">Membership</a></li>
+                <li><a href="{{url('contact')}}">Contact us</a></li>
+                <li><a href="{{url('blog')}}">Blog</a></li>
             </ul>
             </div>
 

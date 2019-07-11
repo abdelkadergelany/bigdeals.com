@@ -4,7 +4,7 @@ body {
   /*font-family: "Times New Roman", Times, serif;*/
 }
 *{
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 @media (max-width: 991.98px) {
   #top {
@@ -246,13 +246,13 @@ body {
 
 #region > li {
 
-	list-style-type: none;
+  list-style-type: none;
 }
 
 
 .search-option{
-	background-color:#1010104f;
-	border: 1px solid #d5d3d8;
+  background-color:#1010104f;
+  border: 1px solid #d5d3d8;
 
 }
 /*MAIN CATEGORY STYLE */
@@ -310,6 +310,50 @@ body {
 }
 /*end of main category styling*/
 
+
+/*faq sellfast pagebody to align the content*/
+.pagebody{
+  padding: 2%;
+}
+.monboutton{
+  text-align: start !important;
+}
+/* end of faq sellfast pagebody*/
+
+
+/* BEGINING OF THE CSS REGISTRATION */
+.position_text{
+  text-align: center !important;
+  color: #429244 !important
+}
+
+.inputregister{
+  width: 60% !important;
+  border: 1px solid #999;
+  padding: 1%;
+  border-radius: 5px;
+}
+.inputregistersubmit{
+  width: 30% !important;
+  text-align: center !important;
+}
+
+.contentregister{
+  text-align: center;
+}
+.border_left{
+  border-right: 1px solid #d5d3d8;
+  padding-left: 3%;
+}
+@media only screen and (max-width: 800px) {
+  
+  .border_left {
+  padding-left: 3%;
+  text-align: center;
+}
+}
+
+/* ENDING OF THE CSS REGISTRATION */
 
 /*FOOTER STYLING*/
 
