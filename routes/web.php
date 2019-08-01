@@ -48,6 +48,7 @@ Route:: get ('/logout','AdminController@logout');
 Route:: group (['middleware'=>['auth']],function(){
 
 	Route:: get ('/admin/manageUsers','AdminController@manageUsers')->name('manageUsers');
+	Route:: post ('/admin/manageUsers/updateUser','AdminController@updateUsers')->name('updateUsers');
 
     Route:: get ('/admin/dashboard','AdminController@dashboard');
     Route:: match (['get','post'],'/admin/admin_change_password','AdminController@updatePassword');

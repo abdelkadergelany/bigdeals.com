@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\UserInfo;
+use App\Phone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -77,6 +78,33 @@ public function updatePassword(Request $request){
        
 
        return view('admin_manage_users')->with("userInfo",$userInfos);
+
+}
+
+ public function updateUsers(Request $request){
+
+       $data = $request->input();  
+
+       $phon = Phone::where('userId',$data['id'])->first();
+       
+       $userInfos = UserInfo::find($data['id']);
+       $user = User::find($data['id']);
+        
+      
+        $user->name = $data['name'];
+        $userInfos->address = $data['address'];     
+        $phon->phone = $data['phone'];
+       $userInfos->city = $data['city'];
+       
+       $userInfos->save();
+       $user->save();
+       $phon->save();
+       
+            $userInfos = UserInfo::all();
+         return view('admin_manage_users')->with("userInfo",$userInfos);
+       // self:: manageUsers();
+     
+       
 
 }
 
