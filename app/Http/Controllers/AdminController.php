@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\region;
 use App\UserInfo;
 use App\Phone;
+use App\city;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -26,6 +28,26 @@ class AdminController extends Controller
         
         return view('admin.admin_login');
     }
+
+     
+      public function userLogin(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->input();
+            if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password'],'isBlocked'=>'0']))
+            {
+                return redirect ('admin/dashboard');
+            }
+            else{
+                return redirect ('/admin')->with('flash_message_error','Invalid username or Password');
+            }
+        }
+        
+        return view('admin.admin_login');
+    }
+
+
+
+
 
 
  public function register(){
@@ -103,10 +125,77 @@ public function updatePassword(Request $request){
             $userInfos = UserInfo::all();
          return view('admin_manage_users')->with("userInfo",$userInfos);
        // self:: manageUsers();
-     
-       
-
 }
+
+
+ public function addRegions(Request $request){
+
+       $data = $request->input(); 
+        region::create([
+            'regionName' => $data['name'],
+        ]); 
+        $regions = region::all();
+         return view('manage_regions')->with("region",$regions);
+ 
+}
+
+ public function manageRegions(Request $request){
+
+        $regions = region::all();
+         return view('manage_regions')->with("region",$regions);
+ 
+}
+
+
+public function manageCities(Request $request){
+
+        $city = city::all()->sortBy("RegionName");
+        $regions = region::all();
+         return view('manage_cities')->with("city",$city)->with("region",$regions);
+ 
+}
+
+ public function addCity(Request $request){
+
+       $data = $request->input(); 
+        city::create([
+            'cityName' => $data['name'],
+            'RegionName' => $data['regionName'],
+        ]); 
+       $city = city::all()->sortBy("RegionName");
+        $regions = region::all();
+         return view('manage_cities')->with("city",$city)->with("region",$regions);
+ 
+}
+
+
+
+
+
+ public function blockUsers(Request $request){
+
+       $data = $request->input();  
+
+       $user = User::find($data['id']);
+        
+        if($user->isBlocked==1)
+        {
+
+           $user->isBlocked = 0;
+        }
+      
+        else {
+          $user->isBlocked = 1;
+        }
+       
+       $user->save();
+       
+       
+            $userInfos = UserInfo::all();
+         return view('admin_manage_users')->with("userInfo",$userInfos);
+       
+}
+
 
 
 

@@ -40,7 +40,12 @@
                                     <p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><i class="fas fa-pen"></i></button></p>
                                  </td>
                                  <td>
-                                    <p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-success btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><i class="fas fa-lock"></i></button></p>
+                                    @if (returnIsBlocked($info->userId) == 0)
+                                    <p data-placement="top" data-toggle="tooltip" title="Block"><button class="btn btn-success btn-xs" data-title="Edit" data-toggle="modal" data-target="#block" ><i class="fas fa-lock"></i></button></p>
+                                    @endif
+                                    @if (returnIsBlocked($info->userId) == 1)
+                                    <p data-placement="top" data-toggle="tooltip" title="UnBlock"><button class="btn btn-success btn-xs" data-title="Edit" data-toggle="modal" data-target="#block" ><i class="fas fa-lock-open"></i></button></p>
+                                    @endif
                                  </td>
                                  <td>
                                     <p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><i class="fas fa-trash-alt"></i></button></p>
@@ -189,6 +194,35 @@
                </div>
                <!-- /.modal-dialog --> 
             </div>
+            
+
+
+            <div class="modal fade" id="block" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+               <div class="modal-dialog">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        <h4 class="modal-title custom_align" id="Heading">Block this entry</h4>
+                     </div>
+                    <form method="POST" action="{{ route('blockUsers') }}">
+                        @csrf
+                     <div class="modal-body">
+                        <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to Block this Record?</div>
+                     </div>
+                     <div class="modal-footer ">
+                        <input  type="hidden" value="{{$info->userId}}"  name="id"  >
+                        <input type="submit" class="btn btn-warning btn-lg" style="width: 50%;" value="Yes">
+                        <span class="glyphicon glyphicon-ok-sign"></span> 
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+                     </div>
+                   </form>
+                  </div>
+                  <!-- /.modal-content --> 
+               </div>
+               <!-- /.modal-dialog --> 
+            </div>
+
+
 
 
             <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">

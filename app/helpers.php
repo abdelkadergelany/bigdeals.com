@@ -21,8 +21,25 @@ function returnNAme($id)
 {
      $emailInfos = User::find($id);
      return "$emailInfos->name";
-     //return dd("$emailInfos");
+     
 }
+
+function returnIsBlocked($id)
+{
+     $emailInfos = User::find($id);
+     return "$emailInfos->isBlocked";
+    
+}
+
+
+function getRegions()
+{
+      
+     return region::All();
+     
+}
+
+
 
 }
 

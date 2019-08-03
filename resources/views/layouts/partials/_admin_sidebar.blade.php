@@ -34,7 +34,7 @@
 					<a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-users"></i>&nbsp;Users</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu2">
 						<li>
-							<a href={{ __('manageUsers') }}>Manage users</a>
+							<a href="{{ route('manageUsers') }}">Manage users</a>
 						</li>
 						<li>
 							<a href="#">Add new</a>
@@ -42,10 +42,10 @@
 					</ul>
 				</li>
 				<li>
-					<a href="#"><i class="fas fa-globe"></i>&nbsp;Manage Regions</a>
+					<a href="{{ route('manageRegions') }}"><i class="fas fa-globe"></i>&nbsp;Manage Regions</a>
 				</li>
 				<li>
-					<a href="#"><i class="fas fa-map-marker-alt"></i>&nbsp;Manage City</a>
+					<a href="{{ route('manageCities') }}"><i class="fas fa-map-marker-alt"></i>&nbsp;Manage City</a>
 				</li>
 				
 				<li>

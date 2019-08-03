@@ -25,7 +25,7 @@
                 </div>
                 <div class="modal-body">
                 
-                <form method="POST" action="{{url('admin')}}">{{csrf_field()}}
+                <form method="POST" action="{{url('userLogin')}}">{{csrf_field()}}
                     <div class="form-group">
                     <input id="email-modal" name="email" type="email" placeholder="email" class="form-control">
                     </div>
