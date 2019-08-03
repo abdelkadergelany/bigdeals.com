@@ -96,7 +96,7 @@ public function updatePassword(Request $request){
 
 
   public function manageUsers(){
-       $userInfos = UserInfo::all();
+       $userInfos = User::all();
        
 
        return view('admin_manage_users')->with("userInfo",$userInfos);
@@ -106,25 +106,26 @@ public function updatePassword(Request $request){
  public function updateUsers(Request $request){
 
        $data = $request->input();  
+    
 
-       $phon = Phone::where('userId',$data['id'])->first();
+     $phon = Phone::where('userId',$data['id'])->first();
        
        $userInfos = UserInfo::find($data['id']);
        $user = User::find($data['id']);
         
-      
+        $phon->phone = $data['phone'];
         $user->name = $data['name'];
         $userInfos->address = $data['address'];     
-        $phon->phone = $data['phone'];
+        
        $userInfos->city = $data['city'];
-       
+       $phon->save();
        $userInfos->save();
        $user->save();
-       $phon->save();
        
-            $userInfos = UserInfo::all();
-         return view('admin_manage_users')->with("userInfo",$userInfos);
-       // self:: manageUsers();
+       
+       $userInfos = User::all();
+       return view('admin_manage_users')->with("userInfo",$userInfos);
+       self:: manageUsers();
 }
 
 
@@ -177,7 +178,7 @@ public function manageCities(Request $request){
        $data = $request->input();  
 
        $user = User::find($data['id']);
-        
+        //dd($request->input());
         if($user->isBlocked==1)
         {
 

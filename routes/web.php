@@ -58,7 +58,7 @@ Route:: group (['middleware'=>['auth']],function(){
 	Route:: post ('/admin/manageUsers/blockUsers','AdminController@blockUsers')->name('blockUsers');
 
     Route:: get ('/admin/dashboard','AdminController@dashboard');
-    Route:: match (['get','post'],'/admin/admin_change_password','AdminController@updatePassword');
+    Route:: match (['get','post'],'admin_change_password','AdminController@updatePassword')->name('admin_change_password');
 });
 
 

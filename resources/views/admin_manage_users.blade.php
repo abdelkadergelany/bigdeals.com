@@ -30,20 +30,20 @@
                            <tbody>
                               @foreach ($userInfo as $info) 
                               <tr>
-                                 <td>{{"$info->userId"}}</td>
-                                 <td>{{returnName($info->userId)}}</td>
-                                 <td>{{returnEmail($info->userId)}}</td>
-                                 <td>{{"$info->city"}}</td>
-                                 <td>{{"$info->address"}}</td>
-                                 <td>{{returnPhone($info->userId)}}</td>
+                                 <td>{{$info->id}}</td>
+                                 <td>{{$info->name}}</td>
+                                 <td>{{$info->email}}</td>
+                                 <td>{{returnCity($info->id)}}</td>
+                                 <td>{{returnAddress($info->id)}}</td>
+                                 <td>{{returnPhone($info->id)}}</td>
                                  <td>
                                     <p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><i class="fas fa-pen"></i></button></p>
                                  </td>
                                  <td>
-                                    @if (returnIsBlocked($info->userId) == 0)
+                                    @if (returnIsBlocked($info->id) == 0)
                                     <p data-placement="top" data-toggle="tooltip" title="Block"><button class="btn btn-success btn-xs" data-title="Edit" data-toggle="modal" data-target="#block" ><i class="fas fa-lock"></i></button></p>
                                     @endif
-                                    @if (returnIsBlocked($info->userId) == 1)
+                                    @if (returnIsBlocked($info->id) == 1)
                                     <p data-placement="top" data-toggle="tooltip" title="UnBlock"><button class="btn btn-success btn-xs" data-title="Edit" data-toggle="modal" data-target="#block" ><i class="fas fa-lock-open"></i></button></p>
                                     @endif
                                  </td>
@@ -71,15 +71,16 @@
                      <div class="modal-body">
                         <div class="form-group">
                           <label for="name">Name: </label>
-                          <input  type="hidden" value="{{$info->userId}}"  name="id"  >
-                           <input class="form-control" type="text" value={{returnName($info->userId)}} id="name" name="name" >
+                          <input  style="display: none;" type="number" value="1"  name="id"  >
+                           <input class="form-control" type="text" value="{{$info->name}}" id="name" 
+                           name="name">
                         </div>
                         <div class="form-group">
                            <label for="first-disabled">City: </label>
                             <select id="first-disabled" class="selectpicker form-control" 
                             data-hide-disabled="false" data-live-search="true" name="city">
 
-                <option selected>{{"$info->city"}}</option>
+                <option selected>{{returnCity(1)}}</option>
 
                 <optgroup label="Centre">
                     
@@ -178,11 +179,11 @@
                         </div>
                         <div class="form-group">
                            <label for="address">Address: </label>
-                           <input class="form-control " type="text" value="{{$info->address}}" id="address" name="address">
+                           <input class="form-control " type="text" value="{{returnAddress(1)}}" id="address" name="address">
                         </div>
                          <div class="form-group">
                            <label for="phone">Phone: </label>
-                           <input class="form-control " type="text" value="{{returnPhone($info->userId)}}" id="phone" name="phone">
+                           <input class="form-control " type="text" value="{{returnPhone(1)}}" id="phone" name="phone">
                         </div>
                      </div>
                      <div class="modal-footer ">
@@ -204,13 +205,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                         <h4 class="modal-title custom_align" id="Heading">Block this entry</h4>
                      </div>
-                    <form method="POST" action="{{ route('blockUsers') }}">
+                    <form method=POST action= "{{route('blockUsers')}}">
                         @csrf
                      <div class="modal-body">
                         <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to Block this Record?</div>
                      </div>
                      <div class="modal-footer ">
-                        <input  type="hidden" value="{{$info->userId}}"  name="id"  >
+                        <input style="display: none;"  type="number" value="1"  name="id"  >
                         <input type="submit" class="btn btn-warning btn-lg" style="width: 50%;" value="Yes">
                         <span class="glyphicon glyphicon-ok-sign"></span> 
                         <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
@@ -221,7 +222,6 @@
                </div>
                <!-- /.modal-dialog --> 
             </div>
-
 
 
 
