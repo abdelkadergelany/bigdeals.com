@@ -13,7 +13,7 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="nav navbar-nav ml-auto">
 							<li class="nav-item active">
-								<a class="nav-link nav-pages" href="{{url('welcome')}}"><i class="fas fa-home"></i>Home</a>
+								<a class="nav-link nav-pages" href="{{route('welcome')}}"><i class="fas fa-home"></i>Home</a>
 							</li>
 							<li>
 								<div class="dropdown show">
@@ -23,13 +23,13 @@
 
 									<div class="dropdown-menu " aria-labelledby="dropdownMenuLink" >
 										<a class="dropdown-item" href="#">Edit profile</a>
-										<a class="dropdown-item" href={{ __('admin_change_password') }}>Change password</a>
-										<a class="dropdown-item" href="{{url('logout')}}">Logout</a>
+										<a class="dropdown-item" href="{{ route('admin_change_password')}}" }}>Change password</a>
+										<a class="dropdown-item" href="{{route('logout')}}">Logout</a>
 									</div>
 								</div>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link nav-pages" href="{{url('logout')}}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+								<a class="nav-link nav-pages" href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i>Logout</a>
 							</li>
 
 						</ul>

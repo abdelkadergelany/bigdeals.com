@@ -14,7 +14,7 @@
 							<a href="{{ route('manageCategories') }}">Manage category</a>
 						</li>
 						<li>
-							<a href="#">Manage sub-category</a>
+							<a href="{{ route('manageSubCategory') }}">Manage sub-category</a>
 						</li>
 						
 					</ul>

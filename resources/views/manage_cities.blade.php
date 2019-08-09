@@ -38,7 +38,7 @@
                                  <td>{{"$cit->updated_at"}}</td>
                     
                                  <td>
-                                    <p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><i class="fas fa-pen"></i></button></p>
+                                    <p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs buttonEdit" data-title="Edit" data-toggle="modal" data-target="#edit" ><i class="fas fa-pen"></i></button></p>
                                  </td>
                               
                                  <td>
@@ -70,7 +70,7 @@
                            <input class="form-control" type="text"  id="name" name="name" required>
                         </div>
                         <div class="form-group">
-                           <label for="first-disabled">City: </label>
+                           <label for="first-disabled">Region: </label>
                             <select id="first-disabled" class="selectpicker form-control" 
                             data-hide-disabled="false" data-live-search="true" name="regionName" required>
 
@@ -98,7 +98,7 @@
              <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                <div class="modal-dialog">
                   <div class="modal-content">
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ route('updateCity') }}">
                         @csrf
                      <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
@@ -107,17 +107,21 @@
                      <div class="modal-body">
                         <div class="form-group">
                           <label for="name">City's Name: </label>
-                           <input  type="hidden" value="{{$cit->id}}" name="id"  >
-                           <input class="form-control" type="text"  id="name" name="name" value="{{$cit->cityName}}" >
+                           <input type="hidden"   id="idUpdate" name="id"  >
+                           <input class="form-control" type="text"  id="nameUpdate" name="name"  >
                         </div>
                         <div class="form-group">
-                           <label for="first-disabled">City: </label>
+                           <label for="first-disabled">Region: </label>
                             <select id="first-disabled" class="selectpicker form-control" 
-                            data-hide-disabled="false" data-live-search="true" name="regionName">
+                            data-hide-disabled="false" data-live-search="true"  name="regionName">
 
-                <option>{{"$reg->regionName"}}</option>
+                               <option selected id="regionNameUpdate">Choose a region</option>
+                    
+                                          @foreach ($region as $reg) 
+                                           <option>{{"$reg->regionName"}}</option>
+                                          @endforeach
                    
-                </select>
+                             </select>
                         </div>
                       
                      </div>
@@ -133,5 +137,17 @@
 
 
 @include('layouts/partials/_admin_footer')
+<script>
+   $(document).ready(function(){
+  $(".buttonEdit").click(function(){
+   var tr = $(this).parent().parent().parent();
+       
+        $("#nameUpdate").val(tr.children().eq(2).text());
+        $("#regionNameUpdate").val((tr.children().eq(1).text()));
+        $("#idUpdate").val(tr.children().eq(0).text());
+
+  });
+});
+</script>
    </body>
 </html>

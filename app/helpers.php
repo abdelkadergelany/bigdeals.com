@@ -76,3 +76,34 @@ function returnAddress($id)
      }
 }
 }
+
+
+if(!function_exists('returnCategoryName')){
+     
+function returnCategoryName($id)
+{
+     $cat = category::find($id);
+    
+    return "$cat->categoryName";
+}
+}
+
+if(!function_exists('returnDescription')){
+     
+function returnDescription($id)
+{
+     $cat = category::find($id);
+    
+    return "$cat->dsecription";
+}
+}
+
+if(!function_exists('returnImage')){
+     
+function returnImage($id)
+{
+     $cat = category::find($id);
+    
+    return "$cat->image";
+}
+}

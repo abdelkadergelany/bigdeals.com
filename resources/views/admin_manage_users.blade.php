@@ -37,7 +37,7 @@
                                  <td>{{returnAddress($info->id)}}</td>
                                  <td>{{returnPhone($info->id)}}</td>
                                  <td>
-                                    <p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><i class="fas fa-pen"></i></button></p>
+                                    <p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs buttonEdit" data-title="Edit" data-toggle="modal" data-target="#edit" ><i class="fas fa-pen"></i></button></p>
                                  </td>
                                  <td>
                                     @if (returnIsBlocked($info->id) == 0)
@@ -71,8 +71,8 @@
                      <div class="modal-body">
                         <div class="form-group">
                           <label for="name">Name: </label>
-                          <input  style="display: none;" type="number" value="1"  name="id"  >
-                           <input class="form-control" type="text" value="{{$info->name}}" id="name" 
+                          <input  style="display: none;" type="number"  id="idUpdate" name="id"  >
+                           <input class="form-control" type="text"  id="nameUpdate" 
                            name="name">
                         </div>
                         <div class="form-group">
@@ -80,7 +80,7 @@
                             <select id="first-disabled" class="selectpicker form-control" 
                             data-hide-disabled="false" data-live-search="true" name="city">
 
-                <option selected>{{returnCity(1)}}</option>
+               
 
                 <optgroup label="Centre">
                     
@@ -179,11 +179,11 @@
                         </div>
                         <div class="form-group">
                            <label for="address">Address: </label>
-                           <input class="form-control " type="text" value="{{returnAddress(1)}}" id="address" name="address">
+                           <input class="form-control " type="text"  id="addressUpdate" name="address">
                         </div>
                          <div class="form-group">
                            <label for="phone">Phone: </label>
-                           <input class="form-control " type="text" value="{{returnPhone(1)}}" id="phone" name="phone">
+                           <input class="form-control " type="text"  id="phoneUpdate" name="phone">
                         </div>
                      </div>
                      <div class="modal-footer ">
@@ -247,5 +247,19 @@
          </div>
       </div>
       @include('layouts/partials/_admin_footer')
+      <script>
+   $(document).ready(function(){
+  $(".buttonEdit").click(function(){
+   var tr = $(this).parent().parent().parent();
+        console.log(tr.children().eq(1).text());
+        $("#nameUpdate").val(tr.children().eq(1).text());
+        $("#first-disabled").val(tr.children().eq(3).text());
+         $("#addressUpdate").val(tr.children().eq(4).text());
+         $("#idUpdate").val(tr.children().eq(0).text());
+         $("#phoneUpdate").val(tr.children().eq(5).text());
+
+  });
+});
+</script>
    </body>
 </html>

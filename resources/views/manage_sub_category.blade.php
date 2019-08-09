@@ -15,7 +15,7 @@
             <div class="container">
                <div class="row">
                   <div class="col-md-12">
-                     <span><b>List of Categories</b></span>
+                     <span><b>List of Sub-Categories</b></span>
                       <button style="position: relative;left:50%;" class="btn btn-danger btn-lg" data-title="Add" data-toggle="modal" data-target="#add" ><i class="fas fa-plus-circle"></i>Add new</button><br><br>
                       @if(count($errors)>0)
                       <div class="alert alert-danger">
@@ -30,24 +30,25 @@
                      <div class="table-responsive ">
                         <table id="mytable" class="table table-bordred table-striped table-hover">
                            <thead>
-                              <th>Category Id</th>
-                              <th>Category Name</th>
-                              <th>Category Description</th> 
+                              <th>Sub-Category Id</th>
+                              <th>Sub-Category Name</th>
+                              <th>Category </th> 
+                              <th>Sub-Category Description</th> 
                               <th>Date Updated</th>
-                              <th>Category Icon</th>
                               <th>Edit</th>
                               <th>Delete</th>
                            </thead>
                            <tbody>
 
-                               @foreach ($category as $cat) 
+                               @foreach ($sub_category as $subcat) 
                             
                               <tr>
-                                 <td >{{"$cat->id"}}</td>
-                                 <td >{{"$cat->categoryName"}}</td>
-                                 <td >{{"$cat->description"}}</td>
-                                 <td>{{"$cat->updated_at"}}</td>
-                                 <td><img src="images/{{$cat->image}}" width="100px" height="100px"></td>
+                                 <td >{{"$subcat->id"}}</td>
+                                 <td >{{"$subcat->subCategoryName"}}</td>
+                                 <td >{{"$subcat->category"}}</td>
+                                 <td >{{"$subcat->description"}}</td>
+                                 <td>{{"$subcat->updated_at"}}</td>
+                                
                                  
                     
                                  <td>
@@ -71,29 +72,39 @@
                <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                <div class="modal-dialog">
                   <div class="modal-content">
-                    <form method="POST" action="{{ route('addCategory') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('addSubCategory') }}" enctype="multipart/form-data">
                         @csrf
                      <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                        <h4 class="modal-title custom_align" id="Heading">Add New Category</h4>
+                        <h4 class="modal-title custom_align" id="Heading">Add New Sub-Category</h4>
                      </div>
                      <div class="modal-body">
                         <div class="form-group">
-                          <label for="name" id="editForm">Category's Name: </label>
+                          <label for="name" id="editForm">Sub-Category's Name: </label>
                     
                            <input class="form-control" type="text"  id="name" name="name" required >
                         </div>
                         <div class="form-group">
-                          <label for="name">Category's Description: </label>
+                           <label for="first-disabled">Category: </label>
+                            <select id="first-disabled" class="selectpicker form-control" 
+                            data-hide-disabled="false" data-live-search="true"  name="categoryName">
+
+                               <option selected id="categoryNameUpdate">Choose a Category</option>
+                    
+                                          @foreach ($category as $cat) 
+                                           <option>{{"$cat->categoryName"}}</option>
+                                          @endforeach
+                   
+                             </select>
+                         </div>
+
+                        <div class="form-group">
+                          <label for="name">Sub-Category's Description: </label>
                            <textarea cols="50" rows="10" id="description" name="description" placeholder="enter description here" required>
                           </textarea>
                            
                         </div>
-                         <div class="form-group">
-                          <label for="name">Category's Icon(<b><span style="color: red;">Less than 2Mb</span></b>): </label>
-                           <input type="file" name="file" required>
-                           
-                        </div>
+                        
                       
                      </div>
                      <div class="modal-footer ">
@@ -113,30 +124,39 @@
             <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                <div class="modal-dialog">
                   <div class="modal-content">
-                    <form method="POST" action="{{ route('updateCategory') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('updateSubCategory') }}">
                         @csrf
                      <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                        <h4 class="modal-title custom_align" id="Heading">Update the Category</h4>
+                        <h4 class="modal-title custom_align" id="Heading">Update the Sub-Category</h4>
                      </div>
                      <div class="modal-body">
                         <div class="form-group">
-                          <label for="name">Category's Name: </label>
-                           <input class="form-control" type="hidden"   id="idUpdate" name="id" required >
+                          <label for="name">Sub-Category's Name: </label>
+                           <input class="form-control" type="hidden"   id="idUpdate" name="id"  >
                            <input class="form-control" type="text"   id="nameUpdate" name="name" required >
                         </div>
+                          <div class="form-group">
+                           <label for="first-disabled">Category: </label>
+                            <select id="first-disabled" class="selectpicker form-control" 
+                            data-hide-disabled="false" data-live-search="true"  name="categoryName" required>
+
+                               
+                                          <option></option>
+                                          @foreach ($category as $cat) 
+                                           <option>{{"$cat->categoryName"}}</option>
+                                          @endforeach
+                   
+                             </select>
+                         </div>
+
                         <div class="form-group">
-                          <label for="name">Category's Description: </label>
+                          <label for="name">Sub-Category's Description: </label>
                            <textarea cols="50" rows="10" id="descriptionUpdate" name="description" placeholder="enter description here" required>
                           </textarea>
                            
                         </div>
-                         <div class="form-group">
-                          <label for="name">Category's Icon(<b><span style="color: red;">Less than 2Mb</span>
-                          </b>): </label>
-                           <input type="file" name="fileIcon" >
-                           
-                        </div>
+                       
                       
                      </div>
                      <div class="modal-footer ">
@@ -159,6 +179,7 @@
         $("#nameUpdate").val(tr.children().eq(1).text());
         $("#descriptionUpdate").val(tr.children().eq(2).text());
          $("#idUpdate").val(tr.children().eq(0).text());
+         $("#descriptionUpdate").val(tr.children().eq(3).text());
 
   });
 });

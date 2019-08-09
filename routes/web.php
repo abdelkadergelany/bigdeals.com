@@ -52,10 +52,16 @@ Route:: group (['middleware'=>['auth']],function(){
 	Route:: get ('/manageRegions','AdminController@manageRegions')->name('manageRegions');
 	Route:: get ('/manageCities','AdminController@manageCities')->name('manageCities');
 	Route:: get ('/manageCategories','AdminController@manageCategories')->name('manageCategories');
+	Route:: get ('/manageSubCategory','AdminController@manageSubCategory')->name('manageSubCategory');
 
+     Route:: post ('/updateSubCategory','AdminController@updateSubCategory')->name('updateSubCategory');
+	Route:: post ('/updateCategory','AdminController@updateCategory')->name('updateCategory');
+	Route:: post ('/updateCity','AdminController@updateCity')->name('updateCity');
 	Route:: post ('/addRegions','AdminController@addRegions')->name('addRegions');
 	Route:: post ('/addCity','AdminController@addCity')->name('addCity');
 	Route:: post ('/addCategory','AdminController@addCategory')->name('addCategory');
+	Route:: post ('/addSubCategory','AdminController@addSubCategory')->name('addSubCategory');
+
 	Route:: post ('/admin/manageUsers/updateUser','AdminController@updateUsers')->name('updateUsers');
 	Route:: post ('/admin/manageUsers/blockUsers','AdminController@blockUsers')->name('blockUsers');
 
