@@ -6,6 +6,7 @@ use App\region;
 use App\UserInfo;
 use App\Phone;
 use App\city;
+use App\category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -146,6 +147,16 @@ public function updatePassword(Request $request){
          return view('manage_regions')->with("region",$regions);
  
 }
+ public function manageCategories(Request $request){
+
+        //$regions = region::all();
+         
+         $category = category::all()->sortBy("categoryName");
+         return view('manage_categories')->with("category",$category);
+
+         return view('manage_categories');
+ 
+}
 
 
 public function manageCities(Request $request){
@@ -168,6 +179,34 @@ public function manageCities(Request $request){
          return view('manage_cities')->with("city",$city)->with("region",$regions);
  
 }
+
+
+
+public function addCategory(Request $request){
+
+      $validatedData = $request->validate([
+           'image'=>'image|mimes:jpeg,png,jpg,gif|max:2048',
+           'name'=>'required',
+           'description'=> 'required'
+      ]);
+
+
+      $image = $request->file('file');
+      $new_name = rand().'.'.$image->getClientOriginalExtension();
+      $image->move(public_path("images"),$new_name);
+
+       $data = $request->input(); 
+        category::create([
+            'categoryName' => $data['name'],
+            'description' => $data['description'],
+            'image' => $new_name
+        ]); 
+          $category = category::all()->sortBy("categoryName");
+         return view('manage_categories')->with("flash_success_message","new category added succesfully")->with("category",$category);
+        
+        
+}
+
 
 
 

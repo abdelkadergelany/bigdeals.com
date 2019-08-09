@@ -67,12 +67,12 @@
                         <div class="form-group">
                           <label for="name">City's Name: </label>
                     
-                           <input class="form-control" type="text"  id="name" name="name" >
+                           <input class="form-control" type="text"  id="name" name="name" required>
                         </div>
                         <div class="form-group">
                            <label for="first-disabled">City: </label>
                             <select id="first-disabled" class="selectpicker form-control" 
-                            data-hide-disabled="false" data-live-search="true" name="regionName">
+                            data-hide-disabled="false" data-live-search="true" name="regionName" required>
 
                 <option selected>Choose a region</option>
                     

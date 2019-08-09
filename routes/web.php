@@ -51,9 +51,11 @@ Route:: group (['middleware'=>['auth']],function(){
 	Route:: get ('/manageUsers','AdminController@manageUsers')->name('manageUsers');
 	Route:: get ('/manageRegions','AdminController@manageRegions')->name('manageRegions');
 	Route:: get ('/manageCities','AdminController@manageCities')->name('manageCities');
+	Route:: get ('/manageCategories','AdminController@manageCategories')->name('manageCategories');
 
 	Route:: post ('/addRegions','AdminController@addRegions')->name('addRegions');
 	Route:: post ('/addCity','AdminController@addCity')->name('addCity');
+	Route:: post ('/addCategory','AdminController@addCategory')->name('addCategory');
 	Route:: post ('/admin/manageUsers/updateUser','AdminController@updateUsers')->name('updateUsers');
 	Route:: post ('/admin/manageUsers/blockUsers','AdminController@blockUsers')->name('blockUsers');
 

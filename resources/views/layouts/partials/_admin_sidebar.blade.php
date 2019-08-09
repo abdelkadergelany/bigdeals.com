@@ -11,7 +11,7 @@
 					<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-list-ul"></i>&nbsp;Category</a>
 					<ul class="collapse list-unstyled" id="homeSubmenu">
 						<li>
-							<a href="#">Manage category</a>
+							<a href="{{ route('manageCategories') }}">Manage category</a>
 						</li>
 						<li>
 							<a href="#">Manage sub-category</a>
