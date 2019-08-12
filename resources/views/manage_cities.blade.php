@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Admin/manage users </title>
+      <title>Admin/manage Cities </title>
       @include('layouts/partials/_linkedfiles')
       <link rel="stylesheet" href="{{asset('css/admin.css')}}">
    </head>
@@ -74,7 +74,7 @@
                             <select id="first-disabled" class="selectpicker form-control" 
                             data-hide-disabled="false" data-live-search="true" name="regionName" required>
 
-                <option selected>Choose a region</option>
+                <option selected value="">Choose a region</option>
                     
                      @foreach ($region as $reg) 
                     <option>{{"$reg->regionName"}}</option>
@@ -113,9 +113,9 @@
                         <div class="form-group">
                            <label for="first-disabled">Region: </label>
                             <select id="first-disabled" class="selectpicker form-control" 
-                            data-hide-disabled="false" data-live-search="true"  name="regionName">
+                            data-hide-disabled="false" data-live-search="true"  name="regionName" required>
 
-                               <option selected id="regionNameUpdate">Choose a region</option>
+                               <option selected id="regionNameUpdate" value="">Choose a region</option>
                     
                                           @foreach ($region as $reg) 
                                            <option>{{"$reg->regionName"}}</option>

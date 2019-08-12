@@ -8,6 +8,9 @@ use App\Phone;
 use App\city;
 use App\sub_category;
 use App\category;
+use App\size;
+use App\brand;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -103,6 +106,39 @@ public function updatePassword(Request $request){
 
        return view('admin_manage_users')->with("userInfo",$userInfos);
 
+}
+public function manageAds(){
+       $userInfos = User::all();
+       //  $city = city::all()->sortBy("RegionName");
+        $regions = region::all();
+        $category = category::all();
+         return view('manage_ads')->with("category",$category)->with("region",$regions);
+ 
+
+     //  return view('add_new_ad');
+
+}
+
+
+public function addNewAd(Request $request){
+
+         $data = $request->input();
+         $regions = region::all();   
+        $category = category::all();
+         $size = size::all();
+         
+
+        $brand= brand::where("subCategoryName",$data['subCategoryName'])->get();
+
+             
+
+         return view('add_new_ad')->with("category",$category)->with("region",$regions)
+         ->with("catval",$data['category'])
+         ->with("subCatval",$data['subCategoryName'])
+         ->with("size",$size)
+         ->with("brand",$brand);
+
+ 
 }
 
  public function updateUsers(Request $request){

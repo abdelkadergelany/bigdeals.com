@@ -4,7 +4,7 @@
         <div class="col-md-4 ">
           <div class="box clickable d-flex flex-column justify-content-center mb-0 h-100">
             <div><img src="img/informatique.png" alt="ordinateur desktop" class="img-fluid"></div>
-            <h3><a href="#">Electronic</a></h3>
+            <h3><a href="#">Electronics</a></h3>
             <p class="mb-0">Find the best offers for electronics in Cameroon: computers, laptops, TVs, cameras, etc...
             </p>
           </div>

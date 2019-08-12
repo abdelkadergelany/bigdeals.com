@@ -18,9 +18,10 @@ class CreateUserInfosTable extends Migration
             $table->timestamps();
             $table->string('city');
             $table->string('address');
-            $table->string('isStore');
-            $table->string('picture');
-            $table->integer('userId');
+            $table->integer('isStore')->default(0);
+            $table->string('picture')->default("empty");
+            $table->unsignedBigInteger('userId');
+             $table->foreign('userId')->references('id')->on('users');
         });
     }
 

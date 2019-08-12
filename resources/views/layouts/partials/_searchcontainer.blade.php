@@ -12,7 +12,7 @@
                 <option selected>Choose the city</option>
 
                 <optgroup label="Centre">
-                    <option>All the center</option>
+                    <option>All the centre</option>
                     <option>Akonolinga</option>
                     <option>Bafia</option>
                     <option>Eseka</option>
@@ -124,7 +124,7 @@
                     <option>Phone Accessories</option>
                 </optgroup>
                 
-                <optgroup label="ELECTRONIC">
+                <optgroup label="ELECTRONICS">
                     <option>Everything in electronics</option>
                     <option>Laptop and Desktop </option>
                     <option>Computer Accessories</option>

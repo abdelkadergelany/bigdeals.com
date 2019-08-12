@@ -21,6 +21,14 @@ Route::get('/welcome', function () {
 
 
 
+//Route::get('dynamic_dependent', 'DynamicDependent@index')->name('dynamic_dependent');
+
+Route::post('dynamic_dependent/fetch', 'DynamicDependent@fetch')->name('dynamicdependent.fetch');
+
+
+
+
+
 
 Route::get('/faq', function () {
     return view('faq');
@@ -47,12 +55,16 @@ Route:: get ('/logout','AdminController@logout');
 
 
 Route:: group (['middleware'=>['auth']],function(){
+	
 
 	Route:: get ('/manageUsers','AdminController@manageUsers')->name('manageUsers');
 	Route:: get ('/manageRegions','AdminController@manageRegions')->name('manageRegions');
 	Route:: get ('/manageCities','AdminController@manageCities')->name('manageCities');
 	Route:: get ('/manageCategories','AdminController@manageCategories')->name('manageCategories');
 	Route:: get ('/manageSubCategory','AdminController@manageSubCategory')->name('manageSubCategory');
+	Route:: get ('/manageAds','AdminController@manageAds')->name('manageAds');
+	
+	Route:: post ('/addNewAd','AdminController@addNewAd')->name('addNewAd');
 
      Route:: post ('/updateSubCategory','AdminController@updateSubCategory')->name('updateSubCategory');
 	Route:: post ('/updateCategory','AdminController@updateCategory')->name('updateCategory');

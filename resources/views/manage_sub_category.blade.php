@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Admin/manage users </title>
+      <title>Admin/manage Sub-categories </title>
       @include('layouts/partials/_linkedfiles')
       <link rel="stylesheet" href="{{asset('css/admin.css')}}">
    </head>
@@ -87,9 +87,9 @@
                         <div class="form-group">
                            <label for="first-disabled">Category: </label>
                             <select id="first-disabled" class="selectpicker form-control" 
-                            data-hide-disabled="false" data-live-search="true"  name="categoryName">
+                            data-hide-disabled="false" data-live-search="true"  name="categoryName" required>
 
-                               <option selected id="categoryNameUpdate">Choose a Category</option>
+                               <option selected id="categoryNameUpdate" value="">Choose a Category</option>
                     
                                           @foreach ($category as $cat) 
                                            <option>{{"$cat->categoryName"}}</option>
@@ -100,8 +100,8 @@
 
                         <div class="form-group">
                           <label for="name">Sub-Category's Description: </label>
-                           <textarea cols="50" rows="10" id="description" name="description" placeholder="enter description here" required>
-                          </textarea>
+                           <textarea cols="50" rows="10" id="description" name="description" 
+                           placeholder="enter description here" required="true"></textarea>
                            
                         </div>
                         
@@ -152,8 +152,7 @@
 
                         <div class="form-group">
                           <label for="name">Sub-Category's Description: </label>
-                           <textarea cols="50" rows="10" id="descriptionUpdate" name="description" placeholder="enter description here" required>
-                          </textarea>
+                           <textarea cols="50" rows="10" id="descriptionUpdate" name="description" placeholder="enter description here" required></textarea>
                            
                         </div>
                        

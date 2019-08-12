@@ -53,10 +53,10 @@
                     aria-hidden="true">×</span></button>
                 </div>
                 <div class="modal-body">
-                <form action="customer.html" method="post">
+                <form action="" method="post">
                     <label for="email-modal">enter your email</label>
                     <div class="form-group">
-                    <input id="email-modal" type="text" placeholder="email" class="form-control">
+                    <input id="" type="text" placeholder="email" class="form-control">
                     </div>
 
                     <p class="text-center">
@@ -178,7 +178,7 @@
 
                         
                           <div class="col-md-3  col-lg-2">
-                        <p>Electronic</p>
+                        <p>Electronics</p>
                         <ul class="list-unstyled mb-3">
                             <li class="nav-item"><a href="#" class="nav-link">Everything in electronics</a></li>
                             <li class="nav-item"><a href="#" class="nav-link">Laptop and Desktop</a></li>

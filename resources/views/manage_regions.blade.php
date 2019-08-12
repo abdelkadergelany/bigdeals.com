@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Admin/manage users </title>
+      <title>Admin/manage Regions </title>
       @include('layouts/partials/_linkedfiles')
       <link rel="stylesheet" href="{{asset('css/admin.css')}}">
    </head>

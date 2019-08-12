@@ -23,10 +23,10 @@
 					<a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-ad"></i>&nbsp;Advertisement</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu1">
 						<li>
-							<a href="#">Manage Adds</a>
+							<a href="{{ route('manageAds') }}">Manage Adds</a>
 						</li>
 						<li>
-							<a href="#">Add new</a>
+							<a href="{{ route('addNewAd') }}">Add new</a>
 						</li>
 					</ul>
 				</li>

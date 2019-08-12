@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Admin/manage users </title>
+      <title>Admin/manage Categories </title>
       @include('layouts/partials/_linkedfiles')
       <link rel="stylesheet" href="{{asset('css/admin.css')}}">
    </head>
@@ -12,7 +12,7 @@
             @include('layouts/partials/_admin_navbar')
 
 
-            <div class="container">
+            <div class="container-fluid">
                <div class="row">
                   <div class="col-md-12">
                      <span><b>List of Categories</b></span>
@@ -30,9 +30,9 @@
                      <div class="table-responsive ">
                         <table id="mytable" class="table table-bordred table-striped table-hover">
                            <thead>
-                              <th>Category Id</th>
-                              <th>Category Name</th>
-                              <th>Category Description</th> 
+                              <th> Id</th>
+                              <th> Name</th>
+                              <th> Description</th> 
                               <th>Date Updated</th>
                               <th>Category Icon</th>
                               <th>Edit</th>
@@ -85,8 +85,7 @@
                         </div>
                         <div class="form-group">
                           <label for="name">Category's Description: </label>
-                           <textarea cols="50" rows="10" id="description" name="description" placeholder="enter description here" required>
-                          </textarea>
+                           <textarea cols="50" rows="10" id="description" name="description" placeholder="enter description here" required></textarea>
                            
                         </div>
                          <div class="form-group">
@@ -127,8 +126,7 @@
                         </div>
                         <div class="form-group">
                           <label for="name">Category's Description: </label>
-                           <textarea cols="50" rows="10" id="descriptionUpdate" name="description" placeholder="enter description here" required>
-                          </textarea>
+                           <textarea cols="50" rows="10" id="descriptionUpdate" name="description" placeholder="enter description here" required></textarea>
                            
                         </div>
                          <div class="form-group">
