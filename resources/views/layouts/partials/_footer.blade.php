@@ -43,7 +43,7 @@
             <ul class="list-unstyled">
                 <li><a href="{{url('faq')}}">FAQ</a></li>
                 <li><a href="{{url('htsf')}}">How to sell fast</a></li>
-                <li><a href="#">Membership</a></li>
+                <li><a href="{{url('membership')}}">Membership</a></li>
                 <li><a href="{{url('contact')}}">Contact us</a></li>
                 <li><a href="{{url('blog')}}">Blog</a></li>
             </ul>

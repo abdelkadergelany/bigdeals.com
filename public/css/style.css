@@ -334,7 +334,7 @@ body {
   border-radius: 5px;
 }
 .inputregistersubmit{
-  width: 30% !important;
+  width: auto !important;
   text-align: center !important;
 }
 
@@ -354,6 +354,78 @@ body {
 }
 
 /* ENDING OF THE CSS REGISTRATION */
+
+
+/* BEGINING OF THE USER CSS */
+
+.user_css{
+  border: 5px solid blueviolet !important;
+  margin-bottom: 3% !important;
+  padding:3%;
+}
+
+.user_css a{
+  text-decoration: none;
+}
+.my_account_user{
+  text-align: center !important;
+  color:  #1E90FF;
+}
+.my_account_user_image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10%;
+}
+
+/* ENDINING OF THE USER CSS */
+
+
+/* starting my_add.php  myfavorite*/
+.myadd_img{
+  padding: 1%;
+  margin: 3%;
+  border: 1px solid #1E90FF;
+}
+.myadd_img::after{
+  display: block;
+  clear: both;
+  content: "";
+}
+.myadd_img>img{
+  width:15% !important;
+  height:95px !important;
+  float: left;
+  margin: 1%;
+
+}
+.myadd_img input{
+ margin-left:1%;
+ margin-bottom: 3%;
+ }
+
+/* ending my_add  myfavorite */
+
+
+
+
+
+/* starding my profile */
+
+.my_profile{
+     text-align: center;
+}
+.my_profile input,select{
+  width: 40%;
+}
+.my_profile_button{
+  width: auto !important;
+}
+/* ending my profile */
+
+
+
+
 
 /*FOOTER STYLING*/
 

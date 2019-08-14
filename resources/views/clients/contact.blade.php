@@ -9,8 +9,8 @@
 
 <div class="container">
         <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{url('welcom')}}">Home</a></li>
-            <li class="breadcrumb-item active"><a href="{{url('contact')}}">Contact us</a></li>
+            <li class="breadcrumb-item"><a href="{{route('welcome')}}">Home</a></li>
+            <li class="breadcrumb-item active"><a href="{{route('contact')}}">Contact us</a></li>
             
         </ul>
     </div>

@@ -28,20 +28,33 @@ Route::post('dynamic_dependent/fetch', 'DynamicDependent@fetch')->name('dynamicd
 
 
 
+Route::get('/mychat', function () {
+    return view('clients.mychat');
+})->name('mychat');
+Route::get('/myadd', function () {
+    return view('clients.myadd');
+})->name('myadd');
 
+Route::get('/membership', function () {
+    return view('clients.membership');
+})->name('membership');
 
 Route::get('/faq', function () {
-    return view('faq');
+    return view('clients.faq');
 })->name('faq');
+
+Route::get('/blog', function () {
+    return view('clients.blog');
+})->name('blog');
 
 
 Route::get('/contact', function () {
-    return view('contact');
+    return view('clients.contact');
 })->name('contact');
 
 //htsf = how to sell fast page
 Route::get('/htsf', function () {
-    return view('htsf');
+    return view('clients.htsf');
 })->name('htsf');
 
 

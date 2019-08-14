@@ -8,8 +8,8 @@
 @section('contains')
 <div class="container">
         <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{url('welcom')}}">Home</a></li>
-            <li class="breadcrumb-item active"><a href="{{url('htsf')}}">How to sell fast</a></li>
+            <li class="breadcrumb-item"><a href="{{route('welcome')}}">Home</a></li>
+            <li class="breadcrumb-item active"><a href="{{route('htsf')}}">How to sell fast</a></li>
             
         </ul>
     </div>
