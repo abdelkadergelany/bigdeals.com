@@ -23,23 +23,26 @@ class CreateAdsTable extends Migration
             $table->string('subCategoryName');
              $table->string('categoryName');
             $table->string('title');
-            $table->string('phone');
+            $table->string('phone1')->nullable();
+            $table->string('phone2')->nullable();
+            $table->string('phone3')->nullable();
             $table->text('description');
             $table->unsignedDecimal('price');
-            $table->integer('isUsed')->default(0);;
-            $table->integer('negociable')->default(0);
+            $table->string('isUsed')->default('0');
+            $table->string('negociable')->default('0');
             $table->string('brand')->nullable();
             $table->string('model')->nullable();
             $table->string('size')->nullable();
-            $table->integer('authenticity')->default(0);
-            $table->string('pict1')->default("empty");
-            $table->string('pict2')->default("empty");
-            $table->string('pict3')->default("empty");
-            $table->string('pict4')->default("empty");
-            $table->string('pict5')->default("empty");
-             $table->string('type');
-             $table->integer('isValidate')->default(0);
-              $table->integer('byNow')->default(0);
+            $table->string('authenticity')->default('0');
+            $table->string('pict1')->nullable();
+            $table->string('pict2')->nullable();
+            $table->string('pict3')->nullable();
+            $table->string('pict4')->nullable();
+            $table->string('pict5')->nullable();
+             $table->string('type')->nullable();;
+             $table->string('isValidate')->default('0');
+              $table->string('buyNow')->default('0');
+              $table->string('isBlocked')->default('0');
             
         
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');

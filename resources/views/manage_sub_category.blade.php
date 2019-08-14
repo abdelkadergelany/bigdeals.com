@@ -170,18 +170,6 @@
 
 
 @include('layouts/partials/_admin_footer')
-<script>
-   $(document).ready(function(){
-  $(".buttonEdit").click(function(){
-   var tr = $(this).parent().parent().parent();
-       
-        $("#nameUpdate").val(tr.children().eq(1).text());
-        $("#descriptionUpdate").val(tr.children().eq(2).text());
-         $("#idUpdate").val(tr.children().eq(0).text());
-         $("#descriptionUpdate").val(tr.children().eq(3).text());
-
-  });
-});
-</script>
+<script  src="{{asset('js/admin.js')}}"></script>
    </body>
 </html>

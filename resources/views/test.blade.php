@@ -152,10 +152,23 @@
                           imagae5:  <input type="file" name="file5" >
                            
                         </div>
-                        <div class="form-group">
-                           <label for="phone"><b>Phone</b>: </label>
+                        <div style="border: 2px solid blue; padding: 20px;">
+                           <label for="phone"><b> Phone  <i class="fas fa-phone"> </i></b> : </label><br>
+                             
+                          Phone 1&nbsp;&nbsp;&nbsp;<input class=" " type="tel" placeholder="9 digits" value="" pattern="[0-9]{9}" required  id="phone" name="phone1"><span>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="span1" type="button" class="btn-sm btn-outline-info"><i class="fas fa-plus">Add another phone</i></button><br><br>
+                           
+                            
+                           <div id="ph2" style="display: none">
+                            Phone 2&nbsp;&nbsp;&nbsp;<input  type="tel" placeholder="9 digits"  pattern="[0-9]{9}"  id="phone2" name="phone2"><button id="del1" type="button" class="btn-sm btn-outline-danger"><i class="fas fa-minus"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<button id="span2" type="button" class="btn-sm btn-outline-info"><i class="fas fa-plus">Add another phone</i></button><br><br>
+                          </div>
+                          
+                           <div id="ph3" style="display: none">
+                           Phone 3&nbsp;&nbsp;&nbsp;<input  type="tel" placeholder="9 digits"  pattern="[0-9]{9}" id="phone3" name="phone3"><button id="del2" type="button" class="btn-sm btn-outline-danger"><i class="fas fa-minus"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<br>
+                           </div>
 
-                           <input class="form-control " type="tel"  pattern="[0-9]{9}" required  id="phone" name="phone1">
+                           
+                           
                         </div>
                         
 

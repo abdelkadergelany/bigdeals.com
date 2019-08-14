@@ -10,6 +10,7 @@ use App\sub_category;
 use App\category;
 use App\size;
 use App\brand;
+use App\ads;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -109,25 +110,169 @@ public function updatePassword(Request $request){
 }
 public function manageAds(){
        $userInfos = User::all();
-       //  $city = city::all()->sortBy("RegionName");
+       
         $regions = region::all();
         $category = category::all();
-         return view('manage_ads')->with("category",$category)->with("region",$regions);
- 
+        $ads = ads::all();
+         return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
 
-     //  return view('add_new_ad');
+}
+
+public function inactivatedAds(){
+  $regions = region::all();
+        $category = category::all();
+
+  $ads= ads::where("isValidate",'0')->get();
+  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
+
+}
+public function activatedAds(){
+
+  $regions = region::all();
+        $category = category::all();
+  $ads= ads::where("isValidate",'1')->get();
+  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
+
+
+  
+}
+public function blockedAds(){
+  $regions = region::all();
+        $category = category::all();
+$ads= ads::where("isBlocked",'1')->get();
+  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
+
+  
+}
+
+
+
+
+
+
+public function editAd(Request $request){ 
+  if($request->isMethod('get')){
+
+           //$data = $request->input();
+         $regions = region::all();   
+        $category = category::all();
+         $size = size::all();
+          $ads = ads::find($request->get("id"));
+         //$request->get("subCategoryName")
+            //  dd($data['category']);
+        $brand= brand::where("subCategoryName",$request->get("subCategoryName"))->get();
+
+             
+
+         return view('edit_Ad')->with("category",$category)
+         ->with("region",$regions)
+         ->with("size",$size) 
+         ->with("brand",$brand)
+         ->with("ads",$ads);
+       }
+
+       if($request->isMethod('post')){
+
+           $phone1 = null;
+           $phone2 = null;
+           $phone3 = null;
+           
+       $data = $request->input();
+        
+        $ad = ads::find($request->get('id'));
+
+
+        $ad->buyNow = $request->get('buyNow');
+        $ad->subCategoryName = $data['subCategoryName'];
+        $ad->categoryName = $data['category'];
+      $ad->regionName= $data['RegionName'];
+           $ad->cityName = $data['cityName'];
+            $ad->address = $data['address'];
+            $ad->categoryName = $data['category'];
+            $ad->subCategoryName = $data['subCategoryName'];
+            $ad->phone1 = $data['phone1'];
+             $ad->phone2 = $phone2;
+              $ad->phone3 = $phone3;
+              
+
+            $ad->title = $data['title'];
+            $ad->description = $data['description'];
+
+            
+
+            if($data['category'] == 'Electronic' || $data['category'] =='Mobile Phones' )
+            {
+              $ad->brand = $data['brandName'];
+
+              $ad->model = $data['modelName'];
+            }
+            
+            if($data['category'] == 'Fashion and Clothing')
+            {
+              $ad->size = $data['size'];
+            }
+
+            $ad->isBlocked = $data['isBlocked'];
+            $ad->isValidate = $data['isValidate'];
+            $ad->isUsed = $data['isUsed'];
+            $ad->brand = $data['brandName'];
+            $ad->model = $data['modelName']; 
+
+             if ($data['negociable'] =='1' ) {
+            $ad->negociable = $data['negociable'];
+             }
+
+            
+              $ad->authenticity = $data['authenticity'];
+              $ad->price = $data['price'];              
+
+              $ad->save();
+
+         $regions = region::all();
+        $category = category::all();
+        $ads = ads::all();
+         return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
+
+
+
+
+
+       }
+
+
+}
+
+public function deleteAd(Request $request){ 
+
+   ads::destroy($request->get('id'));
+        $regions = region::all();
+        $category = category::all();
+        $ads = ads::all();
+         return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
 
 }
 
 
-public function addNewAd(Request $request){
+     
 
-         $data = $request->input();
+
+
+public function addNewAd(Request $request){       
+         $new_name1 =null;
+         $new_name2 =null;
+         $new_name3 =null;
+         $new_name4 =null;
+         $new_name5 =null;
+
+       if($request->isMethod('get')){
+
+           $data = $request->input();
          $regions = region::all();   
         $category = category::all();
          $size = size::all();
+          $ads = ads::all();
          
-
+            //  dd($data['category']);
         $brand= brand::where("subCategoryName",$data['subCategoryName'])->get();
 
              
@@ -135,11 +280,113 @@ public function addNewAd(Request $request){
          return view('add_new_ad')->with("category",$category)->with("region",$regions)
          ->with("catval",$data['category'])
          ->with("subCatval",$data['subCategoryName'])
-         ->with("size",$size)
+         ->with("size",$size) 
          ->with("brand",$brand);
+         
 
- 
+       }
+
+
+        if($request->isMethod('post')){
+
+           $data = $request->input();
+     
+   
+           
+        $image = $request->file('file1');
+        $new_name1 = rand().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path("publication"),$new_name1);
+       
+      
+
+        
+              if($request->file('file2') != null){
+           
+        $image = $request->file('file2');
+        $new_name2 = rand().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path("publication"),$new_name2);
+
+        } 
+         if($request->file('file3') != null){
+           
+        $image = $request->file('file3');
+        $new_name3 = rand().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path("publication"),$new_name3);
+
+        } 
+
+         if($request->file('file4') != null){
+           
+        $image = $request->file('file4');
+        $new_name4 = rand().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path("publication"),$new_name4);
+
+        } 
+
+        if($request->file('file5') != null){
+           
+        $image = $request->file('file5');
+        $new_name5 = rand().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path("publication"),$new_name5);
+
+        } 
+         
+
+        $ad = new ads;
+        $ad->buyNow = $request->get('buyNow');
+        $ad->subCategoryName = $data['subCategoryName'];
+        $ad->categoryName = $data['category'];
+      $ad->regionName= $data['RegionName'];
+           $ad->cityName = $data['cityName'];
+            $ad->address = $data['address'];
+            $ad->categoryName = $data['category'];
+            $ad->subCategoryName = $data['subCategoryName'];
+            $ad->phone1 = $data['phone'];
+            $ad->title = $data['title'];
+            $ad->description = $data['description'];
+
+            
+
+            if($data['category'] == 'Electronic' || $data['category'] =='Mobile Phones' )
+            {
+              $ad->brand = $data['brandName'];
+
+              $ad->model = $data['modelName'];
+            }
+            
+            if($data['category'] == 'Fashion and Clothing')
+            {
+              $ad->size = $data['size'];
+            }
+
+            
+            $ad->userId= Auth::id();
+            $ad->isUsed = $data['isUsed'];
+            $ad->brand = $data['brandName'];
+            $ad->model = $data['modelName']; 
+
+             if ($data['negociable'] =='1' ) {
+            $ad->negociable = $data['negociable'];
+             }
+
+            
+              $ad->authenticity = $data['authenticity'];
+              $ad->price = $data['price'];              
+              $ad->pict1 = $new_name1;
+              $ad->pict2 = $new_name2;
+              $ad->pict3 = $new_name3;
+              $ad->pict4 = $new_name4;
+              $ad->pict5 = $new_name5;
+
+              $ad->save();
+
+              $regions = region::all();
+        $category = category::all();
+        $ads = ads::all();
+         return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
+       } 
 }
+
 
  public function updateUsers(Request $request){
 
@@ -233,8 +480,7 @@ public function updateCity(Request $request){
             'regionName' => $data['name'],
         ]); 
         $regions = region::all();
-         return view('manage_regions')->with("region",$regions);
- 
+         return view('manage_regions')->with("region",$regions); 
 }
 
  public function manageRegions(Request $request){

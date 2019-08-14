@@ -56,15 +56,28 @@ Route:: get ('/logout','AdminController@logout');
 
 Route:: group (['middleware'=>['auth']],function(){
 	
-
+  
 	Route:: get ('/manageUsers','AdminController@manageUsers')->name('manageUsers');
 	Route:: get ('/manageRegions','AdminController@manageRegions')->name('manageRegions');
 	Route:: get ('/manageCities','AdminController@manageCities')->name('manageCities');
 	Route:: get ('/manageCategories','AdminController@manageCategories')->name('manageCategories');
 	Route:: get ('/manageSubCategory','AdminController@manageSubCategory')->name('manageSubCategory');
 	Route:: get ('/manageAds','AdminController@manageAds')->name('manageAds');
+	Route:: get ('/deleteAd','AdminController@deleteAd')->name('deleteAd');
+
+
+
+Route:: get ('/inactivatedAds','AdminController@inactivatedAds')->name('inactivatedAds');
+Route:: get ('/activatedAds','AdminController@activatedAds')->name('activatedAds');
+Route:: get ('/blockedAds','AdminController@blockedAds')->name('blockedAds');
+
+
+
+
+
+	Route:: match (['get','post'],'/editAd','AdminController@editAd')->name('editAd');
 	
-	Route:: post ('/addNewAd','AdminController@addNewAd')->name('addNewAd');
+	Route:: match (['get','post'],'/addNewAd','AdminController@addNewAd')->name('addNewAd');
 
      Route:: post ('/updateSubCategory','AdminController@updateSubCategory')->name('updateSubCategory');
 	Route:: post ('/updateCategory','AdminController@updateCategory')->name('updateCategory');
