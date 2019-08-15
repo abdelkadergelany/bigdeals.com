@@ -46,28 +46,28 @@
                 
                        
                            <div class=myadd_img>
-                            <input class="btn btn-primary" type="button" name="" value="View">
-                            <input class="btn btn-primary" type="button" name="" value="Update">
-                            <input class="btn btn-primary" type="button" name="" value="Sold Out">
-                            <input class="btn btn-primary"  type="button" name="" value="Delete">
+                            <input class="btn btn-primary btn-sm" type="button" name="" value="View">
+                            <input class="btn btn-primary btn-sm" type="button" name="" value="Update">
+                            <input class="btn btn-primary btn-sm" type="button" name="" value="Sold Out">
+                            <input class="btn btn-primary btn-sm"  type="button" name="" value="Delete">
                             <br>
                             <img  src='img/smartphone.png'>
                             <span>Apple iphone 7 for 7 (used)</span>
                            </div>
                             <div class=myadd_img>
-                            <input class="btn btn-primary" type="button" name="" value="View">
-                            <input class="btn btn-primary" type="button" name="" value="Update">
-                            <input class="btn btn-primary" type="button" name="" value="Sold Out">
-                            <input class="btn btn-primary"  type="button" name="" value="Delete">
+                            <input class="btn btn-primary btn-sm" type="button" name="" value="View">
+                            <input class="btn btn-primary btn-sm" type="button" name="" value="Update">
+                            <input class="btn btn-primary btn-sm" type="button" name="" value="Sold Out">
+                            <input class="btn btn-primary btn-sm"  type="button" name="" value="Delete">
                             <br>
                             <img  src='img/screenshot.png'>
                             <span>Apple iphone 7 for 7 (used)</span>
                            </div>
                             <div class=myadd_img>
-                            <input class="btn btn-primary" type="button" name="" value="View">
-                            <input class="btn btn-primary" type="button" name="" value="Update">
-                            <input class="btn btn-primary" type="button" name="" value="Sold Out">
-                            <input class="btn btn-primary"  type="button" name="" value="Delete">
+                            <input class="btn btn-primary btn-sm" type="button" name="" value="View">
+                            <input class="btn btn-primary btn-sm" type="button" name="" value="Update">
+                            <input class="btn btn-primary btn-sm" type="button" name="" value="Sold Out">
+                            <input class="btn btn-primary btn-sm"  type="button" name="" value="Delete">
                             <br>
                             <img  src='img/informatique.png'>
                             <span>Apple iphone 7 for 7 (used)</span>

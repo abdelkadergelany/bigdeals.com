@@ -16,14 +16,14 @@
             <div class="row">
                      <span><b>List of Ads</b></span>
 
-                      <button style="position: relative;margin-right: 15px; margin-left: 15%;" class="btn btn-success btn-lg" data-title="Add" data-toggle="modal" data-target="#add" ><i class="fas fa-plus-circle"></i>Post new Ads<div class="spinner-grow text-primary"></div></button><br><br>
+                      <button style="position: relative;margin-right: 15px; margin-left: 15%;" class="btn btn-success btn-sm" data-title="Add" data-toggle="modal" data-target="#add" ><i class="fas fa-plus-circle"></i>Post new Ads<div class="spinner-grow text-primary"></div></button><br><br>
 
-                      <a href="{{route('inactivatedAds')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-info btn-lg"   ><i class="fas fa-plus-circle"></i>Display inactivated Ads<div class="spinner-grow text-primary"></div></button></a><br><br>
+                      <a href="{{route('inactivatedAds')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-info btn-sm"   >inactivated Ads<div class="spinner-grow text-primary"></div></button></a><br><br>
                       
-                       <a href="{{route('activatedAds')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-primary btn-lg" data-title="Add" data-toggle="modal"  ><i class="fas fa-plus-circle"></i>Display Activated Ads<div class="spinner-grow text-primary"></div></button></a><br><br>
+                       <a href="{{route('activatedAds')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-primary btn-sm" data-title="Add" data-toggle="modal"  >Activated Ads<div class="spinner-grow text-primary"></div></button></a><br><br>
 
 
-                      <a href="{{route('blockedAds')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-danger btn-lg"   ><i class="fas fa-plus-circle"></i>Display Blocked Ads<div class="spinner-grow text-primary"></div></button></a><br><br>
+                      <a href="{{route('blockedAds')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-danger btn-sm"   >Blocked Ads<div class="spinner-grow text-primary"></div></button></a><br><br>
 
                       
                     </div><br><br><hr>
@@ -67,7 +67,7 @@
                                  <td>{{"$ad->cityName"}}</td>
                                  <td>{{"$ad->address"}}</td>
                                  
-                                 <td>{{"$ad->phone"}}</td>
+                                 <td>{{"$ad->phone1"}}</td>
                                  <td>{{"$ad->subCategoryName"}}</td>                                                                  
                                                                                                  
                                  <td>{{"$ad->title"}}</td>
@@ -132,8 +132,8 @@
                            <label for="subCategoryName"><b>Sub-category</b>: </label>
                             <select id="subCategoryName" class=" form-control" 
                             data-hide-disabled="false" data-live-search="true" name="subCategoryName" >
-                                 
-                             </select>
+
+                               </select>
                         </div> {{ csrf_field() }}
 
                       

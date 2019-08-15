@@ -341,7 +341,7 @@ public function addNewAd(Request $request){
             $ad->address = $data['address'];
             $ad->categoryName = $data['category'];
             $ad->subCategoryName = $data['subCategoryName'];
-            $ad->phone1 = $data['phone'];
+            $ad->phone1 = $data['phone1'];
             $ad->title = $data['title'];
             $ad->description = $data['description'];
 

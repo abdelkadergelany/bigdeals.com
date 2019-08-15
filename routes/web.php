@@ -11,6 +11,19 @@
 |
 */
 
+Route::post('dynamic_dependent/fetch', 'DynamicDependent@fetch')->name('dynamicdependent');
+
+
+Route::get('/myfavorite', function () {
+    return view('myfavorite');
+})->name('myfavorite');
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
+
+
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -21,9 +34,8 @@ Route::get('/welcome', function () {
 
 
 
-//Route::get('dynamic_dependent', 'DynamicDependent@index')->name('dynamic_dependent');
 
-Route::post('dynamic_dependent/fetch', 'DynamicDependent@fetch')->name('dynamicdependent.fetch');
+
 
 
 
@@ -104,7 +116,7 @@ Route:: get ('/blockedAds','AdminController@blockedAds')->name('blockedAds');
 	Route:: post ('/admin/manageUsers/blockUsers','AdminController@blockUsers')->name('blockUsers');
 
     Route:: get ('/admin/dashboard','AdminController@dashboard');
-    Route:: match (['get','post'],'admin_change_password','AdminController@updatePassword')->name('admin_change_password');
+    Route:: match (['get','post'],'/admin/admin_change_password','AdminController@updatePassword')->name('admin_change_password');
 });
 
 

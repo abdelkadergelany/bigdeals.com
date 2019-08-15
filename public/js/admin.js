@@ -50,7 +50,7 @@ $('#span2').click(function(event) {
  $('.dynamic').change(function(){
   if($(this).val() != '')
   {
-
+ //console.log('dynamicdependent.fetch');
     
 
    var select = $(this).attr("id");
@@ -58,11 +58,12 @@ $('#span2').click(function(event) {
    var dependent = $(this).data('dependent');
    var _token = $('input[name="_token"]').val();
    $.ajax({
-    url:"{{ route('dynamicdependent.fetch') }}",
+    url:"dynamic_dependent/fetch",
     method:"POST",
     data:{select:select, value:value, _token:_token, dependent:dependent},
     success:function(result)
     {
+      console.log(result);
      $('#'+dependent).html(result);
      console.log(result);
     
