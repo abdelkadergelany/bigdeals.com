@@ -18,10 +18,10 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            return redirect('/welcome');
         }
         else{
-            return redirect()->action('AdminController@login');
+            return redirect()->action('AdminController@userLogin');
         }
 
         return $next($request);

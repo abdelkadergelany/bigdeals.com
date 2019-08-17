@@ -32,7 +32,7 @@ class UserController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'welcome';
+    protected $redirectTo = 'myAccount';
 
     /**
      * Create a new controller instance.
@@ -77,5 +77,12 @@ class UserController extends Controller
 public function userRegister(){
       return view('auth.userRegister');
   }
+
+
+    public function logout(){
+      Session::flush(); 
+      return redirect ('/welcome');
+
+}
 
 }

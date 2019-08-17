@@ -10,50 +10,34 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//    ajax route
 Route::post('dynamic_dependent/fetch', 'DynamicDependent@fetch')->name('dynamicdependent');
 
 
-Route::get('/myfavorite', function () {
-    return view('myfavorite');
-})->name('myfavorite');
 
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
 
+/*client interfcae */
 
 
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+
 Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
 
 
-
-
-
-
-
-
-
-Route::get('/mychat', function () {
-    return view('clients.mychat');
-})->name('mychat');
-Route::get('/myadd', function () {
-    return view('clients.myadd');
-})->name('myadd');
-
 Route::get('/membership', function () {
     return view('clients.membership');
 })->name('membership');
 
+
 Route::get('/faq', function () {
     return view('clients.faq');
 })->name('faq');
+
 
 Route::get('/blog', function () {
     return view('clients.blog');
@@ -64,6 +48,7 @@ Route::get('/contact', function () {
     return view('clients.contact');
 })->name('contact');
 
+
 //htsf = how to sell fast page
 Route::get('/htsf', function () {
     return view('clients.htsf');
@@ -72,10 +57,58 @@ Route::get('/htsf', function () {
 
 
 
-Route:: match (['get','post'],'/admin','AdminController@login');
-Route:: post ('/userLogin','AdminController@userLogin');
+Route:: match (['get','post'],'/admin','AdminController@login')->name("adminLogin");
+
+
+Route:: match (['get','post'],'/userLogin','AdminController@userLogin')->name("userLogin");
+
 
 Route:: get ('/logout','AdminController@logout');
+Route:: get ('/userLogout','UserController@logout')->name("userLogout");
+
+
+
+
+Route:: group (['middleware'=>['clients']],function(){
+
+Route::get('/mychat', function () {
+    return view('clients.mychat');
+})->name('mychat');
+
+
+
+Route::get('/myadd', function () {
+    return view('clients.myadd');
+})->name('myadd');
+
+
+Route::get('/myfavorite', function () {
+    return view('clients.myfavorite');
+})->name('myfavorite');
+
+
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
+
+
+
+Route::get('/myAccount', function () {
+    return view('clients.myAccount');
+})->name('myAccount');
+
+
+
+
+});
+
+
+// end client interface
+
+
+
+
 
 
 
@@ -124,4 +157,4 @@ Route:: get ('/userRegister','UserController@userRegister')->name('userRegister'
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');

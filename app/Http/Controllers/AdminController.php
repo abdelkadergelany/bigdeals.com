@@ -28,6 +28,7 @@ class AdminController extends Controller
                 return redirect ('admin/dashboard');
             }
             else{
+              
                 return redirect ('/admin')->with('flash_message_error','Invalid username or Password');
             }
         }
@@ -41,14 +42,14 @@ class AdminController extends Controller
             $data = $request->input();
             if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password'],'isBlocked'=>'0']))
             {
-                return redirect ('admin/dashboard');
+                return view ('clients.myAccount');
             }
             else{
-                return redirect ('/admin')->with('flash_message_error','Invalid username or Password');
+                return redirect ('/userLogin')->with('flash_message_error','Invalid username or Password');
             }
         }
         
-        return view('admin.admin_login');
+        return view('clients.userLogin');
     }
 
 

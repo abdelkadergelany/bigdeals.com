@@ -7,15 +7,26 @@
             </div>
             <div class="col-lg-6 text-center text-lg-right">
                 <ul class="menu list-inline mb-0">
-                <li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
-                <li class="list-inline-item"><a href="#">My chats</a></li>
-                <li class="list-inline-item"><a href={{ __('userRegister') }}>Register</a></li>
+
+                    @guest
+                <li class="list-inline-item"><a href="{{ route('userLogin') }}"  >Login</a></li>
+                <li class="list-inline-item"><a href="{{route('mychat')}}">My chats</a></li>
+                <li class="list-inline-item"><a href="{{ route('userRegister') }}">Register</a></li>
+                <li class="list-inline-item"><a href="{{route('myAccount')}}">My account</a></li>
+                   @endguest
+
+                   @auth
+                   <li class="list-inline-item"><a href="{{route('userLogout')}}"  >Logout</a></li>
+                   <li class="list-inline-item"><a href="{{route('mychat')}}">My chats</a></li>
+                   <li class="list-inline-item"><a href="{{route('myAccount')}}">My account</a></li>
+                   @endauth
+                
 
                 </ul>
             </div>
             </div>
         </div>
-        <div id="login-modal" role="dialog" aria-labelledby="Login" aria-hidden="true" class="modal fade">
+      <!--   <div id="login-modal" role="dialog" aria-labelledby="Login" aria-hidden="true" class="modal fade">
             <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #512DA8">
@@ -38,13 +49,13 @@
                 </form>
                 <p class="text-center text-muted"><a href="#" data-toggle="modal" data-target="#login-password">Forgot
                     password?</a></p>
-                <p class="text-center ">Not yet registered? <a href={{ __('register') }}><strong>Create </strong></a>your
+                <p class="text-center ">Not yet registered? <a href="{{ route('userRegister') }}"><strong>Create </strong></a>your
                     account now</p>
                 </div>
             </div>
             </div>
-        </div>
-        <div id="login-password" role="dialog" aria-labelledby="Reset Password" aria-hidden="true" class="modal fade">
+        </div> -->
+      <!--   <div id="login-password" role="dialog" aria-labelledby="Reset Password" aria-hidden="true" class="modal fade">
             <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -69,7 +80,7 @@
                 </div>
             </div>
             </div>
-        </div>
+        </div> -->
 
 
         </div>
