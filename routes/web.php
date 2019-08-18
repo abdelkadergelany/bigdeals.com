@@ -87,11 +87,8 @@ Route:: group (['middleware'=>['clients']],function(){
 		return view('clients.mychat');
 	})->name('mychat');
 
+Route:: get ('/myadd','UserController@myadd')->name('myadd');
 
-
-	Route::get('/myadd', function () {
-		return view('clients.myadd');
-	})->name('myadd');
 
 
 	Route::get('/myfavorite', function () {

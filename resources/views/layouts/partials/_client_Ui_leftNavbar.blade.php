@@ -1,4 +1,4 @@
-               <div class="col-lg-3">
+               <div class="col-lg-2">
                     <h3 class="lead"><a href="{{route('myAccount')}}">My Account</a></h3>
                     <hr>
                     <div class="row">

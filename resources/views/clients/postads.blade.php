@@ -28,7 +28,7 @@
              <div class="container" id="add" >
 
 
-              <form method="POST" action="{{ route('storeAdd') }}?buyNow=0" enctype="multipart/form-data">
+              <form style="background-color: white" method="POST" action="{{ route('storeAdd') }}?buyNow=0" enctype="multipart/form-data">
                 @csrf
 
                 <div class="modal-header">
@@ -175,6 +175,10 @@
    <input type="checkbox" required name="negociable" value="1" ><b>&nbsp;Negociable</b>
  </div>
 
+ </fieldset > 
+
+<fieldset id="myFieldset">
+                    <legend>Pictures</legend>
  <div class="form-group">
   <label for="file"><b>Pictures</b>(<b><span style="color: red;">Less than 2Mb</span></b>): </label><br>
                             <!-- imagae1:  <input type="file" name="file1" required>
@@ -193,7 +197,7 @@
                                   Allowed only files with extension (jpg, png, gif)
                                 </li>
                                 <li>
-                                  Maximum number of allowed files 10 with 300 KB for each
+                                  Maximum number of allowed files 5 with 500 KB for each
                                 </li>
                                 <li>
                                   you can select files from different folders
@@ -211,7 +215,11 @@
 
                           </div>
 
-                        </fieldset ><br><br>
+
+
+                 </fieldset >         
+
+                
 
 
                         <div style="border: 2px solid blue; padding: 20px;">

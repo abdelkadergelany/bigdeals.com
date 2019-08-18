@@ -383,8 +383,10 @@ body {
 
 /* starting my_add.php  myfavorite*/
 .myadd_img{
-  padding: 1%;
-  margin: 3%;
+  
+  margin-left: : 1%;
+   margin-right: 1%;
+   margin-bottom: 3%;
   border: 1px solid #1E90FF;
 }
 .myadd_img::after{
@@ -393,15 +395,15 @@ body {
   content: "";
 }
 .myadd_img>img{
-  width:15% !important;
-  height:95px !important;
+ 
   float: left;
   margin: 1%;
 
+
 }
-.myadd_img input{
- margin-left:1%;
- margin-bottom: 3%;
+.myadd-btn{
+ text-align: center;
+ margin : 1%;
  }
 
 /* ending my_add  myfavorite */
@@ -587,6 +589,7 @@ body {
 #myFieldset {
   border: 1px solid #093ec7;
   padding: 20px;
+  margin-bottom: 10px;
 }
 
 #myFieldset legend {
