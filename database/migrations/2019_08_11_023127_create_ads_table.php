@@ -43,6 +43,7 @@ class CreateAdsTable extends Migration
              $table->string('isValidate')->default('0');
               $table->string('buyNow')->default('0');
               $table->string('isBlocked')->default('0');
+              $table->string('forSale')->default('1');
             
         
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');

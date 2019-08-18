@@ -422,8 +422,10 @@
             <div class="navbar-buttons d-flex justify-content-end">
 
 
-                <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block"><a href="#"
-                    class="btn btn-success btn-lg navbar-btn"><i class="fa fa-tag"></i><span>Post add</span></a></div>
+                <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block">
+
+                    <a href=" {{ route('postadd')}}" class="btn btn-success btn-lg navbar-btn"><i class="fa fa-tag"></i>
+                        <span>Post add</span></a></div>
             </div>
             </div>
         </div>

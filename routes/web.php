@@ -20,38 +20,38 @@ Route::post('dynamic_dependent/fetch', 'DynamicDependent@fetch')->name('dynamicd
 
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 })->name('welcome');
 
 
 Route::get('/welcome', function () {
-    return view('welcome');
+	return view('welcome');
 })->name('welcome');
 
 
 Route::get('/membership', function () {
-    return view('clients.membership');
+	return view('clients.membership');
 })->name('membership');
 
 
 Route::get('/faq', function () {
-    return view('clients.faq');
+	return view('clients.faq');
 })->name('faq');
 
 
 Route::get('/blog', function () {
-    return view('clients.blog');
+	return view('clients.blog');
 })->name('blog');
 
 
 Route::get('/contact', function () {
-    return view('clients.contact');
+	return view('clients.contact');
 })->name('contact');
 
 
 //htsf = how to sell fast page
 Route::get('/htsf', function () {
-    return view('clients.htsf');
+	return view('clients.htsf');
 })->name('htsf');
 
 
@@ -67,36 +67,48 @@ Route:: get ('/logout','AdminController@logout');
 Route:: get ('/userLogout','UserController@logout')->name("userLogout");
 
 
+/* guarded User interface*/
+
 
 
 Route:: group (['middleware'=>['clients']],function(){
+    
+    Route::post('/storeAdd', 'UserController@storeAdd')->name('storeAdd');
 
-Route::get('/mychat', function () {
-    return view('clients.mychat');
-})->name('mychat');
+	Route::get('/postadd', 'UserController@postadd')->name('postadd');
 
-
-
-Route::get('/myadd', function () {
-    return view('clients.myadd');
-})->name('myadd');
-
-
-Route::get('/myfavorite', function () {
-    return view('clients.myfavorite');
-})->name('myfavorite');
+	Route::get('/postaddCategory', 'UserController@postaddCategory')->name('postaddCategory');
 
 
 
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
+
+
+	Route::get('/mychat', function () {
+		return view('clients.mychat');
+	})->name('mychat');
 
 
 
-Route::get('/myAccount', function () {
-    return view('clients.myAccount');
-})->name('myAccount');
+	Route::get('/myadd', function () {
+		return view('clients.myadd');
+	})->name('myadd');
+
+
+	Route::get('/myfavorite', function () {
+		return view('clients.myfavorite');
+	})->name('myfavorite');
+
+
+
+	Route::get('/profile', function () {
+		return view('profile');
+	})->name('profile');
+
+
+
+	Route::get('/myAccount', function () {
+		return view('clients.myAccount');
+	})->name('myAccount');
 
 
 
@@ -114,7 +126,7 @@ Route::get('/myAccount', function () {
 
 Route:: group (['middleware'=>['auth']],function(){
 	
-  
+
 	Route:: get ('/manageUsers','AdminController@manageUsers')->name('manageUsers');
 	Route:: get ('/manageRegions','AdminController@manageRegions')->name('manageRegions');
 	Route:: get ('/manageCities','AdminController@manageCities')->name('manageCities');
@@ -125,9 +137,9 @@ Route:: group (['middleware'=>['auth']],function(){
 
 
 
-Route:: get ('/inactivatedAds','AdminController@inactivatedAds')->name('inactivatedAds');
-Route:: get ('/activatedAds','AdminController@activatedAds')->name('activatedAds');
-Route:: get ('/blockedAds','AdminController@blockedAds')->name('blockedAds');
+	Route:: get ('/inactivatedAds','AdminController@inactivatedAds')->name('inactivatedAds');
+	Route:: get ('/activatedAds','AdminController@activatedAds')->name('activatedAds');
+	Route:: get ('/blockedAds','AdminController@blockedAds')->name('blockedAds');
 
 
 
@@ -137,7 +149,7 @@ Route:: get ('/blockedAds','AdminController@blockedAds')->name('blockedAds');
 	
 	Route:: match (['get','post'],'/addNewAd','AdminController@addNewAd')->name('addNewAd');
 
-     Route:: post ('/updateSubCategory','AdminController@updateSubCategory')->name('updateSubCategory');
+	Route:: post ('/updateSubCategory','AdminController@updateSubCategory')->name('updateSubCategory');
 	Route:: post ('/updateCategory','AdminController@updateCategory')->name('updateCategory');
 	Route:: post ('/updateCity','AdminController@updateCity')->name('updateCity');
 	Route:: post ('/addRegions','AdminController@addRegions')->name('addRegions');
@@ -148,8 +160,8 @@ Route:: get ('/blockedAds','AdminController@blockedAds')->name('blockedAds');
 	Route:: post ('/admin/manageUsers/updateUser','AdminController@updateUsers')->name('updateUsers');
 	Route:: post ('/admin/manageUsers/blockUsers','AdminController@blockUsers')->name('blockUsers');
 
-    Route:: get ('/admin/dashboard','AdminController@dashboard');
-    Route:: match (['get','post'],'/admin/admin_change_password','AdminController@updatePassword')->name('admin_change_password');
+	Route:: get ('/admin/dashboard','AdminController@dashboard');
+	Route:: match (['get','post'],'/admin/admin_change_password','AdminController@updatePassword')->name('admin_change_password');
 });
 
 

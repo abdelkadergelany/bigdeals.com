@@ -5,11 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use App\User;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
+use App\User;
+use App\region;
+use App\UserInfo;
+use App\Phone;
+use App\city;
+use App\sub_category;
+use App\category;
+use App\size;
+use App\brand;
+use App\ads;
 
 class UserController extends Controller
 {
@@ -74,14 +85,67 @@ class UserController extends Controller
         ]);
     }
 
-public function userRegister(){
+    public function userRegister(){
       return view('auth.userRegister');
   }
 
 
-    public function logout(){
-      Session::flush(); 
-      return redirect ('/welcome');
+  public function postadd(){
+   $category = category::all()->sortBy("categoryName");
+
+
+
+   return view('clients.choose_category')->with("category",$category);;
+}
+
+
+
+
+
+public function storeAdd(Request $request){
+   $data = $request->input();
+
+    dd($data["files[]"]);
+
+
+}
+
+
+
+
+
+public function logout(){
+  Session::flush(); 
+  return redirect ('/welcome');
+
+}
+
+
+
+public function postaddCategory( Request $request ){
+    if($request->isMethod('get')){
+
+     $data = $request->input();
+     $regions = region::all();   
+     $category = category::all();
+     $size = size::all();
+
+
+     $brand= brand::where("subCategoryName",$data['subCategoryName'])->get();
+
+
+
+     return view('clients.postads')->with("category",$category)->with("region",$regions)
+     ->with("catval",$data['category'])
+     ->with("subCatval",$data['subCategoryName'])
+     ->with("size",$size) 
+     ->with("brand",$brand);
+
+
+ }
+
+
+
 
 }
 

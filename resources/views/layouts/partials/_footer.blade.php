@@ -89,12 +89,15 @@
 
     <script type="text/javascript">
 
+$(document).ready(function(){
         $(function () {
 
         $('#cameroon-map').JSMaps({
             map: 'cameroon'
         });
 
+        });
+        
         });
 
     </script>
