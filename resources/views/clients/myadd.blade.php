@@ -17,45 +17,51 @@
          @include('layouts/partials/_client_Ui_leftNavbar')
 
          <div class="col-lg-10 col-md-10" style="background-color: white;">
-            <h5> your name</h5><hr>
+            <h5 style="padding: 3px"> {{Auth::user()->name}}</h5><hr>
 
+         
+          @foreach($ads as $ads)
 
-               @foreach($ads as $ads)
-
-            <div style="margin: 0px;">
+          <div class="m-0">
                 <button  class="btn myadd-btn btn-primary btn-sm" type="button"  >View</button> 
                 <button  class="btn myadd-btn btn-primary btn-sm" type="button"  >Update</button> 
                 <button  class="btn myadd-btn btn-primary btn-sm" type="button"  >Sold Out</button> 
                 <button  class="btn myadd-btn btn-primary btn-sm" type="button"  >Delete</button> 
             </div>
 
-
-            <div class="container-fluid myadd_img ">
-                
-                   <div class="row" style=" padding: 0px">
-               
-                
-                      <div class="col-xs-4 col-lg-3 col-md-3" style="width: inherit; margin: 0px;padding: 0px; background-color: blue; ">
-
-                      <img width="100%" height="200px" style="object-fit:cover; " src="publication/{{$ads->pict1}}">  
-
-                      </div>
-   
-
-                      <div class="col-xs-8 col-lg-9 col-md-9" style="width: inherit;margin: 0px  ">
-                           <span  style="text-align: center;color: #303F9F"><b>{{$ads->title}} </b></span>
-                           <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$ads->regionName}}({{$ads->cityName}})<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{{$ads->price}} Tk<b><span  style="padding: 4px; position: absolute; right: 1px; bottom: 1px;">{{$ads->created_at->diffForHumans()}}</span>
-                      </div>
-
-                  </div>
+          <div class="container myaddContainer">
+            <div class="row">
+              <div class="col-md-2 col-lg-2 p-0" >
+               <img src="publication/{{$ads->pict1}}" width="100px"; height="109px;">
+              </div>
+              <div class="col-md-10 col-lg-10 m-0 p-0" >
+                <div class="row m-0 p-0">
+                 <h5>{{$ads->title}} 
+                  (@if($ads->isUsed==0)
+                  {{"New"}}
+                  @else
+                  {{"Used"}}
+                  @endif)
+                </h5> 
+                </div>
+                <div class="row m-0 p-0" >
+                  <span>{{$ads->cityName}} </span> &nbsp;&nbsp;||&nbsp;&nbsp;<span> {{$ads->subCategoryName}}</span>
+                  
+                </div>
+                <div class="row m-0 p-0" >
+                  <span class="price" >{{$ads->price}} TK</span> <span class="time">{{$ads->created_at->diffForHumans()}}</span>
+                  
+                </div>
                 
               </div>
-              @endforeach
+              
+            </div>
+            
+          </div>
+          @endforeach
 
 
-
-
-    
+   
 </div>
 </div>
 </div>

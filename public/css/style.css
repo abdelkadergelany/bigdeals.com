@@ -382,29 +382,30 @@ body {
 
 
 /* starting my_add.php  myfavorite*/
-.myadd_img{
-  
-  margin-left: : 1%;
-   margin-right: 1%;
-   margin-bottom: 3%;
-  border: 1px solid #1E90FF;
-}
-.myadd_img::after{
-  display: block;
-  clear: both;
-  content: "";
-}
-.myadd_img>img{
- 
-  float: left;
-  margin: 1%;
 
-
-}
 .myadd-btn{
  text-align: center;
  margin : 1%;
  }
+
+.myaddContainer{
+
+  border-bottom: 1px solid grey;
+   margin-bottom: 30px;
+}
+.price{
+color: #303F9F;
+font-weight: bold;
+font-size: 18px;
+
+}
+.time{
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+   margin: 2px;
+}
+
 
 /* ending my_add  myfavorite */
 
