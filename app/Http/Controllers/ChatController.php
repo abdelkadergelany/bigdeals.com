@@ -40,14 +40,70 @@ class ChatController extends Controller
     {
         //
     }
-    
+   
+
+
+public function startConversation (Request $request)
+{
+
+
+       
+       $data = $request->input();
+       $message = $data["message"];
+       $recever = $data["recever"];
+      
+       $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("userId",$recever);
+       $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
+           if($checkIfConversationExist == null)
+           {
+                conversations::create([
+                   'userId' => Auth::user()->id,
+                    'with' => $recever,
+                    "created_at"=>now()
+                       ]); 
+   
+           }
+
+            if($checkIfConversationExistWith == null)
+           {
+                conversations::create([
+                   'userId' => $recever,
+                    'with' => Auth::user()->id,
+                     "created_at"=>now()
+                       ]); 
+   
+           }
+                
+                chat::create([
+                   'message' => $message,
+                    "created_at"=>now(),
+                    'from' => Auth::user()->id,
+                     'to' => $recever
+                       ]); 
+
+                 return redirect ('/mychat');
+          
+       
+}
+
 
 public function sendMessage (Request $request)
 {
       $data = $request->input();
       $message = $data["message"];
        $recever = $data["recever"];
-        event(new newMessage($message,$recever));
+       $sender = Auth::user()->id;
+
+     // var $checkIfConversationExist = conversations::where("with",Auth::user()->id)->where("userId",$recever);
+
+        chat::create([
+                   'message' => $message,
+                    "created_at"=>now(),
+                    'from' => Auth::user()->id,
+                     'to' => $recever
+                       ]); 
+
+        event(new newMessage($message,$recever,$sender));
 
 
 }

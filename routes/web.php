@@ -89,6 +89,7 @@ Route:: group (['middleware'=>['clients']],function(){
 	Route::get('/mychat', 'ChatController@index')->name('mychat');
 
 	Route::post('/sendMessage', 'ChatController@sendMessage')->name('sendMessage');
+	Route::get('/startConversation','ChatController@startConversation')->name('startConversation');
 
 Route:: get ('/myadd','UserController@myadd')->name('myadd');
 

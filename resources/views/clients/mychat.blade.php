@@ -5,6 +5,11 @@
 <link rel="stylesheet" href="{{asset('css/style.css')}}">
 <link rel="stylesheet" href="{{asset('css/chat.css')}}">
  <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
+ <style type="text/css">
+   .sms{color:white !important;
+    background-color: black!important;; 
+  }
+ </style>
 @stop
 @section('contains')
   <!-- BEGINING  my chat-->
@@ -32,16 +37,6 @@
 
           <div class="inbox_chat">
 
-           <!--  <div class="chat_list active_chat">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div> -->
             @forelse ($conversation as $conv)
             <div class="chat_list">
               <div class="chat_people">
@@ -82,7 +77,7 @@
               </div>
               <div class="received_msg">
                 <div class="received_withd_msg">
-                  <p>{{$chat->message}}</p>
+                  <p class="sms">{{$chat->message}}</p>
                   <span class="time_date"> {{ $chat->created_at->format('h : i : s | d M Y ')}}</span>
                 </div>
               </div>
@@ -102,6 +97,9 @@
             @endforeach
 
          @endif
+             <input type="hidden"  id="openedConversation" value="{{$chat->to}}">
+             <input type="hidden"  id="openedConversation2" value="{{$chat->from}}">
+
           </div>
           <div class="type_msg">
             <form id="message-submit" method="post" action="{{ route('sendMessage') }}?">
@@ -142,19 +140,34 @@
     channel.bind('my-event', function(data) {
    
       var id = $('#receverId').val();
-     
+            //console.log(data.recever);
       if(parseInt(id)  === parseInt(data.recever) )
       {
-           
+         var from  = $('#openedConversation2').val();
+         var to  = $('#openedConversation').val();
+         var  wit = null;
+         
+            if(from == data.recever)
+            {
+
+               wit =to;
+            }
+            else 
+              {wit = from};
+
+            if(wit == data.sender )
+         {
+
            var d = new Date();
                var dat ="";
                dat = d.getHours() +":"+ d.getMinutes() ;
             
              var recevedMessage = document.createElement("div");
             recevedMessage.setAttribute("class","incoming_msg");
-            recevedMessage.innerHTML ="<div class='received_withd_msg'><p>" + data.message +"</p> <span class='time_date'>" + dat +" </span></div>";
+            recevedMessage.innerHTML ="<div class='received_withd_msg'><p class='sms'>" + data.message +"</p> <span class='time_date'>" +
+             dat +" </span></div>";
               document.getElementById("msg_history").appendChild(recevedMessage);
-            
+        } 
 
       }
      
@@ -181,7 +194,7 @@
              });
               var d = new Date();
                var dat ="";
-               dat = d.getHours() +":"+ d.getMinutes() ;
+               dat = d.getHours() +":"+ d.getMinutes();
              document.getElementById('message-submit').reset();
 
              var sentMessage = document.createElement("div");
