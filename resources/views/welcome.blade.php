@@ -10,4 +10,19 @@
 @include('layouts/partials/_searchcontainer')
 @include('layouts/partials/_maincategory')
 
+
+ <script type="text/javascript">
+
+$(document).ready(function(){
+        $(function () {
+
+        $('#cameroon-map').JSMaps({
+            map: 'cameroon'
+        });
+
+        });
+        
+        });
+
+    </script>
 @stop

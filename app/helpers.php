@@ -4,6 +4,8 @@ use App\Phone;
 use App\UserInfo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
+use App\conversations;
+use App\chat;
 //use Illuminate\Database\Eloquent\Model;
 
 if(!function_exists('returnEmail')){
@@ -22,6 +24,34 @@ function returnNAme($id)
 {
      $emailInfos = User::find($id);
      return "$emailInfos->name";
+     
+}
+}
+
+
+if(!function_exists('returnLastMessage')){
+     
+function returnLastMessage($with)
+
+{
+
+
+
+// //
+// DB::table('chat')
+//             ->where('from', '=', '$user')
+//             ->orWhere(function($query)
+//             {
+//                 $query->where('votes', '>', 100)
+//                       ->where('title', '<>', 'Admin');
+//             })
+//             ->get();
+//     //
+
+
+    $chat  = chat::where("from",$with)->orWhere("to",$with)->orderBy('created_at','DESC')->first();
+    if($chat != null)
+     return "$chat->message";
      
 }
 }

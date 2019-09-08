@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use App\Events\newMessage;
+
 //    ajax route
 Route::post('dynamic_dependent/fetch', 'DynamicDependent@fetch')->name('dynamicdependent');
 
@@ -82,10 +85,10 @@ Route:: group (['middleware'=>['clients']],function(){
 
 
 
+   Route::post('/deleteConversation', 'ChatController@deleteConversation')->name('deleteConversation');
+	Route::get('/mychat', 'ChatController@index')->name('mychat');
 
-	Route::get('/mychat', function () {
-		return view('clients.mychat');
-	})->name('mychat');
+	Route::post('/sendMessage', 'ChatController@sendMessage')->name('sendMessage');
 
 Route:: get ('/myadd','UserController@myadd')->name('myadd');
 
@@ -105,6 +108,8 @@ Route:: get ('/myadd','UserController@myadd')->name('myadd');
 
 	Route::get('/myAccount', function () {
 		return view('clients.myAccount');
+        
+
 	})->name('myAccount');
 
 
