@@ -19,6 +19,7 @@ Route::post('dynamic_dependent/fetch', 'DynamicDependent@fetch')->name('dynamicd
 
 
 
+
 /*client interfcae */
 
 
@@ -90,6 +91,8 @@ Route:: group (['middleware'=>['clients']],function(){
 
 	Route::post('/sendMessage', 'ChatController@sendMessage')->name('sendMessage');
 	Route::get('/startConversation','ChatController@startConversation')->name('startConversation');
+
+	Route::get('/loadMessage', 'ChatController@loadMessage')->name('loadMessage');
 
 Route:: get ('/myadd','UserController@myadd')->name('myadd');
 

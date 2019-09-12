@@ -38,10 +38,12 @@
           <div class="inbox_chat">
 
             @forelse ($conversation as $conv)
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
+            <button onclick="loadChat(this)" value="{{$conv->id}}" >
+              <!-- <input id="conId" type="hidden" value="$conv->id" name=""> -->
+               <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
                   <h5>{{returnNAme($conv->with)}} <span class="chat_date">{{$conv->created_at->format('d M Y h:i')}}</span></h5>
                   <p>{{returnLastMessage($conv->with)}}</p><br>
                    <form method="post" action="{{ route('deleteConversation') }}?convId={{$conv->id}}">{{csrf_field()}}
@@ -51,6 +53,7 @@
                 </div>
               </div>
             </div>
+          </button>
             @empty
               <p>&nbsp;&nbsp;&nbsp;&nbsp;No Conversation Yet</p>
             @endforelse
@@ -207,7 +210,36 @@
            
  });
 
+
+
+
+
+
  });
    
+  </script>
+  <script >
+    
+    function loadChat(t){
+ //$('#fetchConcversation').on('click',function(e){
+    //$('#message').focus();
+ //e.preventDefault();
+ var conv=t.value;
+  
+   var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("msg_history").innerHTML = this.responseText;
+
+     console.log(this.responseText);
+    }
+  };
+  xhttp.open("GET", "/loadMessage?convId="+conv, true);
+  xhttp.send();
+               
+              
+           
+ 
+}
   </script>
 @stop

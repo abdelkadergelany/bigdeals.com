@@ -20,7 +20,7 @@
             <h5 style="padding: 3px"> {{Auth::user()->name}}</h5><hr>
 
          
-          @foreach($ads as $ads)
+          @foreach($ad as $ads)
 
           <div class="m-0">
                 <button  class="btn myadd-btn btn-primary btn-sm" type="button"  >View</button> 
@@ -57,8 +57,12 @@
               
             </div>
             
-          </div>
+          </div> 
           @endforeach
+           {{ $ad->links() }}
+
+
+
 
 
    

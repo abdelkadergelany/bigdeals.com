@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 
 use App\User;
 use App\region;
@@ -262,13 +263,8 @@ public function postaddCategory( Request $request ){
 
  public function myadd( Request $request ){
 
-     //dd(Auth::user()->id);
-    $ads = ads::where("userId",Auth::user()->id)->get();  
-    // foreach ($ads as $key => $value) {
-    //     # code...
-    //     dd($value->title);
-    // }  
-     return view('clients.myadd')->with("ads",$ads);
+      $ads = ads::where("userId",Auth::user()->id)->paginate(3); 
+     return view('clients.myadd')->with("ad",$ads);
  }
 
 

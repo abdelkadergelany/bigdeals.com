@@ -119,6 +119,60 @@ public function sendMessage (Request $request)
          return view('clients.mychat')->with("conversation",$conversation)->with("chat",$chat);
     }
 
+
+
+public function loadMessage(Request $request)
+    {
+        //
+          
+      
+         $conversation = conversations::find($request->convId);
+         $with = $conversation->with;
+            $chat  = chat::where("from",Auth::user()->id)
+                       ->where("to",$with)
+                        ->orWhere("to",Auth::user()->id)
+                        ->where("from",$with)
+                        ->orderBy('created_at','asc')
+                        ->get();
+         //   dd($chat);
+
+                 $output = "<span id='conv' data-with=".$with." class='d-block p-2 bg-primary text-white'>". returnNAme($with)."</span>";
+
+                          //   dd($output);
+                      foreach ($chat as $key => $value) {
+                          # code...
+ 
+              if($value->from != Auth::user()->id ){
+
+               $output .= "<div class='incoming_msg'>";
+              $output .= "<div class='incoming_msg_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'>";
+             $output .= "</div>";
+             $output .= "<div class='received_msg'>";
+                $output .= "<div class='received_withd_msg'>";
+                 $output .= "<p class='sms'>".$value->message."</p>";
+                 $output .= "<span class='time_date'>" . $value->created_at->format('h : i : s | d M Y ')."</span>";
+                $output .= "</div> </div> </div>";
+                }
+              else{
+               $output .= "<div class='outgoing_msg'>";
+              $output .= "<div class='sent_msg'>";
+               $output .=  "<p>" .$value->message."</p>";
+                $output .= "<span class='time_date'>". $value->created_at->format('h : i : s | d M Y ')."</span>";
+              $output .= "</div> </div>";
+              }
+             
+                      }
+
+                    $output .= "<input type='hidden'  id='openedConversation' value=".Auth::user()->id.">";
+                    $output .=  "<input type='hidden'  id='openedConversation2' value=".$with.">";
+                  //  dd($output);
+                    return $output;
+
+         //return view('clients.mychat')->with("conversation",$conversation)->with("chat",$chat);
+    }
+
+
+
     /**
      * Store a newly created resource in storage.
      *
