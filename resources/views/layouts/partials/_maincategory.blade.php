@@ -1,5 +1,8 @@
+
+
 <div id="main-cat">
     <div class="container">
+      <h1><span class="badge badge-secondary"> Main Categories </span></h1>
       <div class="row mb-4">
         <div class="col-md-4 ">
           <div class="box clickable d-flex flex-column justify-content-center mb-0 h-100">

@@ -23,14 +23,10 @@ Route::post('dynamic_dependent/fetch', 'DynamicDependent@fetch')->name('dynamicd
 /*client interfcae */
 
 
-Route::get('/', function () {
-	return view('welcome');
-})->name('welcome');
+Route::get('/', 'UserController@homePage')->name('welcome');
 
 
-Route::get('/welcome', function () {
-	return view('welcome');
-})->name('welcome');
+Route::get('/welcome','UserController@homePage')->name('welcome');
 
 
 Route::get('/membership', function () {

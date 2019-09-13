@@ -266,7 +266,11 @@ public function postaddCategory( Request $request ){
       $ads = ads::where("userId",Auth::user()->id)->paginate(3); 
      return view('clients.myadd')->with("ad",$ads);
  }
+ public function homePage( Request $request ){
 
+      $ads = ads::where("isValidate","1")->orderBy("created_at",'desc')->paginate(5); 
+     return view('welcome')->with("ad",$ads);
+ }
 
 
 

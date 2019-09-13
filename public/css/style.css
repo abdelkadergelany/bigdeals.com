@@ -390,7 +390,7 @@ body {
 
 .myaddContainer{
 
-  border-bottom: 1px solid grey;
+  border: 1px solid grey;
    margin-bottom: 30px;
 }
 .price{
