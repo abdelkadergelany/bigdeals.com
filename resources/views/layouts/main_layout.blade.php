@@ -18,6 +18,8 @@
 
 
 @include('layouts/partials/_footer')
+
+
 </body>
 
 </html>

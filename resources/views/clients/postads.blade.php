@@ -119,7 +119,7 @@
          <textarea   class="form-control" id="description" name="description" required="true" rows="6"></textarea>
          <div class="alert alert-success " role="alert">More details Attracts more visitors</div>
        </div>
-       @if(($catval == 'Electronics') || ($catval == 'Mobile Phones') )
+       @if(($catval == 'electronics') || ($catval == 'mobile phones') || ($catval == 'automotive') )
        <div class="form-group">
          <label for="brandName"><b>Brand</b>: </label>
          <select id="brandName" class=" selectpicker form-control dynamic"  data-hide-disabled="false" data-live-search="true" 

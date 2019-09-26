@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use  Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+
+
 
 class AdminController extends Controller
 {
@@ -417,8 +421,10 @@ public function updateUsers(Request $request){
 
 public function manageSubCategory(Request $request){
  
-  $sub = sub_category::all()->sortBy("subCategoryName");
-  $cat = category::all();
+
+  $sub = DB::table('sub_categories')->paginate(10);
+
+  $cat = category::all()->sortBy("categoryName");
   return view('manage_sub_category')->with("sub_category",$sub)->with("category",$cat);
       //return view('manage_sub_category')->with("sub_category","www");
 }
@@ -427,14 +433,20 @@ public function addSubCategory(Request $request){
 
  
   $data = $request->input(); 
-  sub_category::create([
-    'subCategoryName' => $data['name'],
-    'category' => $data['categoryName'],
-    'description' => $data['description']
-  ]); 
 
-  $sub = sub_category::all()->sortBy("subCategoryName");
-  $cat = category::all();
+  $_name = strtolower($data['name']);
+  $_categoryName = strtolower($data['categoryName']);
+  $_description = strtolower($data['description']);
+
+
+  sub_category::create([
+    'subCategoryName' => $_name,
+    'category' => $_categoryName,
+    'description' => $_description
+  ]); 
+ 
+  $sub = DB::table('sub_categories')->paginate(10);
+  $cat = category::all()->sortBy("categoryName");
   return view('manage_sub_category')->with("sub_category",$sub)->with("category",$cat);
 }
 
@@ -448,9 +460,9 @@ public function updateSubCategory(Request $request){
  $subcat->save();
 
 
- $sub = sub_category::all()->sortBy("subCategoryName");
- $cat = category::all();
- return view('manage_sub_category')->with("sub_category",$sub)->with("category",$cat);
+ $sub = DB::table('sub_categories')->paginate(10);
+  $cat = category::all()->sortBy("categoryName");
+  return view('manage_sub_category')->with("sub_category",$sub)->with("category",$cat);
 
 
 }
@@ -477,12 +489,16 @@ public function updateCity(Request $request){
 public function addRegions(Request $request){
 
  $data = $request->input(); 
+$_name = strtolower($data['name']);
+
  region::create([
-  'regionName' => $data['name'],
+  'regionName' => $_name,
 ]); 
  $regions = region::all();
  return view('manage_regions')->with("region",$regions); 
 }
+
+
 
 public function manageRegions(Request $request){
 
@@ -492,8 +508,11 @@ public function manageRegions(Request $request){
 }
 public function manageCategories(Request $request){
 
- 
- $category = category::all()->sortBy("categoryName");
+ // //$ads = ads::where("userId",Auth::user()->id)->paginate(3);
+ // $category = category::all()->paginate(3);
+$category = DB::table('categories')->paginate(6);
+
+ //$category = category::all()->sortBy("categoryName")->paginate(6);
  return view('manage_categories')->with("category",$category);
 
  
@@ -518,8 +537,9 @@ public function updateCategory(Request $request){
 }
 $cat->save();
 
+$category = DB::table('categories')->paginate(6);
 
-$category = category::all()->sortBy("categoryName");
+//$category = category::all()->sortBy("categoryName");
 return view('manage_categories')->with("category",$category);
 
          //return view('manage_categories');
@@ -531,8 +551,10 @@ return view('manage_categories')->with("category",$category);
 
 public function manageCities(Request $request){
 
-  $city = city::all()->sortBy("RegionName");
-  $regions = region::all();
+$city = DB::table('cities')->paginate(10);
+
+ // $city = city::all()->sortBy("RegionName");
+  $regions = region::all()->sortBy("RegionName");
   return view('manage_cities')->with("city",$city)->with("region",$regions);
   
 }
@@ -540,12 +562,17 @@ public function manageCities(Request $request){
 public function addCity(Request $request){
 
  $data = $request->input(); 
+
+$_name = strtolower($data['name']);
+$_regionName = strtolower($data['regionName']);
+
  city::create([
-  'cityName' => $data['name'],
-  'RegionName' => $data['regionName'],
+  'cityName' => $_name,
+  'RegionName' => $_regionName,
 ]); 
- $city = city::all()->sortBy("RegionName");
- $regions = region::all();
+
+$city = DB::table('cities')->paginate(10);
+ $regions = region::all()->sortBy("RegionName");
  return view('manage_cities')->with("city",$city)->with("region",$regions);
  
 }
@@ -565,13 +592,18 @@ public function addCategory(Request $request){
   $new_name = rand().'.'.$image->getClientOriginalExtension();
   $image->move(public_path("images"),$new_name);
 
+$data = $request->input(); 
+$_name = strtolower($data['name']);
+$_description = strtolower($data['description']);
   $data = $request->input(); 
   category::create([
-    'categoryName' => $data['name'],
-    'description' => $data['description'],
+    'categoryName' => $_name,
+    'description' => $_description ,
     'image' => $new_name
   ]); 
-  $category = category::all()->sortBy("categoryName");
+
+$category = DB::table('categories')->paginate(6);
+  //$category = category::all()->sortBy("categoryName");
   return view('manage_categories')->with("flash_success_message","new category added succesfully")->with("category",$category);
   
   

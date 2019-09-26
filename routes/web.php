@@ -20,6 +20,18 @@ Route::post('dynamic_dependent/fetch', 'DynamicDependent@fetch')->name('dynamicd
 
 
 
+
+Route::get('/displayAds', 'UserController@displayAds')->name('displayAds');
+
+Route::get('/filter', 'UserController@filter')->name('filter');
+
+
+Route::get('/search', 'UserController@search')->name('search');
+
+
+
+
+
 /*client interfcae */
 
 

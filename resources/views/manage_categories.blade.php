@@ -44,7 +44,7 @@
                             
                               <tr>
                                  <td >{{"$cat->id"}}</td>
-                                 <td >{{"$cat->categoryName"}}</td>
+                                 <td >{{getCamel("$cat->categoryName")}}</td>
                                  <td >{{"$cat->description"}}</td>
                                  <td>{{"$cat->updated_at"}}</td>
                                  <td><img src="images/{{$cat->image}}" width="100px" height="100px"></td>
@@ -59,9 +59,10 @@
                                  </td>
                               </tr>
                               @endforeach
-                            
+
                            </tbody>
                         </table>
+                         {{ $category->links() }}
                         <div class="clearfix"></div>
                      </div>
                   </div>

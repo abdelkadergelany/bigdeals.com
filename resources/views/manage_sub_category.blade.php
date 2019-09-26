@@ -63,6 +63,8 @@
                             
                            </tbody>
                         </table>
+                                                 {{ $sub_category->links() }}
+
                         <div class="clearfix"></div>
                      </div>
                   </div>

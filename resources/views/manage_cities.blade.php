@@ -47,6 +47,8 @@
                               </tr>
                               @endforeach
                            </tbody>
+                                         {{ $city->links() }}
+
                         </table>
                         <div class="clearfix"></div>
                      </div>
