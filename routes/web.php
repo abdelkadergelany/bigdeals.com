@@ -19,6 +19,7 @@ Route::post('dynamic_dependent/fetch', 'DynamicDependent@fetch')->name('dynamicd
 
 
 
+Route::get('/product-details', 'UserController@productDetails')->name('product-details');
 
 
 Route::get('/displayAds', 'UserController@displayAds')->name('displayAds');
@@ -84,25 +85,30 @@ Route:: get ('/userLogout','UserController@logout')->name("userLogout");
 
 
 Route:: group (['middleware'=>['clients']],function(){
-    
-    Route::post('/storeAdd', 'UserController@storeAdd')->name('storeAdd');
+
+	Route::post('/storeAdd', 'UserController@storeAdd')->name('storeAdd');
 
 	Route::get('/postadd', 'UserController@postadd')->name('postadd');
 
 	Route::get('/postaddCategory', 'UserController@postaddCategory')->name('postaddCategory');
+	Route::get('/addFavorite', 'UserController@addFavorite')->name('addFavorite');
+
+	Route::get('/rating', 'UserController@rating')->name('rating');
 
 
 
 
-   Route::post('/deleteConversation', 'ChatController@deleteConversation')->name('deleteConversation');
+
+
+	Route::post('/deleteConversation', 'ChatController@deleteConversation')->name('deleteConversation');
 	Route::get('/mychat', 'ChatController@index')->name('mychat');
 
 	Route::post('/sendMessage', 'ChatController@sendMessage')->name('sendMessage');
-	Route::get('/startConversation','ChatController@startConversation')->name('startConversation');
+	Route::post('/startConversation','ChatController@startConversation')->name('startConversation');
 
 	Route::get('/loadMessage', 'ChatController@loadMessage')->name('loadMessage');
 
-Route:: get ('/myadd','UserController@myadd')->name('myadd');
+	Route:: get ('/myadd','UserController@myadd')->name('myadd');
 
 
 
@@ -120,7 +126,7 @@ Route:: get ('/myadd','UserController@myadd')->name('myadd');
 
 	Route::get('/myAccount', function () {
 		return view('clients.myAccount');
-        
+
 
 	})->name('myAccount');
 

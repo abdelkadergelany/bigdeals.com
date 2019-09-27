@@ -17,7 +17,7 @@
                 @include('layouts/partials/_client_Ui_leftNavbar')
 
                 <div class="col-lg-9">
-                    <h5> your name</h5><hr>
+                    <h5> {{returnName(Auth::user()->id)}}</h5><hr>
                     
                 <div class="counter">
     <div class="container">

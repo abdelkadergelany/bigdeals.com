@@ -44,7 +44,7 @@ if(!function_exists('getOutput')){
 
       }
 
-      $output .="<a href='#' class='border_all_categories'>
+      $output .="<a href=/product-details?id=".$ads->id." ". "class='border_all_categories'>
       <div class='row'>
       <div class='col-sm-4'>
       <img src='publication/".$ads->pict1."' class='img-thumbnail' alt='images' width='100'

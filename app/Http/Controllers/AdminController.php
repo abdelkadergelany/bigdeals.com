@@ -337,29 +337,48 @@ public function addNewAd(Request $request){
   } 
   
 
+$cater = strtolower($data['category']);
+
+
+
+
   $ad = new ads;
   $ad->buyNow = $request->get('buyNow');
-  $ad->subCategoryName = $data['subCategoryName'];
-  $ad->categoryName = $data['category'];
-  $ad->regionName= $data['RegionName'];
-  $ad->cityName = $data['cityName'];
+  $ad->subCategoryName =  strtolower($data['subCategoryName']);
+  $ad->categoryName =  strtolower($data['category']);
+  $ad->regionName=  strtolower($data['RegionName']);
+  $ad->cityName =  strtolower($data['cityName']);
   $ad->address = $data['address'];
-  $ad->categoryName = $data['category'];
-  $ad->subCategoryName = $data['subCategoryName'];
   $ad->phone1 = $data['phone1'];
   $ad->title = $data['title'];
   $ad->description = $data['description'];
 
+  if(isset($data['phone2'])){
+
+  $ad->phone2 = $data['phone1'];
+
+
+  }
+
+   if(isset($data['phone3'])){
+
+  $ad->phone3 = $data['phone3'];
+
+
+  }
+
+
+
   
 
-  if($data['category'] == 'Electronic' || $data['category'] =='Mobile Phones' )
+  if($cater == 'electronic' || $cater =='mobile phones' || $cater =='automotive' )
   {
     $ad->brand = $data['brandName'];
 
     $ad->model = $data['modelName'];
   }
   
-  if($data['category'] == 'Fashion and Clothing')
+  if($cater == 'fashion and clothing')
   {
     $ad->size = $data['size'];
   }
@@ -475,8 +494,8 @@ public function updateCity(Request $request){
  
  
  
- $cit->cityName = $data['name'];
- $cit->RegionName = $data['regionName'];       
+ $cit->cityName = strtolower($data['name']);
+ $cit->RegionName = strtolower($data['regionName']);       
  $cit->save();
  
  
@@ -524,8 +543,8 @@ public function updateCategory(Request $request){
  $data = $request->input();
          // dd($request->file('fileIcon'));
  $cat = category::find($data['id']);
- $cat->categoryName = $data['name'];
- $cat->description = $data['description'];
+ $cat->categoryName = strtolower($data['name']);
+ $cat->description = strtolower($data['description']);
 
  if($request->file('fileIcon') != null){
    

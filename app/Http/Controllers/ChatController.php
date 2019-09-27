@@ -27,6 +27,12 @@ class ChatController extends Controller
             $conversation = conversations::where("userId",Auth::user()->id)->orderBy('created_at','desc')->get();
             $chat  = chat::where("from",Auth::user()->id)->orWhere("to",Auth::user()->id)->orderBy('created_at','asc')->get();
             //dd( $conversation);
+            if($conversation->count()==0)
+            {
+             return view('clients.noConversation')->with("conversation",$conversation);
+
+
+            }
 
          return view('clients.mychat')->with("conversation",$conversation)->with("chat",$chat);
     }
@@ -52,10 +58,16 @@ public function startConversation (Request $request)
        $message = $data["message"];
        $recever = $data["recever"];
       
-       $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("userId",$recever);
+
+
+       $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
        $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
-           if($checkIfConversationExist == null)
+           
+        
+
+           if($checkIfConversationExist->count() == 0)
            {
+               
                 conversations::create([
                    'userId' => Auth::user()->id,
                     'with' => $recever,
@@ -64,7 +76,7 @@ public function startConversation (Request $request)
    
            }
 
-            if($checkIfConversationExistWith == null)
+            if($checkIfConversationExistWith->count() == 0)
            {
                 conversations::create([
                    'userId' => $recever,
