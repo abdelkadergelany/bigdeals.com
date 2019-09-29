@@ -146,7 +146,7 @@ Route:: group (['middleware'=>['clients']],function(){
 
 Route:: group (['middleware'=>['auth']],function(){
 	
-
+    Route:: match (['get','post'],'/manageBrand','AdminController@manageBrand')->name('manageBrand');
 	Route:: get ('/manageUsers','AdminController@manageUsers')->name('manageUsers');
 	Route:: get ('/manageRegions','AdminController@manageRegions')->name('manageRegions');
 	Route:: get ('/manageCities','AdminController@manageCities')->name('manageCities');

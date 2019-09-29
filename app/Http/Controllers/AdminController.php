@@ -11,6 +11,8 @@ use App\category;
 use App\size;
 use App\brand;
 use App\ads;
+use App\modele;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +42,101 @@ class AdminController extends Controller
     return view('admin.admin_login');
   }
 
+
+// manage brand
   
+  public function manageBrand(Request $request){
+
+    if($request->isMethod('post')){
+      $data = $request->input();
+
+
+         if($data['action']=="addBrand"){
+
+           brand::create([
+    'brandName' => strtolower($data['name']) ,
+    'subCategoryName' => $data['subCategory']
+  ]); 
+          
+          return redirect ('/manageBrand?action=displayBrand');
+
+         }
+
+
+
+         if($data['action']=="addModel"){
+
+           modele::create([
+    'modelName' =>strtolower($data['name']) ,
+    'subCategoryName' => $data['subCategory'],
+    'brandName' => $data['brandName'],
+  ]); 
+          
+          return redirect ('/manageBrand?action=displayModel');
+
+         }
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+      if($request->isMethod('get')){
+      $data = $request->input();
+
+       if($data['action']=="displayBrand")
+       {
+          // $brands = brand::all()->paginate(10);
+
+             $brands = DB::table('brands')->orderBy("brandName")->paginate(10);
+
+           $subCategory = sub_category::all()->sortBy("subCategoryName");
+
+           return view('manage_brands')->with("brands",$brands)->with("subCategory",$subCategory);
+
+
+       }
+
+       if($data['action']=="displayModel")
+       {
+          // $models = modele::all()->paginate(10);
+
+            $models = DB::table('modeles')->orderBy("modelName")->paginate(10);
+
+           $subCategory = sub_category::all()->sortBy("subCategoryName");
+           $brands = brand::all()->sortBy("brandName");
+
+
+           return view('manage_models')->with("brands",$brands)->with("subCategory",$subCategory)->with("models",$models);
+
+
+       }
+
+
+      
+    }
+    
+    
+
+
+
+  }
+
+
+  //end manage brand
+
+
+
+
+
   public function userLogin(Request $request){
     if($request->isMethod('post')){
       $data = $request->input();

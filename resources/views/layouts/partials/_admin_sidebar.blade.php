@@ -47,6 +47,17 @@
 				<li>
 					<a href="{{ route('manageCities') }}"><i class="fas fa-map-marker-alt"></i>&nbsp;Manage City</a>
 				</li>
+					<li>
+					<a href="#pageSubmenu111" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-ad"></i>&nbsp;Brands</a>
+					<ul class="collapse list-unstyled" id="pageSubmenu111">
+						<li>
+							<a href="{{ route('manageBrand') }}?action=displayBrand">Manage Brands</a>
+						</li>
+						<li>
+							<a href="{{ route('manageBrand') }}?action=displayModel">Manage Models</a>
+						</li>
+					</ul>
+				</li>
 				
 				<li>
 					<a href="#"><i class="fas fa-envelope"></i>&nbsp;Email</a>
