@@ -34,7 +34,7 @@ class AdminController extends Controller
         return redirect ('admin/dashboard');
       }
       else{
-        
+
         return redirect ('/admin')->with('flash_message_error','Invalid username or Password');
       }
     }
@@ -51,36 +51,34 @@ class AdminController extends Controller
       $data = $request->input();
 
 
-         if($data['action']=="addBrand"){
+      if($data['action']=="addBrand"){
 
-           brand::create([
-    'brandName' => strtolower($data['name']) ,
-    'subCategoryName' => $data['subCategory']
-  ]); 
-          
-          return redirect ('/manageBrand?action=displayBrand');
+       brand::create([
+        'brandName' => strtolower($data['name']) ,
+        'subCategoryName' => $data['subCategory']
+      ]); 
 
-         }
+       return redirect ('/manageBrand?action=displayBrand');
 
-
-
-         if($data['action']=="addModel"){
-
-           modele::create([
-    'modelName' =>strtolower($data['name']) ,
-    'subCategoryName' => $data['subCategory'],
-    'brandName' => $data['brandName'],
-  ]); 
-          
-          return redirect ('/manageBrand?action=displayModel');
-
-         }
+     }
 
 
 
-    }
+     if($data['action']=="addModel"){
+
+       modele::create([
+        'modelName' =>strtolower($data['name']) ,
+        'subCategoryName' => $data['subCategory'],
+        'brandName' => $data['brandName'],
+      ]); 
+
+       return redirect ('/manageBrand?action=displayModel');
+
+     }
 
 
+
+   }
 
 
 
@@ -89,46 +87,48 @@ class AdminController extends Controller
 
 
 
-      if($request->isMethod('get')){
-      $data = $request->input();
 
-       if($data['action']=="displayBrand")
-       {
+
+   if($request->isMethod('get')){
+    $data = $request->input();
+
+    if($data['action']=="displayBrand")
+    {
           // $brands = brand::all()->paginate(10);
 
-             $brands = DB::table('brands')->orderBy("brandName")->paginate(10);
+     $brands = DB::table('brands')->orderBy("brandName")->paginate(10);
 
-           $subCategory = sub_category::all()->sortBy("subCategoryName");
+     $subCategory = sub_category::all()->sortBy("subCategoryName");
 
-           return view('manage_brands')->with("brands",$brands)->with("subCategory",$subCategory);
+     return view('manage_brands')->with("brands",$brands)->with("subCategory",$subCategory);
 
 
-       }
+   }
 
-       if($data['action']=="displayModel")
-       {
+   if($data['action']=="displayModel")
+   {
           // $models = modele::all()->paginate(10);
 
-            $models = DB::table('modeles')->orderBy("modelName")->paginate(10);
+    $models = DB::table('modeles')->orderBy("modelName")->paginate(10);
 
-           $subCategory = sub_category::all()->sortBy("subCategoryName");
-           $brands = brand::all()->sortBy("brandName");
-
-
-           return view('manage_models')->with("brands",$brands)->with("subCategory",$subCategory)->with("models",$models);
+    $subCategory = sub_category::all()->sortBy("subCategoryName");
+    $brands = brand::all()->sortBy("brandName");
 
 
-       }
-
-
-      
-    }
-    
-    
-
+    return view('manage_models')->with("brands",$brands)->with("subCategory",$subCategory)->with("models",$models);
 
 
   }
+
+
+
+}
+
+
+
+
+
+}
 
 
   //end manage brand
@@ -137,102 +137,131 @@ class AdminController extends Controller
 
 
 
-  public function userLogin(Request $request){
-    if($request->isMethod('post')){
-      $data = $request->input();
-      if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password'],'isBlocked'=>'0']))
-      {
-        return view ('clients.myAccount');
-      }
-      else{
-        return redirect ('/userLogin')->with('flash_message_error','Invalid username or Password');
-      }
+public function userLogin(Request $request){
+  if($request->isMethod('post')){
+    $data = $request->input();
+    if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password'],'isBlocked'=>'0']))
+    {
+      return view ('clients.myAccount');
     }
-    
-    return view('clients.userLogin');
-  }
-
-
-
-
-
-
-  public function register(){
-    return ('helloow aly');
-  }
-
-
-  public function updatePassword(Request $request){
-    if($request->isMethod('post')){
-      $data = $request->all();
-      $currentUser = User::where(['email'=>Auth::user()->email])->first();
-      $currentPassword = $data['current'];
-      
-
-      if($data['password1']!== $data['password2'])
-      {
-        return redirect ('/admin/admin_change_password')->with('flash_unmatched_error','password 1 and password 2  did not match');
-      }
-
-      if(Hash::check($currentPassword,$currentUser->password))
-      {
-        $password = Hash::make( $data['password2']);
-        User::where(['email'=>Auth::user()->email])->update(['password'=>$password]);
-        return redirect ('/admin/admin_change_password')->with('flash_success_message','your password was succesfully updated');
-        
-      }
-      else
-      {
-        return redirect ('/admin/admin_change_password')->with('flash_failure_error','the  password was not updated please verify your current password ');
-      }
-      
-      
-      
-      
+    else{
+      return redirect ('/userLogin')->with('flash_message_error','Invalid username or Password');
     }
-    
-    return view('admin_change_password');
   }
 
+  return view('clients.userLogin');
+}
 
-  public function dashboard(){
-    return view('admin.dashboard');
+
+
+
+
+
+public function register(){
+  return ('helloow aly');
+}
+
+
+public function updatePassword(Request $request){
+  if($request->isMethod('post')){
+    $data = $request->all();
+    $currentUser = User::where(['email'=>Auth::user()->email])->first();
+    $currentPassword = $data['current'];
+
+
+    if($data['password1']!== $data['password2'])
+    {
+      return redirect ('/admin/admin_change_password')->with('flash_unmatched_error','password 1 and password 2  did not match');
+    }
+
+    if(Hash::check($currentPassword,$currentUser->password))
+    {
+      $password = Hash::make( $data['password2']);
+      User::where(['email'=>Auth::user()->email])->update(['password'=>$password]);
+      return redirect ('/admin/admin_change_password')->with('flash_success_message','your password was succesfully updated');
+
+    }
+    else
+    {
+      return redirect ('/admin/admin_change_password')->with('flash_failure_error','the  password was not updated please verify your current password ');
+    }
+
+
+
+
   }
 
+  return view('admin_change_password');
+}
+
+
+public function dashboard(){
+  return view('admin.dashboard');
+}
 
 
 
-  public function manageUsers(){
-   $userInfos = User::all();
-   
 
-   return view('admin_manage_users')->with("userInfo",$userInfos);
+public function manageUsers(){
+ $userInfos = User::all();
 
- }
- public function manageAds(){
-   $userInfos = User::all();
-   
-   $regions = region::all();
-   $category = category::all();
-   $ads = ads::all();
-   return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
 
- }
+ return view('admin_manage_users')->with("userInfo",$userInfos);
 
- public function inactivatedAds(){
+}
+public function manageAds(){
+ $userInfos = User::all();
+
+ $regions = region::all();
+ $category = category::all();
+ $ads = DB::table('ads')->paginate(10);
+
+   //$ads = ads::all();
+ $inactivatedCount = ads::where("isValidate","=","0")->get();
+ $activatedCount = ads::where("isValidate","=","1")->get();
+ $isBlockedCount = ads::where("isBlocked","=","1")->get();
+   //$allAdsCount = $ads->count();
+
+ return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads)
+ ->with("inactivatedCount",$inactivatedCount->count())
+ ->with("isBlockedCount",$isBlockedCount->count())
+ ->with("activatedCount",$activatedCount->count());
+
+
+
+}
+
+public function inactivatedAds(){
   $regions = region::all();
   $category = category::all();
+  $ads = DB::table('ads')->where("isValidate","=","0")->paginate(10);
 
-  $ads= ads::where("isValidate",'0')->get();
-  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
+  $inactivatedCount = ads::where("isValidate","=","0")->get();
+  $activatedCount = ads::where("isValidate","=","1")->get();
+  $isBlockedCount = ads::where("isBlocked","=","1")->get();
+
+  //$ads= ads::where("isValidate",'0')->get();
+  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads)
+  ->with("inactivatedCount",$inactivatedCount->count())
+  ->with("isBlockedCount",$isBlockedCount->count())
+  ->with("activatedCount",$activatedCount->count());
 
 }
 public function activatedAds(){
 
   $regions = region::all();
   $category = category::all();
-  $ads= ads::where("isValidate",'1')->get();
-  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
+  $inactivatedCount = ads::where("isValidate","=","0")->get();
+  $activatedCount = ads::where("isValidate","=","1")->get();
+  $isBlockedCount = ads::where("isBlocked","=","1")->get();
+
+  $ads = DB::table('ads')->where("isValidate",'1')->paginate(10);
+
+  //$ads= ads::where("isValidate",'1')->get();
+  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads)
+  ->with("inactivatedCount",$inactivatedCount->count())
+  ->with("isBlockedCount",$isBlockedCount->count())
+  ->with("activatedCount",$activatedCount->count());
 
 
   
@@ -240,8 +269,17 @@ public function activatedAds(){
 public function blockedAds(){
   $regions = region::all();
   $category = category::all();
-  $ads= ads::where("isBlocked",'1')->get();
-  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
+  $inactivatedCount = ads::where("isValidate","=","0")->get();
+  $activatedCount = ads::where("isValidate","=","1")->get();
+  $isBlockedCount = ads::where("isBlocked","=","1")->get();
+
+  $ads = DB::table('ads')->where("isBlocked",'1')->paginate(10);
+
+  //$ads= ads::where("isBlocked",'1')->get();
+  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads)
+  ->with("inactivatedCount",$inactivatedCount->count())
+  ->with("isBlockedCount",$isBlockedCount->count())
+  ->with("activatedCount",$activatedCount->count());
 
   
 }
@@ -254,29 +292,21 @@ public function blockedAds(){
 public function editAd(Request $request){ 
   if($request->isMethod('get')){
 
-           //$data = $request->input();
-   $regions = region::all();   
+  // $regions = region::all();   
    $category = category::all();
-   $size = size::all();
+   //$size = size::all();
    $ads = ads::find($request->get("id"));
-         //$request->get("subCategoryName")
-            //  dd($data['category']);
-   $brand= brand::where("subCategoryName",$request->get("subCategoryName"))->get();
+
+   //$brand= brand::where("subCategoryName",$request->get("subCategoryName"))->get();
 
    
 
-   return view('edit_Ad')->with("category",$category)
-   ->with("region",$regions)
-   ->with("size",$size) 
-   ->with("brand",$brand)
-   ->with("ads",$ads);
+   return view('edit_Ad')->with("category",$category)->with("ads",$ads);
  }
 
  if($request->isMethod('post')){
 
-   $phone1 = null;
-   $phone2 = null;
-   $phone3 = null;
+  
    
    $data = $request->input();
    
@@ -286,53 +316,22 @@ public function editAd(Request $request){
    $ad->buyNow = $request->get('buyNow');
    $ad->subCategoryName = $data['subCategoryName'];
    $ad->categoryName = $data['category'];
-   $ad->regionName= $data['RegionName'];
-   $ad->cityName = $data['cityName'];
-   $ad->address = $data['address'];
-   $ad->categoryName = $data['category'];
-   $ad->subCategoryName = $data['subCategoryName'];
-   $ad->phone1 = $data['phone1'];
-   $ad->phone2 = $phone2;
-   $ad->phone3 = $phone3;
-   
-
-   $ad->title = $data['title'];
-   $ad->description = $data['description'];
-
-   
-
-   if($data['category'] == 'Electronic' || $data['category'] =='Mobile Phones' )
-   {
-    $ad->brand = $data['brandName'];
-
-    $ad->model = $data['modelName'];
-  }
   
-  if($data['category'] == 'Fashion and Clothing')
-  {
-    $ad->size = $data['size'];
-  }
+
 
   $ad->isBlocked = $data['isBlocked'];
   $ad->isValidate = $data['isValidate'];
-  $ad->isUsed = $data['isUsed'];
-  $ad->brand = $data['brandName'];
-  $ad->model = $data['modelName']; 
+ 
 
-  if ($data['negociable'] =='1' ) {
-    $ad->negociable = $data['negociable'];
-  }
-
-  
-  $ad->authenticity = $data['authenticity'];
-  $ad->price = $data['price'];              
+             
 
   $ad->save();
 
-  $regions = region::all();
-  $category = category::all();
-  $ads = ads::all();
-  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
+  // $regions = region::all();
+  // $category = category::all();
+  // $ads = ads::all();
+  // return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
+   return redirect('manageAds');
 
 
 
@@ -402,14 +401,14 @@ public function addNewAd(Request $request){
 
    
    if($request->file('file2') != null){
-     
+
     $image = $request->file('file2');
     $new_name2 = rand().'.'.$image->getClientOriginalExtension();
     $image->move(public_path("publication"),$new_name2);
 
   } 
   if($request->file('file3') != null){
-   
+
     $image = $request->file('file3');
     $new_name3 = rand().'.'.$image->getClientOriginalExtension();
     $image->move(public_path("publication"),$new_name3);
@@ -417,7 +416,7 @@ public function addNewAd(Request $request){
   } 
 
   if($request->file('file4') != null){
-   
+
     $image = $request->file('file4');
     $new_name4 = rand().'.'.$image->getClientOriginalExtension();
     $image->move(public_path("publication"),$new_name4);
@@ -425,7 +424,7 @@ public function addNewAd(Request $request){
   } 
 
   if($request->file('file5') != null){
-   
+
     $image = $request->file('file5');
     $new_name5 = rand().'.'.$image->getClientOriginalExtension();
     $image->move(public_path("publication"),$new_name5);
@@ -433,7 +432,7 @@ public function addNewAd(Request $request){
   } 
   
 
-$cater = strtolower($data['category']);
+  $cater = strtolower($data['category']);
 
 
 
@@ -451,14 +450,14 @@ $cater = strtolower($data['category']);
 
   if(isset($data['phone2'])){
 
-  $ad->phone2 = $data['phone1'];
+    $ad->phone2 = $data['phone1'];
 
 
   }
 
-   if(isset($data['phone3'])){
+  if(isset($data['phone3'])){
 
-  $ad->phone3 = $data['phone3'];
+    $ad->phone3 = $data['phone3'];
 
 
   }
@@ -535,7 +534,7 @@ public function updateUsers(Request $request){
 
 
 public function manageSubCategory(Request $request){
- 
+
 
   $sub = DB::table('sub_categories')->paginate(10);
 
@@ -546,7 +545,7 @@ public function manageSubCategory(Request $request){
 
 public function addSubCategory(Request $request){
 
- 
+
   $data = $request->input(); 
 
   $_name = strtolower($data['name']);
@@ -559,7 +558,7 @@ public function addSubCategory(Request $request){
     'category' => $_categoryName,
     'description' => $_description
   ]); 
- 
+
   $sub = DB::table('sub_categories')->paginate(10);
   $cat = category::all()->sortBy("categoryName");
   return view('manage_sub_category')->with("sub_category",$sub)->with("category",$cat);
@@ -576,8 +575,8 @@ public function updateSubCategory(Request $request){
 
 
  $sub = DB::table('sub_categories')->paginate(10);
-  $cat = category::all()->sortBy("categoryName");
-  return view('manage_sub_category')->with("sub_category",$sub)->with("category",$cat);
+ $cat = category::all()->sortBy("categoryName");
+ return view('manage_sub_category')->with("sub_category",$sub)->with("category",$cat);
 
 
 }
@@ -604,7 +603,7 @@ public function updateCity(Request $request){
 public function addRegions(Request $request){
 
  $data = $request->input(); 
-$_name = strtolower($data['name']);
+ $_name = strtolower($data['name']);
 
  region::create([
   'regionName' => $_name,
@@ -625,13 +624,13 @@ public function manageCategories(Request $request){
 
  // //$ads = ads::where("userId",Auth::user()->id)->paginate(3);
  // $category = category::all()->paginate(3);
-$category = DB::table('categories')->paginate(6);
+  $category = DB::table('categories')->paginate(6);
 
  //$category = category::all()->sortBy("categoryName")->paginate(6);
- return view('manage_categories')->with("category",$category);
+  return view('manage_categories')->with("category",$category);
 
- 
- 
+
+
 }
 
 public function updateCategory(Request $request){
@@ -643,7 +642,7 @@ public function updateCategory(Request $request){
  $cat->description = strtolower($data['description']);
 
  if($request->file('fileIcon') != null){
-   
+
   $image = $request->file('fileIcon');
   $new_name = rand().'.'.$image->getClientOriginalExtension();
   $image->move(public_path("images"),$new_name);
@@ -666,7 +665,7 @@ return view('manage_categories')->with("category",$category);
 
 public function manageCities(Request $request){
 
-$city = DB::table('cities')->paginate(10);
+  $city = DB::table('cities')->paginate(10);
 
  // $city = city::all()->sortBy("RegionName");
   $regions = region::all()->sortBy("RegionName");
@@ -678,15 +677,15 @@ public function addCity(Request $request){
 
  $data = $request->input(); 
 
-$_name = strtolower($data['name']);
-$_regionName = strtolower($data['regionName']);
+ $_name = strtolower($data['name']);
+ $_regionName = strtolower($data['regionName']);
 
  city::create([
   'cityName' => $_name,
   'RegionName' => $_regionName,
 ]); 
 
-$city = DB::table('cities')->paginate(10);
+ $city = DB::table('cities')->paginate(10);
  $regions = region::all()->sortBy("RegionName");
  return view('manage_cities')->with("city",$city)->with("region",$regions);
  
@@ -707,9 +706,9 @@ public function addCategory(Request $request){
   $new_name = rand().'.'.$image->getClientOriginalExtension();
   $image->move(public_path("images"),$new_name);
 
-$data = $request->input(); 
-$_name = strtolower($data['name']);
-$_description = strtolower($data['description']);
+  $data = $request->input(); 
+  $_name = strtolower($data['name']);
+  $_description = strtolower($data['description']);
   $data = $request->input(); 
   category::create([
     'categoryName' => $_name,
@@ -717,7 +716,7 @@ $_description = strtolower($data['description']);
     'image' => $new_name
   ]); 
 
-$category = DB::table('categories')->paginate(6);
+  $category = DB::table('categories')->paginate(6);
   //$category = category::all()->sortBy("categoryName");
   return view('manage_categories')->with("flash_success_message","new category added succesfully")->with("category",$category);
   

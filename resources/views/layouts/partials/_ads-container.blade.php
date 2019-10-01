@@ -10,15 +10,11 @@
           height="100">
         </div>
         <div class="col-sm-8">
-          <h5><b>{{reduceString($ads->title)}}
-            (@if($ads->isUsed==0)
-            {{"New"}}
-            @else
-            {{"Used"}}
-          @endif)</b></h5>
+          <h5><b>{{reduceString($ads->title)}}...(@if($ads->isUsed==0){{"New"}}@else{{"Used"}}@endif)     
+         </b></h5>
 
           <span>{{$ads->subCategoryName}}</span><br>
-           <span style="color: #7B1FA2;">{{$ads->cityName}}&nbsp;&nbsp;</span><span>{{$ads->address}}</span><br>
+           <span style="color: #7B1FA2;text-transform: capitalize;">{{$ads->cityName}}&nbsp;&nbsp;</span><span style="text-transform: capitalize;">{{$ads->address}}</span><br>
           <span class="price_all_categories">TK {{$ads->price}}</span>
           
         </div>

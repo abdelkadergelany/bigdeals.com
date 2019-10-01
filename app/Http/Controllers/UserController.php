@@ -126,11 +126,11 @@ class UserController extends Controller
         $rat = new  rating;
         $rat->total = $data['val'];
         $rat->voteCount = "1";
-         $rat->userId = $data['ratedUser'];
+        $rat->userId = $data['ratedUser'];
         $rat->average = $data['val'];
         $rat->save(); 
 
-         $output =$output."<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+        $output =$output."<div class='alert alert-warning alert-dismissible fade show' role='alert'>
         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
         <span aria-hidden='true'>&times;</span>
         </button>
@@ -141,22 +141,22 @@ class UserController extends Controller
 
 
       }
-       else{ 
+      else{ 
              // $rating = rating::where("userId",$data['ratedUser'])->get();
              // dd( $rating);
 
-              $totalCount =(float)$rating->total + (float)$data['val'];   
-              $overmark =5* (int)$rating->voteCount; 
-              $average= (5*(int)$totalCount)/ $overmark;
+        $totalCount =(float)$rating->total + (float)$data['val'];   
+        $overmark =5* (int)$rating->voteCount; 
+        $average= (5*(int)$totalCount)/ $overmark;
 
-              $rating->total =$totalCount ;
-              $rating->voteCount = (float)$rating->voteCount + 1 ;
-              $rating->average  = $average;
+        $rating->total =$totalCount ;
+        $rating->voteCount = (float)$rating->voteCount + 1 ;
+        $rating->average  = $average;
 
-                $rating->save();
+        $rating->save();
 
 
-           $output =$output."<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+        $output =$output."<div class='alert alert-warning alert-dismissible fade show' role='alert'>
         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
         <span aria-hidden='true'>&times;</span>
         </button>
@@ -177,6 +177,7 @@ class UserController extends Controller
 
 
   public function addFavorite(Request $request){
+
 
     $data = $request->input();
 
@@ -220,17 +221,49 @@ class UserController extends Controller
   }
 
 
+  public function myfavorite(Request $request){
+
+    $data = $request->input();
+    if($data['action']=='display')
+    {
+     $favorites = DB::table('favorites')->orderBy("created_at","DESC")->get();
 
 
-  public function productDetails(Request $request){
+     return view('clients.myFavorites')->with("favorites", $favorites);
+
+   }
+
+   if($data['action']=='delete')
+   {
+     favorite::destroy($data['id']);
+
+
+     $favorites = DB::table('favorites')->orderBy("created_at","DESC")->get();
+
+     return view('clients.myFavorites')->with("favorites", $favorites);
+
+   }
+
+
+
+
+
+   
+
+
+ }
+
+
+
+ public function productDetails(Request $request){
 
    $data = $request->input();
 
    $ads = ads::find($data['id']);
    $similar = ads::where ("subCategoryName","=",$ads->subCategoryName)
-                    ->where("isValidate","1")
-                    ->where("isBlocked","0")
-                    ->paginate(4);
+   ->where("isValidate","1")
+   ->where("isBlocked","0")
+   ->paginate(4);
 
    return view('clients.product-details')->with("ads",$ads)->with("similar", $similar);
 
@@ -1089,7 +1122,7 @@ public function displayAds(Request $request){
 
   if ($data['action']=='subCat') {
       # code...
-
+     // dd($data['val']);
     $ads = ads::where("subCategoryName","like","%".$data['val']."%")
     ->where("isValidate","1")
     ->where("isBlocked","0")
@@ -1110,7 +1143,7 @@ public function displayAds(Request $request){
     return view('product-view')->with("ad",$ads)->with("action",$data['action'])->with("val",$data['val'])->with("cit",$data['val']);
 
   }
-if ($data['action']=='allAds') {
+  if ($data['action']=='allAds') {
       # code...
    //dd($data['val']);
     $ads = ads::where("isValidate","1")
@@ -1338,6 +1371,7 @@ public function storeAdd(Request $request){
 
  $ad = new ads;
  $ad->buyNow = $request->get('buyNow');
+
  $ad->subCategoryName = $data['subCategoryName'];
  $ad->categoryName = $data['category'];
  $ad->regionName= $data['RegionName'];
@@ -1359,7 +1393,7 @@ if (isset($data['phone3'])) {
 }
 
 
-$ad->title = $data['title'];
+$ad->title = strtolower($data['title']) ;
 $ad->description = $data['description'];
 
 
@@ -1382,7 +1416,11 @@ $ad->isUsed = $data['isUsed'];
   // $ad->brand = $data['brandName'];
   // $ad->model = $data['modelName']; 
 
-if ($data['negociable'] =='1' ) {
+
+
+
+if(isset($data['negociable']))
+{
   $ad->negociable = $data['negociable'];
 }
 
@@ -1396,10 +1434,12 @@ $ad->pict4 = $new_name4;
 $ad->pict5 = $new_name5;
 
 $ad->save();
-$ads= ads::where("userId",'Auth::user()->id')->paginate(3);
+
+  return redirect ('/myadd?action=display');
+// $ads= ads::where("userId",'Auth::user()->id')->paginate(3);
 
 
-return view('clients.myadd')->with("ad",$ads);
+// return view('clients.myadd')->with("ad",$ads);
 
 
 
@@ -1444,9 +1484,64 @@ public function postaddCategory( Request $request ){
 }
 
 public function myadd( Request $request ){
+ $data = $request->input();
+ 
+ if($request->isMethod('get'))
+ {
 
-  $ads = ads::where("userId",Auth::user()->id)->paginate(3); 
-  return view('clients.myadd')->with("ad",$ads);
+
+   if($data['action']=='display')
+   {
+    $ads = ads::where("userId",Auth::user()->id)->orderBy("created_at","DESC")->paginate(7); 
+    return view('clients.myadd')->with("ad",$ads);
+
+  }
+
+
+  if($data['action']=='delete')
+  {
+    ads::destroy($data['id']);
+    return redirect ('/myadd?action=display');
+
+
+  }
+
+
+  if($data['action']=='edit')
+  {
+
+   $ads = ads::find($data['id']);
+
+   
+   $regions = DB::table('regions')->get();
+
+
+   return view ('clients.editAd')->with("ads",$ads)->with("region",$regions);
+
+
+ }
+}
+
+if($request->isMethod('post')){
+ $data = $request->input();
+
+ $ad = ads::find($request->get('id'));
+
+ $ad->regionName= $data['RegionName'];
+ $ad->cityName = $data['cityName'];
+ $ad->address = $data['address'];
+ $ad->phone1 = $data['phone1'];
+ $ad->title = strtolower($data['title']) ;
+ $ad->description = $data['description'];
+ $ad->price = $data['price'];              
+    $ad->save();
+
+      return redirect ('/myadd?action=display');
+
+}
+
+
+
 }
 public function homePage( Request $request ){
 

@@ -97,7 +97,7 @@
              <select id="subCategoryName" class=" form-control" 
              data-hide-disabled="false" data-live-search="true" required
              name="subCategoryName" >
-             <option selected  value={{$subCatval}}>{{$subCatval}}</option>
+             <option selected  value="{{$subCatval}}">{{$subCatval}}</option>
            </select>
          </div>{{ csrf_field() }}
 
@@ -141,7 +141,7 @@
      </select>
    </div>{{ csrf_field() }}
    @endif
-   @if($catval == 'Fashion and Clothing')
+   @if($catval == 'fashion and clothing')
 
    <div class="form-group">
      <label for="size"><b>Size</b>: </label>
@@ -172,7 +172,7 @@
  <div class="form-group">
    <label for="price"><b>Price (Tk)</b>: </label>
    <input class="form-control " required type="number" min="0" id="price" name="price"><br>&nbsp;&nbsp;
-   <input type="checkbox" required name="negociable" value="1" ><b>&nbsp;Negociable</b>
+   <input type="checkbox"  name="negociable" value="1" ><b>&nbsp;Negociable</b>
  </div>
 
  </fieldset > 

@@ -108,13 +108,12 @@ Route:: group (['middleware'=>['clients']],function(){
 
 	Route::get('/loadMessage', 'ChatController@loadMessage')->name('loadMessage');
 
-	Route:: get ('/myadd','UserController@myadd')->name('myadd');
+	//Route:: get ('/myadd','UserController@myadd')->name('myadd');
+
+Route:: match (['get','post'],'/myadd','UserController@myadd')->name("myadd");
 
 
-
-	Route::get('/myfavorite', function () {
-		return view('clients.myfavorite');
-	})->name('myfavorite');
+	Route::get('/myfavorite','UserController@myfavorite')->name('myfavorite');
 
 
 

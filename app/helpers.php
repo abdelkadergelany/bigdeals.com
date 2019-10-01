@@ -21,6 +21,22 @@ if(!function_exists('returnEmail')){
 }
 
 
+
+if(!function_exists('getAds')){
+
+  function getAds($id)
+  {
+   $ads = ads::where("id","=",$id)->get();
+   //dd($ads);
+   return $ads;
+ }
+
+}
+
+
+
+
+
 if(!function_exists('getOutput')){
 
   function getOutput($add)
@@ -117,7 +133,7 @@ if(!function_exists('reduceString')){
 
   function reduceString($val)
   {
-   $value = str_limit($val, 40);
+   $value = str_limit($val, 70);
    return  $value;
  }
 

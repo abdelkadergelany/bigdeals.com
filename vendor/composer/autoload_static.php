@@ -403,6 +403,7 @@ class ComposerStaticInit4fda040a71fd403457df7465aac19029
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Events\\newMessage' => __DIR__ . '/../..' . '/app/Events/newMessage.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -438,7 +439,9 @@ class ComposerStaticInit4fda040a71fd403457df7465aac19029
         'App\\chat' => __DIR__ . '/../..' . '/app/chat.php',
         'App\\city' => __DIR__ . '/../..' . '/app/city.php',
         'App\\conversations' => __DIR__ . '/../..' . '/app/conversations.php',
+        'App\\favorite' => __DIR__ . '/../..' . '/app/favorite.php',
         'App\\modele' => __DIR__ . '/../..' . '/app/modele.php',
+        'App\\rating' => __DIR__ . '/../..' . '/app/rating.php',
         'App\\region' => __DIR__ . '/../..' . '/app/region.php',
         'App\\size' => __DIR__ . '/../..' . '/app/size.php',
         'App\\sub_category' => __DIR__ . '/../..' . '/app/sub_category.php',

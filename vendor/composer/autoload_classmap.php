@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
+    'App\\Events\\newMessage' => $baseDir . '/app/Events/newMessage.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\AdminController' => $baseDir . '/app/Http/Controllers/AdminController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -42,7 +43,9 @@ return array(
     'App\\chat' => $baseDir . '/app/chat.php',
     'App\\city' => $baseDir . '/app/city.php',
     'App\\conversations' => $baseDir . '/app/conversations.php',
+    'App\\favorite' => $baseDir . '/app/favorite.php',
     'App\\modele' => $baseDir . '/app/modele.php',
+    'App\\rating' => $baseDir . '/app/rating.php',
     'App\\region' => $baseDir . '/app/region.php',
     'App\\size' => $baseDir . '/app/size.php',
     'App\\sub_category' => $baseDir . '/app/sub_category.php',

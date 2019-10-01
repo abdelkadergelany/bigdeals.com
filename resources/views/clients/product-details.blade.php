@@ -93,7 +93,7 @@
       <div class="col-md-4"><br><br><br><br>
         <hr>
 
-        <span class="tag_price_product">{{$ads->price}} tk </span>
+        <span class="tag_price_product"><b>{{$ads->price}}</b> tk </span>
         <span><em>
          @if($ads->negociable =="1")
          <span class="alert-dark">Negociable</span> 

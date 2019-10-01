@@ -16,14 +16,14 @@
             <div class="row">
                      <span><b>List of Ads</b></span>
 
-                      <button style="position: relative;margin-right: 15px; margin-left: 15%;" class="btn btn-success btn-sm" data-title="Add" data-toggle="modal" data-target="#add" ><i class="fas fa-plus-circle"></i>Post new Ads<div class="spinner-grow text-primary"></div></button><br><br>
+                      <button style="position: relative;margin-right: 15px; margin-left: 15%;" class="btn btn-success btn-sm" data-title="Add" data-toggle="modal" data-target="#add" ><i class="fas fa-plus-circle"></i>Post new Ads ({{$ads->count()}})<div class="spinner-grow text-primary"></div></button><br><br>
 
-                      <a href="{{route('inactivatedAds')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-info btn-sm"   >inactivated Ads<div class="spinner-grow text-primary"></div></button></a><br><br>
+                      <a href="{{route('inactivatedAds')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-info btn-sm"   >inactivated Ads ({{$inactivatedCount}})<div class="spinner-grow text-primary"></div></button></a><br><br>
                       
-                       <a href="{{route('activatedAds')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-primary btn-sm" data-title="Add" data-toggle="modal"  >Activated Ads<div class="spinner-grow text-primary"></div></button></a><br><br>
+                       <a href="{{route('activatedAds')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-primary btn-sm" data-title="Add" data-toggle="modal"  >Activated Ads ({{$activatedCount}})<div class="spinner-grow text-primary"></div></button></a><br><br>
 
 
-                      <a href="{{route('blockedAds')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-danger btn-sm"   >Blocked Ads<div class="spinner-grow text-primary"></div></button></a><br><br>
+                      <a href="{{route('blockedAds')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-danger btn-sm"   >Blocked Ads ({{$isBlockedCount}})<div class="spinner-grow text-primary"></div></button></a><br><br>
 
                       
                     </div><br><br><hr>
@@ -49,7 +49,6 @@
                               <th>Subcategory</th>
                               
                               <th>Title</th>
-                              <th>Description</th>
                               <th>ads images</th>
                               
                               <th>View</th>
@@ -71,13 +70,12 @@
                                  <td>{{"$ad->subCategoryName"}}</td>                                                                  
                                                                                                  
                                  <td>{{"$ad->title"}}</td>
-                                 <td>{{"$ad->description"}}</td>
 
                                  <td>
                                   <img src="publication/{{$ad->pict1}}" width="100px" height="100px" style="display: inline!important;" />
                                   </td>
                                  <td>
-                                    <a href="{{route('editAd')}}?id={{$ad->id}}&category='{{$ad->categoryName}}'&subCategoryName='{{$ad->subCategoryName}}'"><p data-placement="top" data-toggle="tooltip" title="view">
+                                    <a href="{{route('product-details')}}?id={{$ad->id}}"><p data-placement="top" data-toggle="tooltip" title="view">
                                       <button class="btn btn-primary btn-xs " data-title="Edit"   >
                                         <i class="fas fa-eye"></i></button></p></a>
                                  </td>
@@ -95,7 +93,11 @@
                               </tr>
                               @endforeach
                            </tbody>
+
+
                         </table>
+
+                         {{ $ads->links() }}
                         <div class="clearfix"></div>
                      </div>
                   </div>

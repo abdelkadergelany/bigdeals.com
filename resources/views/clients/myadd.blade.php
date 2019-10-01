@@ -18,20 +18,21 @@
          @include('layouts/partials/_client_Ui_leftNavbar')
          <div  class="col-md-2"></div>
 
-         <div class="col-lg-5 col-md-5" style="background-color: white;">
+         <div class="col-lg-7 col-md-7" style="background-color: white; text-transform: capitalize;">
             <h5 style="padding: 3px"> {{Auth::user()->name}}</h5><hr>
 
 
 
                               @foreach($ad as $ads)
                                <div class="m-0">
-                <button  class="btn myadd-btn btn-primary btn-sm" type="button"  >View</button> 
-                <button  class="btn myadd-btn btn-primary btn-sm" type="button"  >Update</button> 
-                <button  class="btn myadd-btn btn-primary btn-sm" type="button"  >Sold Out</button> 
-                <button  class="btn myadd-btn btn-primary btn-sm" type="button"  >Delete</button> 
+                <a href="{{route('product-details')}}?id={{$ads->id}}"><button  class="btn myadd-btn btn-primary btn-sm" type="button"  >View</button> </a>
+                <a href="{{route('myadd')}}?action=edit&id={{$ads->id}}"><button  class="btn myadd-btn btn-primary btn-sm" type="button"  >Edit</button> </a>
+                <!-- <button  class="btn myadd-btn btn-primary btn-sm" type="button"  >Sold Out</button>  -->
+               <a href="{{route('myadd')}}?action=delete&id={{$ads->id}}"> <button  class="btn myadd-btn btn-primary btn-sm" type="button"  >Delete
+               </button></a> 
                                    </div>
 
-                            <a href="#" class="border_all_categories">
+                            <a href="{{route('product-details')}}?id={{$ads->id}}" class="border_all_categories">
                                 <div class="row">
                                     <div class="col-md-3">
                                         <img src="publication/{{$ads->pict1}}" class="img-thumbnail" alt="images" width="100"
@@ -56,7 +57,9 @@
 
                              @endforeach
 
-           {{ $ad->links() }}
+          
+
+            {{ $ad->appends(['action' => "display"])->links() }}
 
 
 
