@@ -93,6 +93,7 @@
       <div class="col-md-4"><br><br><br><br>
         <hr>
 
+
         <span class="tag_price_product"><b>{{$ads->price}}</b> tk </span>
         <span><em>
          @if($ads->negociable =="1")
@@ -139,123 +140,130 @@
       <span><b>Address:</b> </span>
       <span>{{$ads->address}}</span>
       <hr>
-       @auth
+      @auth
       <div class="like_button">
         <!--  <i class="i_like_button"></i> -->
         <a href="{{ route('addFavorite')}}?id={{$ads->id}}" id="submitFavorite">
          <!--  <i style="color: red;" class="fas fa-heart"></i> -->
-        <img src="img/coeur.png" alt="add as favorite" width="20px"  height="20px">
-          <span>Save ad as Favorite</span>
-        </a>
-      </div><div id="feedback"></div>
+         <img src="img/coeur.png" alt="add as favorite" width="20px"  height="20px">
+         <span>Save ad as Favorite</span>
+       </a>
+     </div><div id="feedback"></div>
+     <hr>
+     <form action="{{ route('rating') }}" method="GET" >
+      <input type="hidden" name="_token" id="token-messageF" value="{{csrf_token()}}"> 
+      <input type="hidden" name="user" id="user" value="{{$ads->userId}}">     
+
+      <div class="rate">
+        <input type="radio" id="star5" name="rate" value="5" />
+        <label for="star5" title="text">5 stars</label>
+        <input type="radio" id="star4" name="rate" value="4" />
+        <label for="star4" title="text">4 stars</label>
+        <input type="radio" id="star3" name="rate" value="3" />
+        <label for="star3" title="text">3 stars</label>
+        <input type="radio" id="star2" name="rate" value="2" />
+        <label for="star2" title="text">2 stars</label>
+        <input type="radio" id="star1" name="rate" value="1" />
+        <label for="star1" title="text">1 star</label> 
+      </div> <button type="submit" class="btn-sm alert-info" id="rating">Rate</button>
+    </form><div id="feedRating"></div><hr>
+    @endauth
+    <br>
+
+    @if($ads->phone1 != null)
+    <img src="img/call_product.png" alt="call_product" width="15%" style="clear: both;">
+    <span><b>{{$ads->phone1}}</b></span>
+    @endif
+    @if($ads->phone2 != null)
+    <img src="img/call_product.png" alt="call_product" width="15%" style="clear: both;">
+    <span><b>{{$ads->phone2}}</b></span>
+    @endif
+    @if($ads->phone3 != null)
+    <img src="img/call_product.png" alt="call_product" width="15%" style="clear: both;">
+    <span><b>{{$ads->phon3}}</b></span>
+    @endif
+
+
+    <hr>
+    <a class="fa_product" data-title="Add" data-toggle="modal" data-target="#add" > <img src="img/Chat_product.png" alt="Chat_product"
+      width="15%"><span><b>Chat</b></span></a>
+
+
+      <!--   <button  class="btn btn-success btn-sm" data-title="Add" data-toggle="modal" data-target="#add" ><i class="fas fa-plus-circle"></i>Post new Ads<div class="spinner-grow text-primary"></div></button> -->
+
+
       <hr>
-      <form action="{{ route('rating') }}" method="GET" >
-        <input type="hidden" name="_token" id="token-messageF" value="{{csrf_token()}}"> 
-        <input type="hidden" name="user" id="user" value="{{$ads->userId}}">     
-    
-        <div class="rate">
-          <input type="radio" id="star5" name="rate" value="5" />
-          <label for="star5" title="text">5 stars</label>
-          <input type="radio" id="star4" name="rate" value="4" />
-          <label for="star4" title="text">4 stars</label>
-          <input type="radio" id="star3" name="rate" value="3" />
-          <label for="star3" title="text">3 stars</label>
-          <input type="radio" id="star2" name="rate" value="2" />
-          <label for="star2" title="text">2 stars</label>
-          <input type="radio" id="star1" name="rate" value="1" />
-          <label for="star1" title="text">1 star</label> 
-        </div> <button type="submit" class="btn-sm alert-info" id="rating">Rate</button>
-      </form><div id="feedRating"></div>
-       @endauth
-      <br><hr>
-
-      @if($ads->phone1 != null)
-      <img src="img/call_product.png" alt="call_product" width="15%" style="clear: both;">
-      <span><b>{{$ads->phone1}}</b></span>
-      @endif
-      @if($ads->phone2 != null)
-      <img src="img/call_product.png" alt="call_product" width="15%" style="clear: both;">
-      <span><b>{{$ads->phone2}}</b></span>
-      @endif
-      @if($ads->phone3 != null)
-      <img src="img/call_product.png" alt="call_product" width="15%" style="clear: both;">
-      <span><b>{{$ads->phon3}}</b></span>
-      @endif
-
-
-      <hr>
-      <a class="fa_product" data-title="Add" data-toggle="modal" data-target="#add" > <img src="img/Chat_product.png" alt="Chat_product"
-        width="15%"><span><b>Chat</b></span></a>
-
-
-       <!--   <button  class="btn btn-success btn-sm" data-title="Add" data-toggle="modal" data-target="#add" ><i class="fas fa-plus-circle"></i>Post new Ads<div class="spinner-grow text-primary"></div></button> -->
-
-        
-        <hr>
-        <a class="fa_product" href="#"> <img src="img/facebook_product.jpg" alt="facebook_product"
+      <a class="fa_product" href="#"> <img src="img/facebook_product.jpg" alt="facebook_product"
+        width="20%"></a>
+        <a class="fa_product" href="#"> <img src="img/twitter_product.jpg" alt="twitter_product"
           width="20%"></a>
-          <a class="fa_product" href="#"> <img src="img/twitter_product.jpg" alt="twitter_product"
-            width="20%"></a>
-            <hr><br><br><br>
+          <hr><br><br><br>
 
 
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+   <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="{{route('startConversation')}}?recever={{$ads->userId}}">
+        @csrf
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+          <h4 class="modal-title text-left" >start Conversation with the seller</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="message"><b>message</b>: </label><br>
+            <textarea class=" form-control" autofocus required="true" cols="30" rows="5" name="message"></textarea>
           </div>
 
 
         </div>
-      </div>
-    </div>
+        <div class="modal-footer ">
+          <input type="submit" class="btn btn-warning btn-lg" style="width: 100%;" value="Send"><span class="glyphicon glyphicon-ok-sign" ></span> 
+        </div>
+      </form>
+    </div> 
+  </div>
 
-  <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-               <div class="modal-dialog">
-                  <div class="modal-content">
-                    <form method="post" action="{{route('startConversation')}}?recever={{$ads->userId}}">
-                        @csrf
-                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                        <h4 class="modal-title text-left" >start Conversation with the seller</h4>
-                     </div>
-                     <div class="modal-body">
-                          <div class="form-group">
-                              <label for="message"><b>message</b>: </label><br>
-                              <textarea class=" form-control" autofocus required="true" cols="30" rows="5" name="message"></textarea>
-                        </div>
+</div>
+<br>
+<div class="container">
+  <div class="row">
+  <b> Saler Rating:</b>&nbsp;&nbsp;&nbsp; {!!showRating($userRate)!!}
 
-                      
-                     </div>
-                     <div class="modal-footer ">
-                        <input type="submit" class="btn btn-warning btn-lg" style="width: 100%;" value="Send"><span class="glyphicon glyphicon-ok-sign" ></span> 
-                     </div>
-                     </form>
-                  </div> 
-               </div>
-             
-            </div>
+</div>
+</div>
 
 
 
 <br>
-    <div class="card">
-      <div class="card-body">
-       <h4><b>Similar Product</b></h4><hr>
-       <div class="row">
+<div class="card">
+  <div class="card-body">
+   <h4><b>Similar Product</b></h4><hr>
+   <div class="row">
 
 
-          @forelse ($similar as $sim)
-        <div class="col-md-3">
-         <a style="text-decoration: none;" href="{{route('product-details')}}?id={{$sim->id}}"><img src="publication/{{$sim->pict1}}" class="mx-auto d-block" width="100%" height="200px"> 
-           <h4 style="text-align: center;">{{reduceString($sim->title)}}</h4></a>
-           <p class="price_similar_product" style="text-align: center;">TK {{$sim->price}}</p>
-         </div>
-         @empty
-         <div class="alert alert-danger " role="alert">No similar ads found</div>
-
-         @endforelse
-    
-
-       </div>
+    @forelse ($similar as $sim)
+    <div class="col-md-3">
+     <a style="text-decoration: none;" href="{{route('product-details')}}?id={{$sim->id}}"><img src="publication/{{$sim->pict1}}" class="mx-auto d-block" width="100%" height="200px"> 
+       <h4 style="text-align: center;">{{reduceString($sim->title)}}</h4></a>
+       <p class="price_similar_product" style="text-align: center;">TK {{$sim->price}}</p>
      </div>
+     @empty
+     <div class="alert alert-danger " role="alert">No similar ads found</div>
+
+     @endforelse
+
+
    </div>
+ </div>
+</div>
 <br><br>
 
 
@@ -263,11 +271,11 @@
 
 
 
- </div>
+</div>
 
 
- <!-- mon produit fin -->
- <script type="text/javascript">
+<!-- mon produit fin -->
+<script type="text/javascript">
 
 
   //  <!-- mon produit debut javascript -->
@@ -293,55 +301,55 @@
     var i;
     var slides = document.getElementsByClassName("mySlides_produit");
     var dots = document.getElementsByClassName("demo_produit");
-           if (n > slides.length) { slideIndex = 1 }
-            if (n < 1) { slideIndex = slides.length }
-              for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-              }
-              for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-              }
-              slides[slideIndex - 1].style.display = "block";
-              dots[slideIndex - 1].className += " active";
-         }
+    if (n > slides.length) { slideIndex = 1 }
+      if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+      }
 
         //  <!-- mon produit fin javascript -->
 
 
          //start of favorite ajax
 
-        $('#submitFavorite').click(function(e){
-         e.preventDefault();
+         $('#submitFavorite').click(function(e){
+           e.preventDefault();
 
-         var  href = $(this).attr("href");
+           var  href = $(this).attr("href");
 
-         $.ajax({
-          url:href,
-          method:"GET",
-          data:{},
-          success:function(result)
-          {
+           $.ajax({
+            url:href,
+            method:"GET",
+            data:{},
+            success:function(result)
+            {
 
-            $('#feedback').html(result);
+              $('#feedback').html(result);
 
 
-          }
+            }
 
-        })
+          })
 
-       });
+         });
       //end of favorite ajax
 
       //start of rating ajax
 
-    $('#rating').click(function(e){
+      $('#rating').click(function(e){
          //
-          e.preventDefault();
+         e.preventDefault();
          var rated = $('#user').val();
-          var _token = $('input[name="_token"]').val();
+         var _token = $('input[name="_token"]').val();
          var val = $("input[name='rate']:checked").val();
 
-          
+
 
          $.ajax({
           url:"/rating",
@@ -362,10 +370,10 @@
       //end of rating ajax
 
 
-        
 
-     </script>
-     @stop
+
+    </script>
+    @stop
 
 
 

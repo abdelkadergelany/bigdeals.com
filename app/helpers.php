@@ -20,6 +20,81 @@ if(!function_exists('returnEmail')){
 
 }
 
+if(!function_exists('showRating')){
+
+  function showRating($rate)
+  {   
+   $output= "";
+   if($rate ==1){
+
+     $output = "<span style='color: orange;' class='fa fa-star checked'></span><span class='fa fa-star checked'></span><span class='fa fa-star checked'></span><span class='fa fa-star checked'></span><span class='fa fa-star checked'></span>";
+
+   }
+   if($rate ==2){
+
+     $output = "<span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><span class='fa fa-star checked'></span><span class='fa fa-star checked'></span><span class='fa fa-star checked'></span>";
+
+   }
+   if($rate ==3){
+
+     $output = "<span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><span class='fa fa-star checked'></span><span class='fa fa-star checked'></span>";
+
+   }
+
+   if($rate ==4){
+
+     $output = "<span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><span class='fa fa-star checked'></span>";
+
+   }
+
+   if($rate ==5){
+
+     $output = "<span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span>";
+
+   }
+
+   if($rate > 1 && $rate < 2){
+
+     $output = "<span style='color: orange;' class='fa fa-star checked'></span><i class='fas fa-star-half-alt' style='color: orange'></i><span class='fa fa-star checked'></span><span class='fa fa-star checked'></span><span class='fa fa-star checked'></span>";
+
+   }
+
+   if($rate > 2 && $rate<3){
+
+     $output = "<span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><i class='fas fa-star-half-alt' style='color: orange'></i><span class='fa fa-star checked'></span><span class='fa fa-star checked'></span>";
+
+   }
+   if($rate >3 && $rate <4){
+
+     $output = "<span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><i class='fas fa-star-half-alt' style='color: orange'></i><span class='fa fa-star checked'></span>";
+
+   }
+
+   if($rate >4 && $rate <5){
+
+     $output = "<div><span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><span style='color: orange;' class='fa fa-star checked'></span><i class='fas fa-star-half-alt' style='color: orange'></i></div>";
+
+   }
+
+
+   if($rate==0){
+    $output =" "."<b>Saler Not Rated Yet</b>";
+
+  }
+  else {
+   $output = $output." &nbsp;&nbsp;&nbsp;&nbsp;<b> ".number_format($rate,2)."/5</b>";
+
+ }
+
+
+ return $output;
+
+
+
+}
+
+}
+
 
 
 if(!function_exists('getAds')){
@@ -51,7 +126,7 @@ if(!function_exists('getOutput')){
       $date = $ads->created_at->diffForHumans();
       if($ads->isUsed=="1")
       {
-        
+
         $condition ="Used";
 
       }

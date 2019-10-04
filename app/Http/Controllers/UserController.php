@@ -259,13 +259,34 @@ class UserController extends Controller
 
    $data = $request->input();
 
+
+
    $ads = ads::find($data['id']);
    $similar = ads::where ("subCategoryName","=",$ads->subCategoryName)
    ->where("isValidate","1")
    ->where("isBlocked","0")
    ->paginate(4);
+           
 
-   return view('clients.product-details')->with("ads",$ads)->with("similar", $similar);
+   $rate = DB::table('ratings')->where("userId","=",$ads->userId)->first();
+   
+    
+
+    if($rate ==null)
+    {
+
+       $value = 0;
+
+    }
+    else
+
+    {
+     $value  = $rate->average;
+
+    }
+
+
+  return view('clients.product-details')->with("ads",$ads)->with("similar", $similar)->with("userRate", $value);
 
 
 
@@ -302,7 +323,7 @@ class UserController extends Controller
        ->where("isBlocked","0")
        ->where("isUsed","=","0")
        ->orderBy("created_at","desc")
-       ->paginate(2);
+       ->paginate(10);
        $output = getOutput($ad);
        $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
 
@@ -319,7 +340,7 @@ class UserController extends Controller
       ->where("isBlocked","0")
       ->where("isUsed","=","0")
       ->orderBy("created_at","desc")
-      ->paginate(2);
+      ->paginate(10);
       $output = getOutput($ad);
       $output = $output.$ad->appends(['city' => "",'subCat' =>"",'input' => $data['input']])->links() ;
         //dd($ad);
@@ -335,7 +356,7 @@ class UserController extends Controller
      ->where("isBlocked","0")
      ->where("isUsed","=","0")
      ->orderBy("created_at","desc")
-     ->paginate(2);
+     ->paginate(10);
      $output = getOutput($ad);
      $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' => ""])->links() ;
      return ($output);
@@ -351,7 +372,7 @@ class UserController extends Controller
      ->where("isBlocked","0")
      ->where("isUsed","=","0")
      ->orderBy("created_at","desc")
-     ->paginate(2);
+     ->paginate(10);
      $output = getOutput($ad);
      $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
@@ -368,7 +389,7 @@ class UserController extends Controller
     ->where("isBlocked","0")
     ->where("isUsed","=","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' =>$data['input']])->links() ;
 
@@ -385,7 +406,7 @@ class UserController extends Controller
    ->where("isBlocked","0")
    ->where("isUsed","=","0")
    ->orderBy("created_at","desc")
-   ->paginate(2);
+   ->paginate(10);
    $output = getOutput($ad);
    $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>""])->links() ;
 
@@ -404,7 +425,7 @@ class UserController extends Controller
   ->where("isBlocked","0")
   ->where("isUsed","=","0")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
@@ -426,7 +447,7 @@ if($val=="used")
    ->where("isBlocked","0")
    ->where("isUsed","=","1")
    ->orderBy("created_at","desc")
-   ->paginate(2);
+   ->paginate(10);
    $output = getOutput($ad);
    $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
         //dd($ad);
@@ -443,7 +464,7 @@ if($val=="used")
   ->where("isBlocked","0")
   ->where("isUsed","=","1")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => "",'subCat' =>"",'input' => $data['input']])->links() ;
         //dd($ad);
@@ -459,7 +480,7 @@ if($data['action']=="010")
  ->where("isBlocked","0")
  ->where("isUsed","=","1")
  ->orderBy("created_at","desc")
- ->paginate(2);
+ ->paginate(10);
  $output = getOutput($ad);
  $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' => ""])->links() ;
  return ($output);
@@ -475,7 +496,7 @@ if($data['action']=="011")
  ->where("isBlocked","0")
  ->where("isUsed","=","1")
  ->orderBy("created_at","desc")
- ->paginate(2);
+ ->paginate(10);
  $output = getOutput($ad);
  $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
@@ -492,7 +513,7 @@ if($data['action']=="101")
   ->where("isBlocked","0")
   ->where("isUsed","=","1")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' =>$data['input']])->links() ;
 
@@ -509,7 +530,7 @@ if($data['action']=="110")
  ->where("isBlocked","0")
  ->where("isUsed","=","1")
  ->orderBy("created_at","desc")
- ->paginate(2);
+ ->paginate(10);
  $output = getOutput($ad);
  $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>""])->links() ;
 
@@ -528,7 +549,7 @@ if($data['action']=="111")
   ->where("isBlocked","0")
   ->where("isUsed","=","1")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
@@ -549,7 +570,7 @@ if($val=="both")
     ->where("isValidate","1")
     ->where("isBlocked","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
 
@@ -565,7 +586,7 @@ if($val=="both")
     ->where("isValidate","1")
     ->where("isBlocked","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => "",'subCat' =>"",'input' => $data['input']])->links() ;
 
@@ -582,7 +603,7 @@ if($val=="both")
     ->where("isValidate","1")
     ->where("isBlocked","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' => ""])->links() ;
 
@@ -600,7 +621,7 @@ if($val=="both")
     ->where("title","like","%".$input."%")
     ->where("isBlocked","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
@@ -617,7 +638,7 @@ if($val=="both")
     ->where("title","like","%".$input."%")
     ->where("isBlocked","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' =>$data['input']])->links() ;
 
@@ -634,7 +655,7 @@ if($val=="both")
     ->where("subCategoryName","like","%".$subCat."%")
     ->where("isBlocked","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>""])->links() ;
 
@@ -653,7 +674,7 @@ if($val=="both")
     ->where("title","like","%".$input."%")
     ->where("isBlocked","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
@@ -687,7 +708,7 @@ if($data['type']=="pricing")
      ->where("isBlocked","0")
      ->where("negociable","=","1")
      ->orderBy("created_at","desc")
-     ->paginate(2);
+     ->paginate(10);
      $output = getOutput($ad);
      $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
 
@@ -704,7 +725,7 @@ if($data['type']=="pricing")
     ->where("isBlocked","0")
     ->where("negociable","=","1")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => "",'subCat' =>"",'input' => $data['input']])->links() ;
         //dd($ad);
@@ -720,7 +741,7 @@ if($data['type']=="pricing")
    ->where("isBlocked","0")
    ->where("negociable","=","1")
    ->orderBy("created_at","desc")
-   ->paginate(2);
+   ->paginate(10);
    $output = getOutput($ad);
    $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' => ""])->links() ;
    return ($output);
@@ -736,7 +757,7 @@ if($data['type']=="pricing")
    ->where("isBlocked","0")
    ->where("negociable","=","1")
    ->orderBy("created_at","desc")
-   ->paginate(2);
+   ->paginate(10);
    $output = getOutput($ad);
    $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
@@ -753,7 +774,7 @@ if($data['type']=="pricing")
   ->where("isBlocked","0")
   ->where("negociable","=","1")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' =>$data['input']])->links() ;
 
@@ -770,7 +791,7 @@ if($data['action']=="110")
  ->where("isBlocked","0")
  ->where("negociable","=","1")
  ->orderBy("created_at","desc")
- ->paginate(2);
+ ->paginate(10);
  $output = getOutput($ad);
  $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>""])->links() ;
 
@@ -789,7 +810,7 @@ if($data['action']=="111")
   ->where("isBlocked","0")
   ->where("negociable","=","1")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
@@ -811,7 +832,7 @@ if($val=="fixed")
    ->where("isBlocked","0")
    ->where("negociable","=","0")
    ->orderBy("created_at","desc")
-   ->paginate(2);
+   ->paginate(10);
    $output = getOutput($ad);
    $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
         //dd($ad);
@@ -828,7 +849,7 @@ if($val=="fixed")
   ->where("isBlocked","0")
   ->where("negociable","=","0")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => "",'subCat' =>"",'input' => $data['input']])->links() ;
         //dd($ad);
@@ -844,7 +865,7 @@ if($data['action']=="010")
  ->where("isBlocked","0")
  ->where("negociable","=","0")
  ->orderBy("created_at","desc")
- ->paginate(2);
+ ->paginate(10);
  $output = getOutput($ad);
  $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' => ""])->links() ;
  return ($output);
@@ -860,7 +881,7 @@ if($data['action']=="011")
  ->where("isBlocked","0")
  ->where("negociable","=","0")
  ->orderBy("created_at","desc")
- ->paginate(2);
+ ->paginate(10);
  $output = getOutput($ad);
  $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
@@ -877,7 +898,7 @@ if($data['action']=="101")
   ->where("isBlocked","0")
   ->where("negociable","=","0")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' =>$data['input']])->links() ;
 
@@ -894,7 +915,7 @@ if($data['action']=="110")
  ->where("isBlocked","0")
  ->where("negociable","=","0")
  ->orderBy("created_at","desc")
- ->paginate(2);
+ ->paginate(10);
  $output = getOutput($ad);
  $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>""])->links() ;
 
@@ -913,7 +934,7 @@ if($data['action']=="111")
   ->where("isBlocked","0")
   ->where("negociable","=","0")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
@@ -934,7 +955,7 @@ if($val=="both")
     ->where("isValidate","1")
     ->where("isBlocked","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
 
@@ -950,7 +971,7 @@ if($val=="both")
     ->where("isValidate","1")
     ->where("isBlocked","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => "",'subCat' =>"",'input' => $data['input']])->links() ;
 
@@ -967,7 +988,7 @@ if($val=="both")
     ->where("isValidate","1")
     ->where("isBlocked","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' => ""])->links() ;
 
@@ -985,7 +1006,7 @@ if($val=="both")
     ->where("title","like","%".$input."%")
     ->where("isBlocked","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
@@ -1002,7 +1023,7 @@ if($val=="both")
     ->where("title","like","%".$input."%")
     ->where("isBlocked","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' =>$data['input']])->links() ;
 
@@ -1019,7 +1040,7 @@ if($val=="both")
     ->where("subCategoryName","like","%".$subCat."%")
     ->where("isBlocked","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>""])->links() ;
 
@@ -1038,7 +1059,7 @@ if($val=="both")
     ->where("title","like","%".$input."%")
     ->where("isBlocked","0")
     ->orderBy("created_at","desc")
-    ->paginate(2);
+    ->paginate(10);
     $output = getOutput($ad);
     $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
@@ -1070,7 +1091,7 @@ if($data['type']=="minmax")
    ->where("price",">=",$min)
    ->where("price","<=",$max)
    ->orderBy("created_at","desc")
-   ->paginate(2);
+   ->paginate(10);
    $output = getOutput($ad);
    $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
 

@@ -16,7 +16,7 @@
             <div class="row">
                      <span><b>List of Ads</b></span>
 
-                      <button style="position: relative;margin-right: 15px; margin-left: 15%;" class="btn btn-success btn-sm" data-title="Add" data-toggle="modal" data-target="#add" ><i class="fas fa-plus-circle"></i>Post new Ads ({{$ads->count()}})<div class="spinner-grow text-primary"></div></button><br><br>
+                      <button style="position: relative;margin-right: 15px; margin-left: 15%;" class="btn btn-success btn-sm" data-title="Add" data-toggle="modal" data-target="#add" ><i class="fas fa-plus-circle"></i>Post new Ads ({{$activatedCount +$inactivatedCount }})<div class="spinner-grow text-primary"></div></button><br><br>
 
                       <a href="{{route('inactivatedAds')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-info btn-sm"   >inactivated Ads ({{$inactivatedCount}})<div class="spinner-grow text-primary"></div></button></a><br><br>
                       
