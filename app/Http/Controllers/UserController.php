@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\DB;
 
 use App\User;
+use App\order;
 use App\region;
 use App\UserInfo;
 use App\Phone;
@@ -95,76 +96,27 @@ class UserController extends Controller
       return view('auth.userRegister');
     }
 
+    public function manageorder(Request $request){
+     $data = $request->input();
 
-    public function rating(Request $request){
-
-      $data = $request->input();
-
-      $output ="";
-      if(Auth::id() == $data['ratedUser'])
-      {
-
-        $output =$output."<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-        <span aria-hidden='true'>&times;</span>
-        </button>
-        <strong>Sorry you can not rate your self</strong> 
-        </div> ";
-        return $output;
-
-
-      }
-
-
-      else{
-
-
-       $rating = rating::where("userId",$data['ratedUser'])->first();
-       if($rating->count()==0)
+     if($request->isMethod('post')){
+       if($data['action']=='store')
        {
 
-        $rat = new  rating;
-        $rat->total = $data['val'];
-        $rat->voteCount = "1";
-        $rat->userId = $data['ratedUser'];
-        $rat->average = $data['val'];
-        $rat->save(); 
+        order::create([
+          'orderCode' => $data['orderCode'] ,
+          'fullName' =>strtoupper($data['name']) ,
+          'phone' => $data['phone'],
+          'address' => strtoupper($data['address']) ,
+          'adId' => $data['adId'],
+          'userId' => $data['buyer'],
+          'price' => $data['price'],
+          'state' => "0",
+          'title' => $data['title'],
 
-        $output =$output."<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-        <span aria-hidden='true'>&times;</span>
-        </button>
-        <strong>user rated successfully</strong> 
-        </div> ";
-        return $output;
-
-
-
-      }
-      else{ 
-             // $rating = rating::where("userId",$data['ratedUser'])->get();
-             // dd( $rating);
-
-        $totalCount =(float)$rating->total + (float)$data['val'];   
-        $overmark =5* (int)$rating->voteCount; 
-        $average= (5*(int)$totalCount)/ $overmark;
-
-        $rating->total =$totalCount ;
-        $rating->voteCount = (float)$rating->voteCount + 1 ;
-        $rating->average  = $average;
-
-        $rating->save();
-
-
-        $output =$output."<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-        <span aria-hidden='true'>&times;</span>
-        </button>
-        <strong>user rated successfully</strong> 
-        </div> ";
-        return $output;
-
-
+        ]); 
+       
+       return redirect("manageorder?action=userDisplay");
 
       }
 
@@ -172,251 +124,366 @@ class UserController extends Controller
 
 
 
-  }
 
+    if($request->isMethod('get')){
+     if($data['action']=='userDisplay')
+     {
 
+      $orders = order::where("userId",Auth::id())->get();
 
-  public function addFavorite(Request $request){
+      return view("clients.myorders")->with("orders",$orders);
 
-
-    $data = $request->input();
-
-    $ads = ads::find($data['id']);
-    $favorite =favorite::where("userId",Auth::id())->where("adId",$data['id'])->count();
-    $output ="";
-    if($favorite!= 0)
-    {
-
-      $output =$output."<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-      <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-      <span aria-hidden='true'>&times;</span>
-      </button>
-      <strong>already added to your favorite</strong> 
-      </div> ";
-      return $output;
-
-
-    }
-
-
-    else{
-      $fav = new favorite;
-      $fav->userId = Auth::id();
-      $fav->adId = $data['id'];
-
-      $fav->save();
-
-      $output =$output."<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-      <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-      <span aria-hidden='true'>&times;</span>
-      </button>
-      <strong>successfully added to your favorite</strong> 
-      </div> ";
-      return $output;
-
-    }
-
-
-
-  }
-
-
-  public function myfavorite(Request $request){
-
-    $data = $request->input();
-    if($data['action']=='display')
-    {
-     $favorites = DB::table('favorites')->orderBy("created_at","DESC")->get();
-
-
-     return view('clients.myFavorites')->with("favorites", $favorites);
-
-   }
-
-   if($data['action']=='delete')
-   {
-     favorite::destroy($data['id']);
-
-
-     $favorites = DB::table('favorites')->orderBy("created_at","DESC")->get();
-
-     return view('clients.myFavorites')->with("favorites", $favorites);
-
-   }
-
-
-
-
-
-   
-
-
- }
-
-
-
- public function productDetails(Request $request){
-
-   $data = $request->input();
-
-
-
-   $ads = ads::find($data['id']);
-   $similar = ads::where ("subCategoryName","=",$ads->subCategoryName)
-   ->where("isValidate","1")
-   ->where("isBlocked","0")
-   ->paginate(4);
-           
-
-   $rate = DB::table('ratings')->where("userId","=",$ads->userId)->first();
-   
-    
-
-    if($rate ==null)
-    {
-
-       $value = 0;
-
-    }
-    else
-
-    {
-     $value  = $rate->average;
-
-    }
-
-
-  return view('clients.product-details')->with("ads",$ads)->with("similar", $similar)->with("userRate", $value);
-
-
-
-
- }
-
-
-
-
-
- public function filter(Request $request)
- {
-
-   $data = $request->input();
-
-   $city =$data['city'];
-   $subCat =$data['subCat'];
-   $input =$data['input'];
-
-// CONDITION FILTER
-
-   if($data['type']=="condition")
-   {
-
-    $val = $data['val'];
-
-    if($val=="new")
-    {
-      if($data['action']=="100")
-      {
-
-       $ad = ads::where("cityName","like","%".$data['city']."%")
-       ->where("isValidate","1")
-       ->where("isBlocked","0")
-       ->where("isUsed","=","0")
-       ->orderBy("created_at","desc")
-       ->paginate(10);
-       $output = getOutput($ad);
-       $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
-
-       return ($output);
 
      }
 
 
-     if($data['action']=="001")
+
+      if($data['action']=='cancel')
      {
 
-      $ad = ads::where("title","like","%".$input."%")
-      ->where("isValidate","1")
-      ->where("isBlocked","0")
-      ->where("isUsed","=","0")
-      ->orderBy("created_at","desc")
-      ->paginate(10);
-      $output = getOutput($ad);
-      $output = $output.$ad->appends(['city' => "",'subCat' =>"",'input' => $data['input']])->links() ;
-        //dd($ad);
-      return ($output);
+      $orders = order::find($data['order_id']);
+       $orders->state = "1";
+       $orders->save();
 
-    }
+      return redirect("manageorder?action=userDisplay");
 
-    if($data['action']=="010")
+
+     }
+
+
+   }
+
+
+
+ }
+
+
+
+
+
+
+
+ public function rating(Request $request){
+
+  $data = $request->input();
+
+  $output ="";
+  if(Auth::id() == $data['ratedUser'])
+  {
+
+    $output =$output."<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+    <span aria-hidden='true'>&times;</span>
+    </button>
+    <strong>Sorry you can not rate your self</strong> 
+    </div> ";
+    return $output;
+
+
+  }
+
+
+  else{
+
+
+   $rating = rating::where("userId",$data['ratedUser'])->first();
+   if($rating->count()==0)
+   {
+
+    $rat = new  rating;
+    $rat->total = $data['val'];
+    $rat->voteCount = "1";
+    $rat->userId = $data['ratedUser'];
+    $rat->average = $data['val'];
+    $rat->save(); 
+
+    $output =$output."<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+    <span aria-hidden='true'>&times;</span>
+    </button>
+    <strong>user rated successfully</strong> 
+    </div> ";
+    return $output;
+
+
+
+  }
+  else{ 
+             // $rating = rating::where("userId",$data['ratedUser'])->get();
+             // dd( $rating);
+
+    $totalCount =(float)$rating->total + (float)$data['val'];   
+    $overmark =5* (int)$rating->voteCount; 
+    $average= (5*(int)$totalCount)/ $overmark;
+
+    $rating->total =$totalCount ;
+    $rating->voteCount = (float)$rating->voteCount + 1 ;
+    $rating->average  = $average;
+
+    $rating->save();
+
+
+    $output =$output."<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+    <span aria-hidden='true'>&times;</span>
+    </button>
+    <strong>user rated successfully</strong> 
+    </div> ";
+    return $output;
+
+
+
+  }
+
+}
+
+
+
+}
+
+
+
+public function addFavorite(Request $request){
+
+
+  $data = $request->input();
+
+  $ads = ads::find($data['id']);
+  $favorite =favorite::where("userId",Auth::id())->where("adId",$data['id'])->count();
+  $output ="";
+  if($favorite!= 0)
+  {
+
+    $output =$output."<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+    <span aria-hidden='true'>&times;</span>
+    </button>
+    <strong>already added to your favorite</strong> 
+    </div> ";
+    return $output;
+
+
+  }
+
+
+  else{
+    $fav = new favorite;
+    $fav->userId = Auth::id();
+    $fav->adId = $data['id'];
+
+    $fav->save();
+
+    $output =$output."<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+    <span aria-hidden='true'>&times;</span>
+    </button>
+    <strong>successfully added to your favorite</strong> 
+    </div> ";
+    return $output;
+
+  }
+
+
+
+}
+
+
+public function myfavorite(Request $request){
+
+  $data = $request->input();
+  if($data['action']=='display')
+  {
+   $favorites = DB::table('favorites')->orderBy("created_at","DESC")->get();
+
+
+   return view('clients.myFavorites')->with("favorites", $favorites);
+
+ }
+
+ if($data['action']=='delete')
+ {
+   favorite::destroy($data['id']);
+
+
+   $favorites = DB::table('favorites')->orderBy("created_at","DESC")->get();
+
+   return view('clients.myFavorites')->with("favorites", $favorites);
+
+ }
+
+
+
+
+
+
+
+
+}
+
+
+
+public function productDetails(Request $request){
+
+ $data = $request->input();
+
+
+
+ $ads = ads::find($data['id']);
+ $similar = ads::where ("subCategoryName","=",$ads->subCategoryName)
+ ->where("isValidate","1")
+ ->where("isBlocked","0")
+ ->paginate(4);
+
+
+ $rate = DB::table('ratings')->where("userId","=",$ads->userId)->first();
+
+
+
+ if($rate ==null)
+ {
+
+   $value = 0;
+
+ }
+ else
+
+ {
+   $value  = $rate->average;
+
+ }
+
+
+ return view('clients.product-details')->with("ads",$ads)->with("similar", $similar)->with("userRate", $value);
+
+
+
+
+}
+
+
+
+
+
+public function filter(Request $request)
+{
+
+ $data = $request->input();
+
+ $city =$data['city'];
+ $subCat =$data['subCat'];
+ $input =$data['input'];
+
+// CONDITION FILTER
+
+ if($data['type']=="condition")
+ {
+
+  $val = $data['val'];
+
+  if($val=="new")
+  {
+    if($data['action']=="100")
     {
 
-     $ad = ads::where("subCategoryName","like","%".$subCat."%")
+     $ad = ads::where("cityName","like","%".$data['city']."%")
      ->where("isValidate","1")
      ->where("isBlocked","0")
      ->where("isUsed","=","0")
      ->orderBy("created_at","desc")
      ->paginate(10);
      $output = getOutput($ad);
-     $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' => ""])->links() ;
-     return ($output);
-
-   }
-
-   if($data['action']=="011")
-   {
-
-     $ad = ads::where("subCategoryName","like","%".$subCat."%")
-     ->where("isValidate","1")
-     ->where("title","like","%".$input."%")
-     ->where("isBlocked","0")
-     ->where("isUsed","=","0")
-     ->orderBy("created_at","desc")
-     ->paginate(10);
-     $output = getOutput($ad);
-     $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
+     $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
 
      return ($output);
 
    }
 
-   if($data['action']=="101")
+
+   if($data['action']=="001")
    {
 
-    $ad = ads::where("cityName","like","%".$city."%")
+    $ad = ads::where("title","like","%".$input."%")
     ->where("isValidate","1")
-    ->where("title","like","%".$input."%")
     ->where("isBlocked","0")
     ->where("isUsed","=","0")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
-    $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' =>$data['input']])->links() ;
-
+    $output = $output.$ad->appends(['city' => "",'subCat' =>"",'input' => $data['input']])->links() ;
+        //dd($ad);
     return ($output);
 
   }
 
-  if($data['action']=="110")
+  if($data['action']=="010")
   {
 
-   $ad = ads::where("cityName","like","%".$city."%")
+   $ad = ads::where("subCategoryName","like","%".$subCat."%")
    ->where("isValidate","1")
-   ->where("subCategoryName","like","%".$subCat."%")
    ->where("isBlocked","0")
    ->where("isUsed","=","0")
    ->orderBy("created_at","desc")
    ->paginate(10);
    $output = getOutput($ad);
-   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>""])->links() ;
+   $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' => ""])->links() ;
+   return ($output);
+
+ }
+
+ if($data['action']=="011")
+ {
+
+   $ad = ads::where("subCategoryName","like","%".$subCat."%")
+   ->where("isValidate","1")
+   ->where("title","like","%".$input."%")
+   ->where("isBlocked","0")
+   ->where("isUsed","=","0")
+   ->orderBy("created_at","desc")
+   ->paginate(10);
+   $output = getOutput($ad);
+   $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
    return ($output);
 
  }
 
-
- if($data['action']=="111")
+ if($data['action']=="101")
  {
+
+  $ad = ads::where("cityName","like","%".$city."%")
+  ->where("isValidate","1")
+  ->where("title","like","%".$input."%")
+  ->where("isBlocked","0")
+  ->where("isUsed","=","0")
+  ->orderBy("created_at","desc")
+  ->paginate(10);
+  $output = getOutput($ad);
+  $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' =>$data['input']])->links() ;
+
+  return ($output);
+
+}
+
+if($data['action']=="110")
+{
+
+ $ad = ads::where("cityName","like","%".$city."%")
+ ->where("isValidate","1")
+ ->where("subCategoryName","like","%".$subCat."%")
+ ->where("isBlocked","0")
+ ->where("isUsed","=","0")
+ ->orderBy("created_at","desc")
+ ->paginate(10);
+ $output = getOutput($ad);
+ $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>""])->links() ;
+
+ return ($output);
+
+}
+
+
+if($data['action']=="111")
+{
 
   $ad = ads::where("cityName","like","%".$city."%")
   ->where("isValidate","1")
@@ -1169,6 +1236,7 @@ public function displayAds(Request $request){
    //dd($data['val']);
     $ads = ads::where("isValidate","1")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     return view('product-view')->with("ad",$ads)->with("action","allAds")->with("val","allAds")->with("cit","all");
@@ -1456,7 +1524,7 @@ $ad->pict5 = $new_name5;
 
 $ad->save();
 
-  return redirect ('/myadd?action=display');
+return redirect ('/myadd?action=display');
 // $ads= ads::where("userId",'Auth::user()->id')->paginate(3);
 
 
@@ -1541,6 +1609,20 @@ public function myadd( Request $request ){
 
 
  }
+
+ if($data['action']=='requestvip')
+ {
+
+   $ads = ads::find($data['id']);
+   $ads->buyNow = "1";
+   $ads->save();
+
+   $ads = ads::where("userId",Auth::user()->id)->orderBy("created_at","DESC")->paginate(7); 
+   return view('clients.myadd')->with("ad",$ads)->with("flashmessage","your request for vip badge has been submited for evaluation you will receive a confirmation shortly ");
+
+
+
+ }
 }
 
 if($request->isMethod('post')){
@@ -1555,9 +1637,10 @@ if($request->isMethod('post')){
  $ad->title = strtolower($data['title']) ;
  $ad->description = $data['description'];
  $ad->price = $data['price'];              
-    $ad->save();
+ $ad->save();
 
-      return redirect ('/myadd?action=display');
+ $ads = ads::where("userId",Auth::user()->id)->orderBy("created_at","DESC")->paginate(7); 
+ return view('clients.myadd')->with("ad",$ads)->with("flashmessage","Your ad has been modified successdfully");
 
 }
 

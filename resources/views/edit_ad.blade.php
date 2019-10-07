@@ -12,8 +12,8 @@
     @include('layouts/partials/_admin_navbar')
     
     <div class="container-fluid" id="add" style="border: 1px solid green" >
-     
-      <form method="POST" action="{{route('editAd')}}?buyNow={{$ads->buyNow}}&id={{$ads->id}}" enctype="multipart/form-data">
+
+      <form method="POST" action="{{route('editAd')}}?buyNowFlag={{$ads->buyNow}}&id={{$ads->id}}&isValidateFlag={{$ads->isValidate}}&isBlockedFlag={{$ads->isBlocked}}" enctype="multipart/form-data">
         @csrf
         
         <div class="modal-header">
@@ -58,7 +58,36 @@
            @if($ads->isBlocked == 1)
            <b>Unblocked</b>&nbsp;&nbsp;<input class=" " type="radio"  required value="0" id="" name="isBlocked">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            @endif
-         </div>
+         </div><br><br>
+         <div class="form-group">
+           <label for="used"><b><span style="color: red;">VIP STATUS</span></b>:  </label><br>
+           @if($ads->buyNow == "0")
+           <b>NotRequested</b>&nbsp;&nbsp;<input class=" " type="radio" checked required value="0" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <b>Requested</b>&nbsp;&nbsp;<input class=" " type="radio"  required value="1" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <b>WaitingForCollection</b>&nbsp;&nbsp;<input class=" " type="radio"  required value="2" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <b>Confirmed</b>&nbsp;&nbsp;<input class=" " type="radio"  required value="3" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           @endif
+
+           @if($ads->buyNow == "1")
+           <b>NotRequested</b>&nbsp;&nbsp;<input class=" " type="radio"  required value="0" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <b>Requested</b>&nbsp;&nbsp;<input class=" " type="radio" checked required value="1" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <b>WaitingForCollection</b>&nbsp;&nbsp;<input class=" " type="radio"  required value="2" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <b>Confirmed</b>&nbsp;&nbsp;<input class=" " type="radio"  required value="3" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           @endif
+
+           @if($ads->buyNow == "3")
+           <b>NotRequested</b>&nbsp;&nbsp;<input class=" " type="radio"  required value="0" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <b>Requested</b>&nbsp;&nbsp;<input class=" " type="radio"  required value="1" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <b>WaitingForCollection</b>&nbsp;&nbsp;<input class=" " checked type="radio"  required value="2" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <b>Confirmed</b>&nbsp;&nbsp;<input class=" " type="radio"  required value="3" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           @endif
+           @if($ads->buyNow == "2")
+           <b>NotRequested</b>&nbsp;&nbsp;<input class=" " type="radio"  required value="0" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <b>Requested</b>&nbsp;&nbsp;<input class=" " type="radio"  required value="1" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <b>WaitingForCollection</b>&nbsp;&nbsp;<input class=" "  type="radio"  required value="2" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <b>Confirmed</b>&nbsp;&nbsp;<input class=" " type="radio" checked required value="3" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           @endif
+         </div><br>
 
          <div class="form-group">
            <label for="category"><b> Category</b>: </label>

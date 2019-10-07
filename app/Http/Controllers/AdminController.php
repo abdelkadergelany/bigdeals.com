@@ -12,6 +12,9 @@ use App\size;
 use App\brand;
 use App\ads;
 use App\modele;
+use App\conversations;
+use App\chat;
+use App\order;
 
 
 use Illuminate\Http\Request;
@@ -134,6 +137,94 @@ class AdminController extends Controller
   //end manage brand
 
 
+public function allorders(Request $request){
+
+ $orders = DB::table('orders')->paginate(10);
+ $allOrderCount  = $orders->count();
+ $pendingOrderCount = order::where("state","=","0")->get();
+ $canceledOrderCount = order::where("state","=","1")->get();
+ $deliveredOrderCount = order::where("state","=","2")->get();
+
+
+
+ return view("manageorder")->with("orders",$orders)
+ ->with("allOrderCount",$allOrderCount)
+ ->with("pendingOrderCount",$pendingOrderCount->count())
+ ->with("canceledOrderCount",$canceledOrderCount->count())
+ ->with("deliveredOrderCount",$deliveredOrderCount->count());
+
+
+
+}
+
+
+public function pendingorder(Request $request){
+
+  $orders = DB::table('orders')->where("state","=","0")->paginate(10);
+
+  $ordercount = DB::table('orders');
+  $allOrderCount  = $ordercount->count();
+  $pendingOrderCount = order::where("state","=","0")->get();
+  $canceledOrderCount = order::where("state","=","1")->get();
+  $deliveredOrderCount = order::where("state","=","2")->get();
+
+
+
+  return view("manageorder")->with("orders",$orders)
+  ->with("allOrderCount",$allOrderCount)
+  ->with("pendingOrderCount",$pendingOrderCount->count())
+  ->with("canceledOrderCount",$canceledOrderCount->count())
+  ->with("deliveredOrderCount",$deliveredOrderCount->count());
+
+
+
+}
+
+public function canceledorder(Request $request){
+
+  $orders = DB::table('orders')->where("state","=","1")->paginate(10);
+
+  $ordercount = DB::table('orders');
+  $allOrderCount  = $ordercount->count();
+  
+  $pendingOrderCount = order::where("state","=","0")->get();
+  $canceledOrderCount = order::where("state","=","1")->get();
+  $deliveredOrderCount = order::where("state","=","2")->get();
+
+
+
+  return view("manageorder")->with("orders",$orders)
+  ->with("allOrderCount",$allOrderCount)
+  ->with("pendingOrderCount",$pendingOrderCount->count())
+  ->with("canceledOrderCount",$canceledOrderCount->count())
+  ->with("deliveredOrderCount",$deliveredOrderCount->count());
+
+
+
+}
+
+public function deliveredorder(Request $request){
+ $orders = DB::table('orders')->where("state","=","2")->paginate(10);
+
+ $ordercount = DB::table('orders');
+ $allOrderCount  = $ordercount->count();
+ 
+ $pendingOrderCount = order::where("state","=","0")->get();
+ $canceledOrderCount = order::where("state","=","1")->get();
+ $deliveredOrderCount = order::where("state","=","2")->get();
+
+
+
+ return view("manageorder")->with("orders",$orders)
+ ->with("allOrderCount",$allOrderCount)
+ ->with("pendingOrderCount",$pendingOrderCount->count())
+ ->with("canceledOrderCount",$canceledOrderCount->count())
+ ->with("deliveredOrderCount",$deliveredOrderCount->count());
+
+
+
+
+}
 
 
 
@@ -216,20 +307,47 @@ public function manageAds(){
  $category = category::all();
  $ads = DB::table('ads')->paginate(10);
 
-   //$ads = ads::all();
  $inactivatedCount = ads::where("isValidate","=","0")->get();
  $activatedCount = ads::where("isValidate","=","1")->get();
  $isBlockedCount = ads::where("isBlocked","=","1")->get();
-   //$allAdsCount = $ads->count();
+ $vipRequestCount  = ads::where("buyNow","=","1")->get();
+ $vipValid  = ads::where("buyNow","=","3")->get();
 
  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads)
  ->with("inactivatedCount",$inactivatedCount->count())
  ->with("isBlockedCount",$isBlockedCount->count())
- ->with("activatedCount",$activatedCount->count());
+ ->with("activatedCount",$activatedCount->count())
+ ->with("vipCount",$vipRequestCount->count())
+ ->with("vipValid",$vipValid->count());
 
 
 
 }
+
+
+
+public function vipAds(){
+  $regions = region::all();
+  $category = category::all();
+  $ads = DB::table('ads')->where("buyNow","=","3")->paginate(10);
+
+  $inactivatedCount = ads::where("isValidate","=","0")->get();
+  $activatedCount = ads::where("isValidate","=","1")->get();
+  $isBlockedCount = ads::where("isBlocked","=","1")->get();
+  $vipRequestCount  = ads::where("buyNow","=","1")->get();
+  $vipValid  = ads::where("buyNow","=","3")->get();
+
+  //$ads= ads::where("isValidate",'0')->get();
+  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads)
+  ->with("inactivatedCount",$inactivatedCount->count())
+  ->with("isBlockedCount",$isBlockedCount->count())
+  ->with("activatedCount",$activatedCount->count())
+  ->with("vipCount",$vipRequestCount->count())
+  ->with("vipValid",$vipValid->count());
+
+}
+
+
 
 public function inactivatedAds(){
   $regions = region::all();
@@ -239,12 +357,16 @@ public function inactivatedAds(){
   $inactivatedCount = ads::where("isValidate","=","0")->get();
   $activatedCount = ads::where("isValidate","=","1")->get();
   $isBlockedCount = ads::where("isBlocked","=","1")->get();
+  $vipRequestCount  = ads::where("buyNow","=","1")->get();
+  $vipValid  = ads::where("buyNow","=","3")->get();
 
   //$ads= ads::where("isValidate",'0')->get();
   return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads)
   ->with("inactivatedCount",$inactivatedCount->count())
   ->with("isBlockedCount",$isBlockedCount->count())
-  ->with("activatedCount",$activatedCount->count());
+  ->with("activatedCount",$activatedCount->count())
+  ->with("vipCount",$vipRequestCount->count())
+  ->with("vipValid",$vipValid->count());
 
 }
 public function activatedAds(){
@@ -254,6 +376,9 @@ public function activatedAds(){
   $inactivatedCount = ads::where("isValidate","=","0")->get();
   $activatedCount = ads::where("isValidate","=","1")->get();
   $isBlockedCount = ads::where("isBlocked","=","1")->get();
+  $vipRequestCount  = ads::where("buyNow","=","1")->get();
+  $vipValid  = ads::where("buyNow","=","3")->get();
+
 
   $ads = DB::table('ads')->where("isValidate",'1')->paginate(10);
 
@@ -261,7 +386,9 @@ public function activatedAds(){
   return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads)
   ->with("inactivatedCount",$inactivatedCount->count())
   ->with("isBlockedCount",$isBlockedCount->count())
-  ->with("activatedCount",$activatedCount->count());
+  ->with("activatedCount",$activatedCount->count())
+  ->with("vipCount",$vipRequestCount->count())
+  ->with("vipValid",$vipValid->count());
 
 
   
@@ -272,6 +399,10 @@ public function blockedAds(){
   $inactivatedCount = ads::where("isValidate","=","0")->get();
   $activatedCount = ads::where("isValidate","=","1")->get();
   $isBlockedCount = ads::where("isBlocked","=","1")->get();
+  $vipRequestCount  = ads::where("buyNow","=","1")->get();
+  $vipValid  = ads::where("buyNow","=","3")->get();
+
+
 
   $ads = DB::table('ads')->where("isBlocked",'1')->paginate(10);
 
@@ -279,10 +410,34 @@ public function blockedAds(){
   return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads)
   ->with("inactivatedCount",$inactivatedCount->count())
   ->with("isBlockedCount",$isBlockedCount->count())
-  ->with("activatedCount",$activatedCount->count());
+  ->with("activatedCount",$activatedCount->count())
+  ->with("vipCount",$vipRequestCount->count())
+  ->with("vipValid",$vipValid->count());
 
   
 }
+
+public function vipRequest(){
+  $regions = region::all();
+  $category = category::all();
+  $inactivatedCount = ads::where("isValidate","=","0")->get();
+  $activatedCount = ads::where("isValidate","=","1")->get();
+  $isBlockedCount = ads::where("isBlocked","=","1")->get();
+  $vipRequestCount  = ads::where("buyNow","=","1")->get();
+  $vipValid  = ads::where("buyNow","=","3")->get();
+  $ads = DB::table('ads')->where("buyNow",'1')->paginate(10);
+
+  //$ads= ads::where("isBlocked",'1')->get();
+  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads)
+  ->with("inactivatedCount",$inactivatedCount->count())
+  ->with("isBlockedCount",$isBlockedCount->count())
+  ->with("activatedCount",$activatedCount->count())
+  ->with("vipCount",$vipRequestCount->count())
+  ->with("vipValid",$vipValid->count());
+
+  
+}
+
 
 
 
@@ -306,32 +461,317 @@ public function editAd(Request $request){
 
  if($request->isMethod('post')){
 
-  
-   
-   $data = $request->input();
-   
-   $ad = ads::find($request->get('id'));
+  $data = $request->input();
+  $ad = ads::find($request->get('id'));
+
+  $isBlockedFlag = $data['isBlockedFlag'];
+  $isValidateFlag = $data['isValidateFlag'];
+  $buyNowFlag = $data['buyNowFlag'];
 
 
-   $ad->buyNow = $request->get('buyNow');
-   $ad->subCategoryName = $data['subCategoryName'];
-   $ad->categoryName = $data['category'];
-  
+  if ($isValidateFlag != $data['isValidate']) {
+
+        //check if the ad is validated and send a confirmation message to the seller
+
+    if ($data['isValidate'] == "1") {
+
+      $message = "Congratulation Your Ad <".$ad->title."> has been validated. you can now see it online";
+      $recever = $ad->userId;
+      
 
 
-  $ad->isBlocked = $data['isBlocked'];
-  $ad->isValidate = $data['isValidate'];
- 
+      $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
+      $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
 
-             
 
-  $ad->save();
+
+      if($checkIfConversationExist->count() == 0)
+      {
+
+        conversations::create([
+         'userId' => Auth::user()->id,
+         'with' => $recever,
+         "created_at"=>now()
+       ]); 
+
+      }
+
+      if($checkIfConversationExistWith->count() == 0)
+      {
+        conversations::create([
+         'userId' => $recever,
+         'with' => Auth::user()->id,
+         "created_at"=>now()
+       ]); 
+
+      }
+
+      chat::create([
+       'message' => $message,
+       "created_at"=>now(),
+       'from' => Auth::user()->id,
+       'to' => $recever
+     ]); 
+
+
+    }
+
+  }
+
+
+      //check if ad is blocked or unblocked and inform the user
+  if ($isBlockedFlag != $data['isBlocked']) {
+
+
+
+    if ($data['isBlocked'] == "1") {
+
+      $message = " Your Ad <".$ad->title."> has been Blocked.For more details check our Terms and conditions";
+      $recever = $ad->userId;
+      
+
+
+      $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
+      $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
+
+
+
+      if($checkIfConversationExist->count() == 0)
+      {
+
+        conversations::create([
+         'userId' => Auth::user()->id,
+         'with' => $recever,
+         "created_at"=>now()
+       ]); 
+
+      }
+
+      if($checkIfConversationExistWith->count() == 0)
+      {
+        conversations::create([
+         'userId' => $recever,
+         'with' => Auth::user()->id,
+         "created_at"=>now()
+       ]); 
+
+      }
+
+      chat::create([
+       'message' => $message,
+       "created_at"=>now(),
+       'from' => Auth::user()->id,
+       'to' => $recever
+     ]); 
+
+
+    }
+
+    if ($data['isBlocked'] == "0") {
+
+      $message = " Your Ad <".$ad->title."> has been UnBlocked.";
+      $recever = $ad->userId;
+      
+
+
+      $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
+      $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
+
+
+
+      if($checkIfConversationExist->count() == 0)
+      {
+
+        conversations::create([
+         'userId' => Auth::user()->id,
+         'with' => $recever,
+         "created_at"=>now()
+       ]); 
+
+      }
+
+      if($checkIfConversationExistWith->count() == 0)
+      {
+        conversations::create([
+         'userId' => $recever,
+         'with' => Auth::user()->id,
+         "created_at"=>now()
+       ]); 
+
+      }
+
+      chat::create([
+       'message' => $message,
+       "created_at"=>now(),
+       'from' => Auth::user()->id,
+       'to' => $recever
+     ]); 
+
+
+    }
+
+  }
+
+       //check if the vip status has change and inform the user
+  if ($buyNowFlag != $data['buyNow']) {
+
+
+
+    if ($data['buyNow'] == "3") {
+
+      $message = "We have succesfully collect the product  of your Ad <".$ad->title.">. it will now be display online as VIP and you will be notified after the sale. 5% of the sale amount will be deduced";
+      $recever = $ad->userId;
+      
+
+
+      $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
+      $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
+
+
+
+      if($checkIfConversationExist->count() == 0)
+      {
+
+        conversations::create([
+         'userId' => Auth::user()->id,
+         'with' => $recever,
+         "created_at"=>now()
+       ]); 
+
+      }
+
+      if($checkIfConversationExistWith->count() == 0)
+      {
+        conversations::create([
+         'userId' => $recever,
+         'with' => Auth::user()->id,
+         "created_at"=>now()
+       ]); 
+
+      }
+
+      chat::create([
+       'message' => $message,
+       "created_at"=>now(),
+       'from' => Auth::user()->id,
+       'to' => $recever
+     ]); 
+
+
+    }
+
+    if ($data['buyNow'] == "2") {
+
+      $message =" Your VipRequest for  Ad <".$ad->title."> has been Examinated and approved. it will be display online as vip once we have collected the product. 5% of the sale amount will be deduced";
+
+
+      $recever = $ad->userId;
+      
+
+
+      $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
+      $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
+
+
+
+      if($checkIfConversationExist->count() == 0)
+      {
+
+        conversations::create([
+         'userId' => Auth::user()->id,
+         'with' => $recever,
+         "created_at"=>now()
+       ]); 
+
+      }
+
+      if($checkIfConversationExistWith->count() == 0)
+      {
+        conversations::create([
+         'userId' => $recever,
+         'with' => Auth::user()->id,
+         "created_at"=>now()
+       ]); 
+
+      }
+
+      chat::create([
+       'message' => $message,
+       "created_at"=>now(),
+       'from' => Auth::user()->id,
+       'to' => $recever
+     ]); 
+
+
+    }
+
+    if ($data['buyNow'] == "0") {
+
+     $message = " Your VipRequest for  Ad <".$ad->title."> has been Denied . Check our terms and condition for more details or contact us ";
+     $recever = $ad->userId;
+
+
+
+     $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
+     $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
+
+
+
+     if($checkIfConversationExist->count() == 0)
+     {
+
+      conversations::create([
+       'userId' => Auth::user()->id,
+       'with' => $recever,
+       "created_at"=>now()
+     ]); 
+
+    }
+
+    if($checkIfConversationExistWith->count() == 0)
+    {
+      conversations::create([
+       'userId' => $recever,
+       'with' => Auth::user()->id,
+       "created_at"=>now()
+     ]); 
+
+    }
+
+    chat::create([
+     'message' => $message,
+     "created_at"=>now(),
+     'from' => Auth::user()->id,
+     'to' => $recever
+   ]); 
+  }
+
+}
+      //end of buyNow flag
+
+
+
+
+
+$ad->buyNow = $data['buyNow'];
+$ad->subCategoryName = $data['subCategoryName'];
+$ad->categoryName = $data['category'];
+
+
+
+$ad->isBlocked = $data['isBlocked'];
+$ad->isValidate = $data['isValidate'];
+
+
+
+
+$ad->save();
 
   // $regions = region::all();
   // $category = category::all();
   // $ads = ads::all();
   // return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
-   return redirect('manageAds');
+return redirect('manageAds');
 
 
 

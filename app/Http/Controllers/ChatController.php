@@ -125,10 +125,17 @@ public function sendMessage (Request $request)
         //
           
         conversations::destroy($request->get('convId'));
-         $conversation = conversations::where("userId",Auth::user()->id)->orderBy('created_at','desc')->get();
-            $chat  = chat::where("from",Auth::user()->id)->orWhere("to",Auth::user()->id)->orderBy('created_at','asc')->get();
+        
+        // $collection = chat::where('from', Auth::user()->id)->with("to",)->get(['id']);
+        //   ModelName::destroy($collection->toArray());
 
-         return view('clients.mychat')->with("conversation",$conversation)->with("chat",$chat);
+         
+
+
+
+         return redirect("mychat");
+        
+        // return view('clients.mychat')->with("conversation",$conversation)->with("chat",$chat);
     }
 
 

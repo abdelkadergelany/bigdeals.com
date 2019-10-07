@@ -45,6 +45,7 @@ return array(
     'App\\conversations' => $baseDir . '/app/conversations.php',
     'App\\favorite' => $baseDir . '/app/favorite.php',
     'App\\modele' => $baseDir . '/app/modele.php',
+    'App\\order' => $baseDir . '/app/order.php',
     'App\\rating' => $baseDir . '/app/rating.php',
     'App\\region' => $baseDir . '/app/region.php',
     'App\\size' => $baseDir . '/app/size.php',

@@ -31,6 +31,9 @@
 					</ul>
 				</li>
 				<li>
+					<a href="{{route('allorders')}}"><i class="fas fa-shopping-cart"></i>&nbsp;Manage Orders</a>
+				</li>
+				<li>
 					<a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-users"></i>&nbsp;Users</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu2">
 						<li>

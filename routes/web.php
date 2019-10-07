@@ -110,7 +110,9 @@ Route:: group (['middleware'=>['clients']],function(){
 
 	//Route:: get ('/myadd','UserController@myadd')->name('myadd');
 
-Route:: match (['get','post'],'/myadd','UserController@myadd')->name("myadd");
+	Route:: match (['get','post'],'/myadd','UserController@myadd')->name("myadd");
+	Route:: match (['get','post'],'/manageorder','UserController@manageorder')->name("manageorder");
+
 
 
 	Route::get('/myfavorite','UserController@myfavorite')->name('myfavorite');
@@ -145,7 +147,7 @@ Route:: match (['get','post'],'/myadd','UserController@myadd')->name("myadd");
 
 Route:: group (['middleware'=>['auth']],function(){
 	
-    Route:: match (['get','post'],'/manageBrand','AdminController@manageBrand')->name('manageBrand');
+	Route:: match (['get','post'],'/manageBrand','AdminController@manageBrand')->name('manageBrand');
 	Route:: get ('/manageUsers','AdminController@manageUsers')->name('manageUsers');
 	Route:: get ('/manageRegions','AdminController@manageRegions')->name('manageRegions');
 	Route:: get ('/manageCities','AdminController@manageCities')->name('manageCities');
@@ -156,9 +158,27 @@ Route:: group (['middleware'=>['auth']],function(){
 
 
 
+
+	Route:: get ('/allorders','AdminController@allorders')->name('allorders');
+	Route:: get ('/pendingorder','AdminController@pendingorder')->name('pendingorder');
+	Route:: get ('/canceledorder','AdminController@canceledorder')->name('canceledorder');
+	Route:: get ('/deliveredorder','AdminController@deliveredorder')->name('deliveredorder');
+
+
+
+
+
+
+
+
+
 	Route:: get ('/inactivatedAds','AdminController@inactivatedAds')->name('inactivatedAds');
 	Route:: get ('/activatedAds','AdminController@activatedAds')->name('activatedAds');
 	Route:: get ('/blockedAds','AdminController@blockedAds')->name('blockedAds');
+	Route:: get ('/vipRequest','AdminController@vipRequest')->name('vipRequest');
+	Route:: get ('/vipAds','AdminController@vipAds')->name('vipAds');
+
+
 
 
 
