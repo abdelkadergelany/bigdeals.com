@@ -11,13 +11,13 @@
 <div class="container ">
   <div class="card">
     <div class="card-body">
-      @include('layouts/partials/_searchcontainer')
+      @include('layouts/partials/_searchcontainerForGrouping')
 
       <hr>
       <div class="row ">
         <div class="col-md-1"></div>
         <div class="col-md-3">
-          @include('layouts/partials/_filter')
+        
 
 
 
@@ -48,7 +48,7 @@
 </div><br><br>
 
 
-
+<!-- 
 <script type="text/javascript">  
 
   $(document).ready(function(){
@@ -79,7 +79,7 @@
     success:function(result)
     {
       console.log(result);
-
+       
       if(result=='')
       {
         $('#mother').html("<div class='alert alert-danger' role='alert'>oops! no ad was found matching your search try again!!!</div>");
@@ -117,7 +117,11 @@
    $('#filter').submit(function(e){
 
      e.preventDefault();
-   
+   //console.log($('#first-disabled').val());
+
+// var city = $('#cityFilter').val();
+//    var subCat = $('#subCatFilter').val();
+//    var input = $('#inputFilter').val();
 
 var action="";
 var city = $('#first-disabled').val();
@@ -294,11 +298,11 @@ function paginationFilter(page,href,min,max,type,action)
 }
 
 
-//pagination by condition
+
 
 
 $(".condition").click(function(e){
-console.log("cava");
+
  var value = this.value;
  var action="";
  var city = $('#first-disabled').val();
@@ -346,10 +350,8 @@ console.log("cava");
 
       });
 
-//end filter by condition
 
 
-//pagination by condition
 function paginationCondition(href,value,type,action,city,subCat,input)
 
 {
@@ -393,109 +395,7 @@ function paginationCondition(href,value,type,action,city,subCat,input)
 }
 
 
-//end pagination by condition
 
-//filtring by VIP
-
-
-
-$(".vip").click(function(e){
-console.log("alu");
- var value = this.value;
- var action="";
- var city = $('#first-disabled').val();
- var subCat = $('#second-disabled').val();
- var input = $('#inlineFormInputGroup').val();
- var type ="vip";
- action = getAction(city,subCat,input);
-        //console.log( );
-
-        $.ajax({
-          url:"/filter",
-          method:"GET",
-          data:{val:value,type:type,action:action,city:city,subCat:subCat,input:input},
-          success:function(result)
-          {
-            console.log(result);
-
-            if(result=='')
-            {
-              $('#mother').html("<div class='alert alert-danger' role='alert'>oops! no ad was found matching your search try again!!!</div>");
-
-            }
-            else{
-             $('#mother').html(result);
-             $("a.page-link").click(function(e){
-
-               e.preventDefault();
-               
-
-               $( ".active" ).removeClass( "active");
-               $(this).parent().addClass('active');
-               var  href = $(this).attr("href");
-               paginationVip(href,value,type,action,city,subCat,input);
-
-
-             });
-
-           }
-
-         }
-
-       })
-
-      });
-
-
-
-//END OF FILTRING BY VIP
-
-//pagination vip
-function paginationVip(href,value,type,action,city,subCat,input)
-
-{
-  $.ajax({
-    url:href,
-    method:"GET",
-    data:{val:value,type:type,action:action,city:city,subCat:subCat,input:input},
-    success:function(result)
-    {
-      console.log(result);
-
-      if(result=='')
-      {
-        $('#mother').html("<div class='alert alert-danger' role='alert'>oops! no ad was found matching your search try again!!!</div>");
-
-      }
-      else{
-       $('#mother').html(result);
-       $("a.page-link").click(function(e){
-
-         e.preventDefault();
-         
-         
-         $( ".active" ).removeClass( "active");
-         $(this).parent().addClass('active');
-         var  href = $(this).attr("href");
-         paginationVip(href,value,"vip",action,city,subCat,input);
-
-
-
-
-       });
-
-     }
-
-   }
-
- })
-
-
-}
-
-
-
-//end of pagination vip
 
 
 
@@ -688,7 +588,7 @@ function paginationPricing(href,value,type,action,city,subCat,input)
 
   });
 
-</script>
+</script> -->
 
 @stop
 

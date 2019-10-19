@@ -34,7 +34,7 @@
                               <th>Brand Name</th>
                               <th>Sub-Category</th> 
                               <th>Created </th>
-                              <th>Delete</th>
+                              <th>Edit</th>
                            </thead>
                            <tbody>
 
@@ -48,7 +48,7 @@
 
                               
                                  <td>
-                                   <a href="{{ route('manageBrand') }}?action=deleteBrand&value={{$brand->id}}"> <p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><i class="fas fa-trash-alt"></i></button></p></a>
+                                   <a href=""> <p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><i class="fas fa-trash-alt"></i></button></p></a>
                                  </td>
                               </tr>
                               @endforeach

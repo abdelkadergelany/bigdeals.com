@@ -30,26 +30,34 @@
                              &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<input class=" btn btn-success" type="submit" value="Apply filter">
                          </div>
                          <hr>
+                          <a href="#demo111" class="btn dropdown-toggle color_all_categories" data-toggle="collapse"><b
+                            class="color_all_categories">&nbsp;&nbsp;VIP</b></a>
+                            <div id="demo111" class="collapse">
+                                 <input  type="radio"  class="vip"  name="vip" value="3">VIP PRODUCT<br>
+                                 <input  type="radio"  class="vip" name="vip" value="0">ALL<br>
+                                                                  
+                            </div>
+                         <hr>
                          <a href="#demo14" class="btn dropdown-toggle color_all_categories" data-toggle="collapse"><b
                             class="color_all_categories">&nbsp;&nbsp;Condition</b></a>
                             <div id="demo14" class="collapse">
-                                New &nbsp;<input  type="radio" id="" class="condition" name="condition" value="new"><br>
-                                Used <input  type="radio" id="" class="condition" name="condition" value="used"><br>
-                                Both <input  type="radio" id="" class="condition" name="condition" value="both">                                   
+                                 <input  type="radio"  class="condition" name="condition" value="new">New<br>
+                                 <input  type="radio"  class="condition" name="condition" value="used">Used<br>
+                                 <input  type="radio"  class="condition" name="condition" value="both">Both                                   
                             </div>
                         </form>
                         <hr>
                         <a href="#demo15" class="btn dropdown-toggle color_all_categories" data-toggle="collapse"><b
                             class="color_all_categories">&nbsp;&nbsp;Pricing</b></a>
                             <div id="demo15" class="collapse">
-                                Negociable <input  type="radio" id="" class="pricing" name="pricing" value="negociable"><br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fixed <input class="pricing"  type="radio" id="" name="pricing" value="fixed">
+                                 <input  type="radio"  class="pricing" name="pricing" value="negociable">Negotiable<br>
+                                 <input class="pricing"  type="radio"  name="pricing" value="fixed">Fixed
                                 <br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Both <input class="pricing" type="radio" id="" name="pricing" value="both">    
+                                <input class="pricing" type="radio"  name="pricing" value="both">Both    
                             </div><br><br>
 
                             <hr>
-                            <a href="#demo16" class="btn dropdown-toggle color_all_categories" data-toggle="collapse"><b
+                         <!--    <a href="#demo16" class="btn dropdown-toggle color_all_categories" data-toggle="collapse"><b
                                 class="color_all_categories">&nbsp;&nbsp;Brand</b></a>
                                 <div id="demo16" class="collapse">
                                     <a class="dropdown-item hover_all_categories" href="#">Customized Desktops</a>
@@ -61,4 +69,4 @@
                                     <a class="dropdown-item hover_all_categories" href="#">Asus</a>
                                 </div>
 
-                                <hr>
+                                <hr> -->

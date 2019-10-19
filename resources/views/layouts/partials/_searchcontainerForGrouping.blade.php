@@ -1,6 +1,6 @@
 
 <div class="container search-option mt-5 mb-5">
-  <form action="{{ route('search') }}" method="GET" id="search">
+  <form action="{{ route('searchInitiator') }}" method="GET" id="search">
     <input type="hidden" name="_token" id="token-message" value="{{csrf_token()}}"> 
 
     <div class="form-row align-items-center">
@@ -10,14 +10,10 @@
 
           <select id="first-disabled" class="selectpicker form-control" data-hide-disabled="false"
           data-live-search="true" name="city" >
-          
-
-          @if(isset($cit))
-          <option value="{{$cit}}" selected>{{$cit}}</option>
+   
          
-          @else
           <option value="" selected>Choose the city</option>
-           @endif
+           
           <optgroup label="Centre" >
 <!--                    <option>All the centre</option>
 -->
@@ -106,12 +102,11 @@
     data-live-search="true" name="subCat">
 
   
-     @if(isset($subcat))
-          <option value="{{$subcat}}" selected>{{$subcat}}</option>
+   
          
-          @else
+         
           <option value="" selected>choose  sub-category for specific research</option>
-           @endif
+          
    
 
     <optgroup label="MOBILE PHONES">
@@ -231,13 +226,8 @@
 <div class="col-8 lg-4">
 
   <div class="input-group mb-2">
-     @if(isset($input))
-    <input type="text" value="{{$input}}" class="form-control" id="inlineFormInputGroup"
-    placeholder="Tell us what you are looking for" name="input">
-    @else
     <input type="text" class="form-control" id="inlineFormInputGroup"
     placeholder="Tell us what you are looking for" name="input">
-    @endif
   </div>
 </div>
 <div class="col-4 lg-2">

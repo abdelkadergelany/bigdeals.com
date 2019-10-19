@@ -26,7 +26,7 @@
                               <th>Date Created</th>
                               <th>Date Updated</th>
                               <th>Edit</th>
-                              <th>Delete</th>
+                              
                            </thead>
                            <tbody>
                               @foreach ($city as $cit) 
@@ -41,9 +41,7 @@
                                     <p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs buttonEdit" data-title="Edit" data-toggle="modal" data-target="#edit" ><i class="fas fa-pen"></i></button></p>
                                  </td>
                               
-                                 <td>
-                                    <p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><i class="fas fa-trash-alt"></i></button></p>
-                                 </td>
+                               
                               </tr>
                               @endforeach
                            </tbody>

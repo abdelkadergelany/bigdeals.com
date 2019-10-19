@@ -112,8 +112,8 @@
                        <div class="col-md-3 col-lg-2">
                         <p>Leisure, Sports and Children</p>
                         <ul class="list-unstyled mb-3">
-                            <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Leisure Sports and Children" 
-                                class="nav-link">All Sporting</a></li>
+                            <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Leisure, Sports and Children" 
+                                class="nav-link">All in Sport</a></li>
                             @foreach($cats = getSubCat("Leisure, Sports and Children","subCat") as $cat)
                             
                              <li class="nav-item"><a href="{{route('displayAds')}}?action=subCat&type=one&val={{$cat->subCategoryName}}" class="nav-link">{{$cat->subCategoryName}}</a></li>
@@ -143,7 +143,7 @@
                         <p>Education</p>
                         <ul class="list-unstyled mb-3">
                             <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Education" 
-                                class="nav-link">All For Education</a></li>
+                                class="nav-link">All in Education</a></li>
 
 
                             @foreach($cats = getSubCat("Education","subCat") as $cat)
@@ -457,8 +457,8 @@
                     </li>
                 </ul>
                 </li>
-                <li class="nav-item "><a href="#" class="nav-link">Eng</a>
-                </li>
+               <!--  <li class="nav-item "><a href="#" class="nav-link">Eng</a>
+                </li> -->
             </ul>
             <div class="navbar-buttons d-flex justify-content-end">
 

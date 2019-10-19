@@ -20,14 +20,14 @@
 
           <li><a style="color: green" id="Adamaoua" href="{{route('displayAds')}}?action=Region&type=one&val=Adamawa">Adamawa</a></li>
           <li><a style="color: green" id="Centre" href="{{route('displayAds')}}?action=Region&type=one&val=Centre">Centre</a></li>
-          <li><a style="color: green" id="Est" href="{{route('displayAds')}}?action=Region&type=one&val=East">East</a></li>
-          <li> <a style="color: green" id="Extrême-Nord" href="{{route('displayAds')}}?action=Region&type=one&val=Far North">Far North</a></li>
+          <li><a style="color: green" id="East" href="{{route('displayAds')}}?action=Region&type=one&val=East">East</a></li>
+          <li> <a style="color: green" id="Far North" href="{{route('displayAds')}}?action=Region&type=one&val=Far North">Far North</a></li>
           <li> <a style="color: green" id="Littoral" href="{{route('displayAds')}}?action=Region&type=one&val=Littoral">Littoral</a></li>
-          <li><a style="color: green" id="Nord" href="{{route('displayAds')}}?action=Region&type=one&val=North">North</a></li>
-          <li><a style="color: green" id="Nord-Ouest" href="{{route('displayAds')}}?action=Region&type=one&val=North West">North West</a></li>
-          <li> <a style="color: green" id="Ouest" href="{{route('displayAds')}}?action=Region&type=one&val=West"> West</a></li>
-          <li><a style="color: green" id="Sud" href="{{route('displayAds')}}?action=Region&type=one&val=South">South</a></li>
-          <li><a style="color: green" id="Sud-Ouest" href="{{route('displayAds')}}?action=Region&type=one&val=South West"> South West</a></li>
+          <li><a style="color: green" id="North" href="{{route('displayAds')}}?action=Region&type=one&val=North">North</a></li>
+          <li><a style="color: green" id="North West" href="{{route('displayAds')}}?action=Region&type=one&val=North West">North West</a></li>
+          <li> <a style="color: green" id="West" href="{{route('displayAds')}}?action=Region&type=one&val=West"> West</a></li>
+          <li><a style="color: green" id="South" href="{{route('displayAds')}}?action=Region&type=one&val=South">South</a></li>
+          <li><a style="color: green" id="South West" href="{{route('displayAds')}}?action=Region&type=one&val=South West"> South West</a></li>
         </ul>
       </div>
 

@@ -35,7 +35,7 @@
                               <th>Brand</th>
                               <th>Sub-Category</th> 
                               <th>Created </th>
-                              <th>Delete</th>
+                              <th>Edit</th>
                            </thead>
                            <tbody>
 
@@ -50,7 +50,7 @@
 
                               
                                  <td>
-                                   <a href="{{ route('manageBrand') }}?action=deleteBrand&value={{$model->id}}"> <p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><i class="fas fa-trash-alt"></i></button></p></a>
+                                   <a href=""> <p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><i class="fas fa-trash-alt"></i></button></p></a>
                                  </td>
                               </tr>
                               @endforeach
@@ -79,7 +79,7 @@
                         <div class="form-group">
                           <label for="name" id="editForm">Model's Name: </label>
                     
-                           <input class="form-control" type="text"  id="name" name="name" required >
+                           <input class="form-control" type="text"  id="name" name="name" value="xxxx" required >
                         </div>
                           <div class="form-group">
                            <label for="first-disabled">Choose  the Brand: </label>

@@ -4,6 +4,7 @@
 <title>Admin/login </title>
 @include('layouts/partials/_linkedfiles')
  <link rel="stylesheet" href="{{asset('css/admin.css')}}">
+ <link rel="stylesheet" href="{{asset('css/dashboard.css')}}">
 </head>
 <body>
 <div class="wrapper">

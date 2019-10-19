@@ -87,13 +87,16 @@
           @endif
 
         </div><br><hr>
-        <p><pre>{{$ads->description}}</pre></p>
+        
+          <h3>Desciption :</h3>
+          <pre style="font-size: 18px;">{{$ads->description}}</pre><br>
+        
       </div>
       <div class="col-md-1"></div>
       <div class="col-md-4"><br><br><br><br>
 
         <hr>
-       @if($ads->buyNow == "3")
+        @if($ads->buyNow == "3")
         <div class="list-group">
           <button type="button" class="list-group-item list-group-item-action active text-center" data-title="Add" data-toggle="modal" data-target="#order">
             <i class="fas fa-shopping-cart"></i> Place Your Order
@@ -104,13 +107,13 @@
         </div>
 
         <hr>
-       @endif
+        @endif
 
 
-        <span class="tag_price_product"><b>{{number_format($ads->price,0)}}</b> tk </span>
+        <span class="tag_price_product"><b>{{$ads->price}}</b> tk </span>
         <span><em>
          @if($ads->negociable =="1")
-         <span class="alert-dark">Negociable</span> 
+         <span class="alert-dark">Negotiable</span> 
          @else
          <span class="alert-dark">Fixed Price</span>
          @endif
@@ -280,48 +283,48 @@
 <br><br>
 
 
-   <div class="modal fade" id="order" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-               <div class="modal-dialog">
-                  <div class="modal-content">
-                    <form method="POST" action="{{ route('manageorder') }}?action=store&adId={{$ads->id}}&title={{$ads->title}}">
-                        @csrf
-                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                        <h4 class="modal-title custom_align" id="Heading">Order Details</h4>
-                     </div>
-                     <div class="modal-body">
-                        <div class="form-group">
-                          <label for="name">Full Name: </label>
-                    
-                           <input class="form-control" type="text"  id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                          <label for="address">Full Address: </label>
-                          
-                           <input class="form-control" type="text"  id="" name="address" required>
-                        </div>
-                        <div class="form-group">
-                          <label for="phone">Phone: </label>
-                    
-                           <input class="" type="tel" placeholder="  9 digits " pattern="[0-9]{9}" id="" name="phone" required>
-                        </div><br>
-                           
-                           <i style="color: #512DA8;" class="far fa-3x fa-money-bill-alt"></i> Amount to pay :  <b>TK {{number_format($ads->price,0)}}</b> <br><br>
-                           payment method :  <img src="img/cash.jpg" width="100px" height="30px" alt="une cuisiniere" class="img-fluid"><br><br>
-                                      
-                           <input type="hidden" value="{{uniqid()}}" name="orderCode">
-                           <input type="hidden" name="buyer" value="{{Auth::user()->id}}">
-                           <input type="hidden" name="price" value="{{$ads->price}}">
-                      </div>
-                     <div class="modal-footer ">
-                        <input type="submit" class="btn btn-warning btn-lg" style="width: 100%;" value="Place"><span class="glyphicon glyphicon-ok-sign" ></span> 
-                     </div>
-                     </form>
-                  </div>
-                  <!-- /.modal-content --> 
-               </div>
-               <!-- /.modal-dialog --> 
-            </div>
+<div class="modal fade" id="order" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <form method="POST" action="{{ route('manageorder') }}?action=store&adId={{$ads->id}}&title={{$ads->title}}">
+      @csrf
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Order Details</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="name">Full Name: </label>
+
+          <input class="form-control" type="text"  id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Full Address: </label>
+
+          <input class="form-control" type="text"  id="" name="address" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone: </label>
+
+          <input class="" type="tel" placeholder="  9 digits " pattern="[0-9]{9}" id="" name="phone" required>
+        </div><br>
+
+        <i style="color: #512DA8;" class="far fa-3x fa-money-bill-alt"></i> Amount to pay :  <b>TK {{number_format($ads->price,0)}}</b> <br><br>
+        payment method :  <img src="img/cash.jpg" width="100px" height="30px" alt="une cuisiniere" class="img-fluid"><br><br>
+
+        <input type="hidden" value="{{uniqid()}}" name="orderCode">
+
+        <input type="hidden" name="price" value="{{$ads->price}}">
+      </div>
+      <div class="modal-footer ">
+        <input type="submit" class="btn btn-warning btn-lg" style="width: 100%;" value="Place"><span class="glyphicon glyphicon-ok-sign" ></span> 
+      </div>
+    </form>
+  </div>
+  <!-- /.modal-content --> 
+</div>
+<!-- /.modal-dialog --> 
+</div>
 
 
 

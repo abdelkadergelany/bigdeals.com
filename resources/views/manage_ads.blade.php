@@ -29,6 +29,8 @@
 
         <a href="{{route('vipRequest')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-secondary btn-sm"   >VIP Request ({{$vipCount}})<div class="spinner-grow text-primary"></div></button></a><br><br>
 
+        <a href="{{route('waitCollection')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-danger btn-sm"   >Waiting for Collection ({{$waitCollectionCount}})<div class="spinner-grow text-primary"></div></button></a><br><br>
+
 
      </div><br><br><hr>
 
@@ -58,7 +60,7 @@
           <th>View</th>
           <th>Edit</th>
 
-          <th>Delete</th>
+          
         </thead>
         <tbody>
 
@@ -106,11 +108,7 @@
 
                 </td>
 
-                <td>
-                  <a href="{{route('deleteAd')}}?id={{$ad->id}}"><p data-placement="top" data-toggle="tooltip" title="Block">
-                    <button class="btn btn-danger btn-xs " data-title="Edit"   ><i class="fas fa-trash-alt"></i></button></p></a>
-                  </td>
-                </tr>
+             
                 @endforeach
               </tbody>
 

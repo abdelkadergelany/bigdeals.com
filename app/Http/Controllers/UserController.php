@@ -89,12 +89,42 @@ class UserController extends Controller
       ]);
     }
 
+
+    public function blog(Request $request){
+
+      return view('clients.blog');
+    }
+
+    public function blogArticle(Request $request){
+
+      return view('clients.blogarticle');
+    }
+
+
     public function userRegister(){
 
 
 
       return view('auth.userRegister');
     }
+
+
+
+
+    public function myAccount(Request $request){
+
+      $adsCount =  ads::where("userId","=",Auth::user()->id);
+      $favoriteCount = favorite::where("userId","=",Auth::user()->id);
+      $orderCount = order::where("userId","=",Auth::user()->id);
+
+      return view('clients.myAccount')
+      ->with("adsCounter",$adsCount->count())
+      ->with("favoriteCount",$favoriteCount->count())
+      ->with("orderCount",$orderCount->count());
+    }
+
+
+
 
     public function manageorder(Request $request){
      $data = $request->input();
@@ -109,14 +139,14 @@ class UserController extends Controller
           'phone' => $data['phone'],
           'address' => strtoupper($data['address']) ,
           'adId' => $data['adId'],
-          'userId' => $data['buyer'],
+          'userId' => Auth::user()->id,
           'price' => $data['price'],
           'state' => "0",
           'title' => $data['title'],
 
         ]); 
-       
-       return redirect("manageorder?action=userDisplay");
+
+        return redirect("manageorder?action=userDisplay");
 
       }
 
@@ -134,28 +164,61 @@ class UserController extends Controller
       return view("clients.myorders")->with("orders",$orders);
 
 
-     }
+    }
 
 
 
-      if($data['action']=='cancel')
-     {
+    if($data['action']=='cancel')
+    {
 
       $orders = order::find($data['order_id']);
-       $orders->state = "1";
-       $orders->save();
+      $orders->state = "1";
+      $orders->save();
 
       return redirect("manageorder?action=userDisplay");
 
 
-     }
+    }
+
+/* order = 0 means cpending
+  order =1 means canceled
+  order = 2 means delivered*/
+  if($data['action']=='editorder')
+  {
+
+    $orders = order::find($data['order_id']);
+
+    if($orders->state == "0")
+    {
+
+      $orders->state = "1";
+
+    }
+    elseif($orders->state == "1")
+    {
+      $orders->state = "2";
+
+    }
+    elseif($orders->state == "2")
+    {
+      $orders->state = "0";
+
+    }
 
 
-   }
+    $orders->save();
+
+    return redirect()->back();
+
+
+  }
+
+
+}
 
 
 
- }
+}
 
 
 
@@ -163,7 +226,7 @@ class UserController extends Controller
 
 
 
- public function rating(Request $request){
+public function rating(Request $request){
 
   $data = $request->input();
 
@@ -187,7 +250,8 @@ class UserController extends Controller
 
 
    $rating = rating::where("userId",$data['ratedUser'])->first();
-   if($rating->count()==0)
+
+   if($rating==null)
    {
 
     $rat = new  rating;
@@ -293,7 +357,7 @@ public function myfavorite(Request $request){
   $data = $request->input();
   if($data['action']=='display')
   {
-   $favorites = DB::table('favorites')->orderBy("created_at","DESC")->get();
+   $favorites = DB::table('favorites')->where("userId",Auth::user()->id)->orderBy("created_at","DESC")->get();
 
 
    return view('clients.myFavorites')->with("favorites", $favorites);
@@ -753,6 +817,262 @@ if($val=="both")
 }
 }
 
+//end condition filter
+
+
+
+//beging VIP FILTER
+
+ if($data['type']=="vip")
+ {
+
+  $val = $data['val'];
+
+  if($val=="3")
+  {
+    if($data['action']=="100")
+    {
+
+     $ad = ads::where("cityName","like","%".$data['city']."%")
+     ->where("isValidate","1")
+     ->where("isBlocked","0")
+     ->where("buyNow","=","3")
+     ->orderBy("created_at","desc")
+     ->paginate(10);
+     $output = getOutput($ad);
+     $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
+
+     return ($output);
+
+   }
+
+
+   if($data['action']=="001")
+   {
+
+    $ad = ads::where("title","like","%".$input."%")
+    ->where("isValidate","1")
+    ->where("isBlocked","0")
+    ->where("buyNow","=","3")
+    ->orderBy("created_at","desc")
+    ->paginate(10);
+    $output = getOutput($ad);
+    $output = $output.$ad->appends(['city' => "",'subCat' =>"",'input' => $data['input']])->links() ;
+        //dd($ad);
+    return ($output);
+
+  }
+
+  if($data['action']=="010")
+  {
+
+   $ad = ads::where("subCategoryName","like","%".$subCat."%")
+   ->where("isValidate","1")
+   ->where("isBlocked","0")
+   ->where("buyNow","=","3")
+   ->orderBy("created_at","desc")
+   ->paginate(10);
+   $output = getOutput($ad);
+   $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' => ""])->links() ;
+   return ($output);
+
+ }
+
+ if($data['action']=="011")
+ {
+
+   $ad = ads::where("subCategoryName","like","%".$subCat."%")
+   ->where("isValidate","1")
+   ->where("title","like","%".$input."%")
+   ->where("isBlocked","0")
+   ->where("buyNow","=","3")
+   ->orderBy("created_at","desc")
+   ->paginate(10);
+   $output = getOutput($ad);
+   $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
+
+   return ($output);
+
+ }
+
+ if($data['action']=="101")
+ {
+
+  $ad = ads::where("cityName","like","%".$city."%")
+  ->where("isValidate","1")
+  ->where("title","like","%".$input."%")
+  ->where("isBlocked","0")
+  ->where("buyNow","=","3")
+  ->orderBy("created_at","desc")
+  ->paginate(10);
+  $output = getOutput($ad);
+  $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' =>$data['input']])->links() ;
+
+  return ($output);
+
+}
+
+if($data['action']=="110")
+{
+
+ $ad = ads::where("cityName","like","%".$city."%")
+ ->where("isValidate","1")
+ ->where("subCategoryName","like","%".$subCat."%")
+ ->where("isBlocked","0")
+ ->where("buyNow","=","3")
+ ->orderBy("created_at","desc")
+ ->paginate(10);
+ $output = getOutput($ad);
+ $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>""])->links() ;
+
+ return ($output);
+
+}
+
+
+if($data['action']=="111")
+{
+
+  $ad = ads::where("cityName","like","%".$city."%")
+  ->where("isValidate","1")
+  ->where("subCategoryName","like","%".$subCat."%")
+  ->where("title","like","%".$input."%")
+  ->where("isBlocked","0")
+  ->where("buyNow","=","3")
+  ->orderBy("created_at","desc")
+  ->paginate(10);
+  $output = getOutput($ad);
+  $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
+
+  return ($output);
+
+}
+
+}
+
+
+
+if($val=="0")
+{
+  if($data['action']=="100")
+  {
+
+   $ad = ads::where("cityName","like","%".$data['city']."%")
+   ->where("isValidate","1")
+   ->where("isBlocked","0")
+   ->orderBy("created_at","desc")
+   ->paginate(10);
+   $output = getOutput($ad);
+   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
+        //dd($ad);
+   return ($output);
+
+ }
+
+
+ if($data['action']=="001")
+ {
+
+  $ad = ads::where("title","like","%".$input."%")
+  ->where("isValidate","1")
+  ->where("isBlocked","0")
+  ->orderBy("created_at","desc")
+  ->paginate(10);
+  $output = getOutput($ad);
+  $output = $output.$ad->appends(['city' => "",'subCat' =>"",'input' => $data['input']])->links() ;
+        //dd($ad);
+  return ($output);
+
+}
+
+if($data['action']=="010")
+{
+
+ $ad = ads::where("subCategoryName","like","%".$subCat."%")
+ ->where("isValidate","1")
+ ->where("isBlocked","0")
+ ->orderBy("created_at","desc")
+ ->paginate(10);
+ $output = getOutput($ad);
+ $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' => ""])->links() ;
+ return ($output);
+
+}
+
+if($data['action']=="011")
+{
+
+ $ad = ads::where("subCategoryName","like","%".$subCat."%")
+ ->where("isValidate","1")
+ ->where("title","like","%".$input."%")
+ ->where("isBlocked","0")
+ ->orderBy("created_at","desc")
+ ->paginate(10);
+ $output = getOutput($ad);
+ $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
+
+ return ($output);
+
+}
+
+if($data['action']=="101")
+{
+
+  $ad = ads::where("cityName","like","%".$city."%")
+  ->where("isValidate","1")
+  ->where("title","like","%".$input."%")
+  ->where("isBlocked","0")
+  ->orderBy("created_at","desc")
+  ->paginate(10);
+  $output = getOutput($ad);
+  $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' =>$data['input']])->links() ;
+
+  return ($output);
+
+}
+
+if($data['action']=="110")
+{
+
+ $ad = ads::where("cityName","like","%".$city."%")
+ ->where("isValidate","1")
+ ->where("subCategoryName","like","%".$subCat."%")
+ ->where("isBlocked","0")
+ ->orderBy("created_at","desc")
+ ->paginate(10);
+ $output = getOutput($ad);
+ $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>""])->links() ;
+
+ return ($output);
+
+}
+
+
+if($data['action']=="111")
+{
+
+  $ad = ads::where("cityName","like","%".$city."%")
+  ->where("isValidate","1")
+  ->where("subCategoryName","like","%".$subCat."%")
+  ->where("title","like","%".$input."%")
+  ->where("isBlocked","0")
+  ->orderBy("created_at","desc")
+  ->paginate(10);
+  $output = getOutput($ad);
+  $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
+
+  return ($output);
+
+}
+
+}
+
+
+
+}
+
+//END VIP FILTER
+
 
 
 //PRICING FILTER
@@ -1189,9 +1509,10 @@ public function displayAds(Request $request){
     $ads = ads::where("regionName","=",$data['val'])
     ->where("isValidate","1")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
-    return view('product-view')->with("ad",$ads)->with("action",$data['action'])->with("val",$data['val']);
+    return view('product-view-grouping')->with("ad",$ads)->with("action",$data['action'])->with("val",$data['val']);
 
   }
 
@@ -1199,12 +1520,14 @@ public function displayAds(Request $request){
   if ($data['action']=='Cat') {
       # code...
 
-    $ads = ads::where("categoryName","like","%".$data['val']."%")
+    $ads = ads::where("categoryName","like","%".$data['val']."%")   
     ->where("isValidate","1")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
-    return view('product-view')->with("ad",$ads)->with("action",$data['action'])->with("val",$data['val']);
+
+    return view('product-view-grouping')->with("ad",$ads)->with("action",$data['action'])->with("val",$data['val']);
 
   }
 
@@ -1214,6 +1537,7 @@ public function displayAds(Request $request){
     $ads = ads::where("subCategoryName","like","%".$data['val']."%")
     ->where("isValidate","1")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     return view('product-view')->with("ad",$ads)->with("action",$data['action'])->with("val",$data['val'])->with("subcat",$data['val']);
@@ -1226,6 +1550,7 @@ public function displayAds(Request $request){
     $ads = ads::where("cityName","like","%".$data['val']."%")
     ->where("isValidate","1")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     return view('product-view')->with("ad",$ads)->with("action",$data['action'])->with("val",$data['val'])->with("cit",$data['val']);
@@ -1239,7 +1564,7 @@ public function displayAds(Request $request){
     ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
-    return view('product-view')->with("ad",$ads)->with("action","allAds")->with("val","allAds")->with("cit","all");
+    return view('product-view-grouping')->with("ad",$ads)->with("action","allAds")->with("val","allAds")->with("cit","all");
 
   }
 
@@ -1250,7 +1575,7 @@ public function displayAds(Request $request){
 
 }
 
-
+//for searching of specific city or specific subcategory
 public function search(Request $request)
 {
 
@@ -1263,15 +1588,22 @@ public function search(Request $request)
 
 
 
+
+
+
 //case 100
  if ($data['city']!="" && $data['subCat']=="" && $data['input']=="")
  {
 
+
+
+
   $ad = ads::where("cityName","like","%".$city."%")
   ->where("isValidate","1")
   ->where("isBlocked","0")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
 
@@ -1286,8 +1618,9 @@ if ($data['city']=='' && $data['subCat']=='' && $data['input']!='')
   $ad = ads::where("title","like","%".$input."%")
   ->where("isValidate","1")
   ->where("isBlocked","0")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => "",'subCat' =>"",'input' => $data['input']])->links() ;
 
@@ -1303,8 +1636,9 @@ if ($data['city']=='' && $data['subCat']!='' && $data['input']=='')
   $ad = ads::where("subCategoryName","like","%".$subCat."%")
   ->where("isValidate","1")
   ->where("isBlocked","0")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' => ""])->links() ;
 
@@ -1321,8 +1655,9 @@ if ($data['city']=='' && $data['subCat']!='' && $data['input']!='')
   ->where("isValidate","1")
   ->where("title","like","%".$input."%")
   ->where("isBlocked","0")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => "",'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
@@ -1338,8 +1673,9 @@ if ($data['city']!='' && $data['subCat']=='' && $data['input']!='')
   ->where("isValidate","1")
   ->where("title","like","%".$input."%")
   ->where("isBlocked","0")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' =>$data['input']])->links() ;
 
@@ -1355,8 +1691,9 @@ if ($data['city']!='' && $data['subCat']!='' && $data['input']=='')
   ->where("isValidate","1")
   ->where("subCategoryName","like","%".$subCat."%")
   ->where("isBlocked","0")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>""])->links() ;
 
@@ -1374,8 +1711,9 @@ if ($data['city']!='' && $data['subCat']!='' && $data['input']!='')
   ->where("subCategoryName","like","%".$subCat."%")
   ->where("title","like","%".$input."%")
   ->where("isBlocked","0")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
-  ->paginate(2);
+  ->paginate(10);
   $output = getOutput($ad);
   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>$data['subCat'],'input' =>$data['input']])->links() ;
 
@@ -1392,7 +1730,160 @@ if ($data['city']!='' && $data['subCat']!='' && $data['input']!='')
 }
 
 
+//end of searching for specific city or subcategory
 
+
+
+
+
+
+
+//beguining of searching in a city or a subcategory from a grouping view(example allAds, a region or a category)
+public function searchInitiator(Request $request)
+{
+
+ $data = $request->input();
+
+
+
+
+
+ $city =strtolower($data['city']);
+ $subCat =strtolower($data['subCat']);
+ $input =strtolower($data['input']);
+
+
+
+
+
+
+
+//case 100
+ if ($data['city']!="" && $data['subCat']=="" && $data['input']=="")
+ {
+
+
+
+
+  $ads = ads::where("cityName","like","%".$city."%")
+  ->where("isValidate","1")
+  ->where("isBlocked","0")
+  ->orderBy("buyNow","desc")
+  ->orderBy("created_at","desc")
+  ->paginate(10);
+
+  return view('product-view-grouping-annex')->with("ad",$ads)->with("cit",$data['city'])->with("subcat","")
+  ->with("input","");
+
+
+
+  
+
+
+}
+
+//case 001
+if ($data['city']=='' && $data['subCat']=='' && $data['input']!='')
+{
+  $ads = ads::where("title","like","%".$input."%")
+  ->where("isValidate","1")
+  ->where("isBlocked","0")
+  ->orderBy("buyNow","desc")
+  ->orderBy("created_at","desc")
+  ->paginate(10);
+  return view('product-view-grouping-annex')->with("ad",$ads)->with("cit","")->with("subcat","")
+  ->with("input",$data['input']);
+
+
+}
+
+ //case 010
+
+if ($data['city']=='' && $data['subCat']!='' && $data['input']=='')
+{
+  $ads = ads::where("subCategoryName","like","%".$subCat."%")
+  ->where("isValidate","1")
+  ->where("isBlocked","0")
+  ->orderBy("buyNow","desc")
+  ->orderBy("created_at","desc")
+  ->paginate(10);
+  return view('product-view-grouping-annex')->with("ad",$ads)->with("cit","")->with("subcat",$data['subCat'])
+  ->with("input","");
+
+}
+
+  //case 011
+
+
+if ($data['city']=='' && $data['subCat']!='' && $data['input']!='')
+{
+  $ads = ads::where("subCategoryName","like","%".$subCat."%")
+  ->where("isValidate","1")
+  ->where("title","like","%".$input."%")
+  ->where("isBlocked","0")
+  ->orderBy("buyNow","desc")
+  ->orderBy("created_at","desc")
+  ->paginate(10);
+  return view('product-view-grouping-annex')->with("ad",$ads)->with("cit","")->with("subcat",$data['subCat'])
+  ->with("input",$data['input']);
+
+}
+
+  //case 101
+
+if ($data['city']!='' && $data['subCat']=='' && $data['input']!='')
+{
+  $ads = ads::where("cityName","like","%".$city."%")
+  ->where("isValidate","1")
+  ->where("title","like","%".$input."%")
+  ->where("isBlocked","0")
+  ->orderBy("buyNow","desc")
+  ->orderBy("created_at","desc")
+  ->paginate(10);
+  return view('product-view-grouping-annex')->with("ad",$ads)->with("cit",$data['city'])->with("subcat","")
+  ->with("input",$data['input']);
+
+}
+
+
+ //case 110
+if ($data['city']!='' && $data['subCat']!='' && $data['input']=='')
+{
+  $ads = ads::where("cityName","like","%".$city."%")
+  ->where("isValidate","1")
+  ->where("subCategoryName","like","%".$subCat."%")
+  ->where("isBlocked","0")
+  ->orderBy("buyNow","desc")
+  ->orderBy("created_at","desc")
+  ->paginate(10);
+  return view('product-view-grouping-annex')->with("ad",$ads)->with("cit",$data['city'])->with("subcat",$data['subCat'])
+  ->with("input","");
+
+
+
+}
+
+
+  //case 111
+
+if ($data['city']!='' && $data['subCat']!='' && $data['input']!='')
+{
+  $ads = ads::where("cityName","like","%".$city."%")
+  ->where("isValidate","1")
+  ->where("subCategoryName","like","%".$subCat."%")
+  ->where("title","like","%".$input."%")
+  ->where("isBlocked","0")
+  ->orderBy("buyNow","desc")
+  ->orderBy("created_at","desc")
+  ->paginate(10);
+  return view('product-view-grouping-annex')->with("ad",$ads)->with("cit",$data['city'])->with("subcat",$data['subCat'])
+  ->with("input",$data['input']);
+
+}
+
+
+}
+//END of searching in a city or a subcategory from a grouping view(example allAds, a region or a category)
 
 
 public function postadd(){

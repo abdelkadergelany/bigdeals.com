@@ -24,16 +24,22 @@
         <div class="row">
           
 
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="customer">
-                    <p class="counter-count">10</p>
+                    <p class="counter-count">{{$favoriteCount}}</p>
                     <p class="customer-p">Favorites</p>
                 </div>
             </div>
+             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="customer">
+                    <p class="counter-count">{{$orderCount}}</p>
+                    <p class="customer-p">Orders</p>
+                </div>
+            </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="design">
-                    <p class="counter-count">1050</p>
+                    <p class="counter-count">{{$adsCounter}}</p>
                     <p class="design-p">Posted Ads</p>
                 </div>
             </div>

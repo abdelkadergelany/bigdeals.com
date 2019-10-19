@@ -704,3 +704,27 @@ font-size: 18px;
       transform:rotate(30deg);
     } 
     /* end of styling vip product */
+
+
+/* blog debut css */
+
+.button_blod {
+  background-color: #dbcc8f;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+  color: aliceblue;
+}
+
+.button_blod:hover {
+  background-color: #FFF8C6;
+  color: #555;
+}
+
+/* blog fin css */

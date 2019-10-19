@@ -172,7 +172,7 @@
  <div class="form-group">
    <label for="price"><b>Price (Tk)</b>: </label>
    <input class="form-control " required type="number" min="0" id="price" name="price"><br>&nbsp;&nbsp;
-   <input type="checkbox"  name="negociable" value="1" ><b>&nbsp;Negociable</b>
+   <input type="checkbox"  name="negociable" value="1" ><b>&nbsp;Negotiable</b>
  </div>
 
  </fieldset > 

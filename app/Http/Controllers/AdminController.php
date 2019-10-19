@@ -85,13 +85,6 @@ class AdminController extends Controller
 
 
 
-
-
-
-
-
-
-
    if($request->isMethod('get')){
     $data = $request->input();
 
@@ -122,11 +115,18 @@ class AdminController extends Controller
 
 
   }
+ if($data['action']=="deleteModel")
+   {
+          
+    modele::destroy($request->get('value'));
+    return redirect("manageBrand?action=displayModel");
+    
 
+
+  }
 
 
 }
-
 
 
 
@@ -192,7 +192,6 @@ public function canceledorder(Request $request){
   $deliveredOrderCount = order::where("state","=","2")->get();
 
 
-
   return view("manageorder")->with("orders",$orders)
   ->with("allOrderCount",$allOrderCount)
   ->with("pendingOrderCount",$pendingOrderCount->count())
@@ -222,10 +221,7 @@ public function deliveredorder(Request $request){
  ->with("deliveredOrderCount",$deliveredOrderCount->count());
 
 
-
-
 }
-
 
 
 public function userLogin(Request $request){
@@ -233,7 +229,8 @@ public function userLogin(Request $request){
     $data = $request->input();
     if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password'],'isBlocked'=>'0']))
     {
-      return view ('clients.myAccount');
+      return redirect("myAccount");
+     
     }
     else{
       return redirect ('/userLogin')->with('flash_message_error','Invalid username or Password');
@@ -242,9 +239,6 @@ public function userLogin(Request $request){
 
   return view('clients.userLogin');
 }
-
-
-
 
 
 
@@ -278,8 +272,6 @@ public function updatePassword(Request $request){
     }
 
 
-
-
   }
 
   return view('admin_change_password');
@@ -287,14 +279,40 @@ public function updatePassword(Request $request){
 
 
 public function dashboard(){
-  return view('admin.dashboard');
+  $userCount = user::all();
+  $adsCount = ads::all();
+  $catCount = category::all();
+  $subCatCount =sub_category::all();
+  $cityCount =city::all();
+  $totalOrderCount = order::all();
+   $pendingOrderCount = order::where("state","=","0")->get();
+ $deliveredOrderCount = order::where("state","=","2")->get();
+$newAdCount = ads::where("isValidate","=","0")->get();
+$waitCollectionCount  = ads::where("buyNow","=","2")->get();
+$vipRequestCount  = ads::where("buyNow","=","1")->get();
+$vipValid  = ads::where("buyNow","=","3")->get();
+
+  return view('admin.dashboard')
+  ->with("userCount",$userCount->count())
+  ->with("adsCount",$adsCount->count())
+   ->with("catCount",$catCount->count())
+   ->with("subCatCount",$subCatCount->count())
+   ->with("cityCount",$cityCount->count())
+   ->with("totalOrderCount",$totalOrderCount->count())
+   ->with("pendingOrderCount",$pendingOrderCount->count())
+   ->with("deliveredOrderCount",$deliveredOrderCount->count())
+   ->with("newAdCount",$newAdCount->count())
+   ->with("waitCollectionCount",$waitCollectionCount->count())
+   ->with("vipRequestCount",$vipRequestCount->count())
+   ->with("vipValid",$vipValid->count());
+
 }
 
 
 
-
 public function manageUsers(){
- $userInfos = User::all();
+ $userInfos = DB::table('users')->paginate(20);
+ 
 
 
  return view('admin_manage_users')->with("userInfo",$userInfos);
@@ -310,6 +328,7 @@ public function manageAds(){
  $inactivatedCount = ads::where("isValidate","=","0")->get();
  $activatedCount = ads::where("isValidate","=","1")->get();
  $isBlockedCount = ads::where("isBlocked","=","1")->get();
+ $waitCollectionCount  = ads::where("buyNow","=","2")->get();
  $vipRequestCount  = ads::where("buyNow","=","1")->get();
  $vipValid  = ads::where("buyNow","=","3")->get();
 
@@ -318,7 +337,8 @@ public function manageAds(){
  ->with("isBlockedCount",$isBlockedCount->count())
  ->with("activatedCount",$activatedCount->count())
  ->with("vipCount",$vipRequestCount->count())
- ->with("vipValid",$vipValid->count());
+ ->with("vipValid",$vipValid->count())
+ ->with("waitCollectionCount",$waitCollectionCount->count());
 
 
 
@@ -334,6 +354,7 @@ public function vipAds(){
   $inactivatedCount = ads::where("isValidate","=","0")->get();
   $activatedCount = ads::where("isValidate","=","1")->get();
   $isBlockedCount = ads::where("isBlocked","=","1")->get();
+  $waitCollectionCount  = ads::where("buyNow","=","2")->get();
   $vipRequestCount  = ads::where("buyNow","=","1")->get();
   $vipValid  = ads::where("buyNow","=","3")->get();
 
@@ -343,7 +364,8 @@ public function vipAds(){
   ->with("isBlockedCount",$isBlockedCount->count())
   ->with("activatedCount",$activatedCount->count())
   ->with("vipCount",$vipRequestCount->count())
-  ->with("vipValid",$vipValid->count());
+  ->with("vipValid",$vipValid->count())
+  ->with("waitCollectionCount",$waitCollectionCount->count());
 
 }
 
@@ -357,6 +379,7 @@ public function inactivatedAds(){
   $inactivatedCount = ads::where("isValidate","=","0")->get();
   $activatedCount = ads::where("isValidate","=","1")->get();
   $isBlockedCount = ads::where("isBlocked","=","1")->get();
+  $waitCollectionCount  = ads::where("buyNow","=","2")->get();
   $vipRequestCount  = ads::where("buyNow","=","1")->get();
   $vipValid  = ads::where("buyNow","=","3")->get();
 
@@ -366,7 +389,8 @@ public function inactivatedAds(){
   ->with("isBlockedCount",$isBlockedCount->count())
   ->with("activatedCount",$activatedCount->count())
   ->with("vipCount",$vipRequestCount->count())
-  ->with("vipValid",$vipValid->count());
+  ->with("vipValid",$vipValid->count())
+  ->with("waitCollectionCount",$waitCollectionCount->count());
 
 }
 public function activatedAds(){
@@ -376,6 +400,7 @@ public function activatedAds(){
   $inactivatedCount = ads::where("isValidate","=","0")->get();
   $activatedCount = ads::where("isValidate","=","1")->get();
   $isBlockedCount = ads::where("isBlocked","=","1")->get();
+  $waitCollectionCount  = ads::where("buyNow","=","2")->get();
   $vipRequestCount  = ads::where("buyNow","=","1")->get();
   $vipValid  = ads::where("buyNow","=","3")->get();
 
@@ -388,7 +413,9 @@ public function activatedAds(){
   ->with("isBlockedCount",$isBlockedCount->count())
   ->with("activatedCount",$activatedCount->count())
   ->with("vipCount",$vipRequestCount->count())
-  ->with("vipValid",$vipValid->count());
+  ->with("vipValid",$vipValid->count())
+  ->with("waitCollectionCount",$waitCollectionCount->count());
+
 
 
   
@@ -399,6 +426,7 @@ public function blockedAds(){
   $inactivatedCount = ads::where("isValidate","=","0")->get();
   $activatedCount = ads::where("isValidate","=","1")->get();
   $isBlockedCount = ads::where("isBlocked","=","1")->get();
+  $waitCollectionCount  = ads::where("buyNow","=","2")->get();
   $vipRequestCount  = ads::where("buyNow","=","1")->get();
   $vipValid  = ads::where("buyNow","=","3")->get();
 
@@ -412,7 +440,9 @@ public function blockedAds(){
   ->with("isBlockedCount",$isBlockedCount->count())
   ->with("activatedCount",$activatedCount->count())
   ->with("vipCount",$vipRequestCount->count())
-  ->with("vipValid",$vipValid->count());
+  ->with("vipValid",$vipValid->count())
+  ->with("waitCollectionCount",$waitCollectionCount->count());
+
 
   
 }
@@ -423,6 +453,7 @@ public function vipRequest(){
   $inactivatedCount = ads::where("isValidate","=","0")->get();
   $activatedCount = ads::where("isValidate","=","1")->get();
   $isBlockedCount = ads::where("isBlocked","=","1")->get();
+  $waitCollectionCount  = ads::where("buyNow","=","2")->get();
   $vipRequestCount  = ads::where("buyNow","=","1")->get();
   $vipValid  = ads::where("buyNow","=","3")->get();
   $ads = DB::table('ads')->where("buyNow",'1')->paginate(10);
@@ -433,10 +464,35 @@ public function vipRequest(){
   ->with("isBlockedCount",$isBlockedCount->count())
   ->with("activatedCount",$activatedCount->count())
   ->with("vipCount",$vipRequestCount->count())
-  ->with("vipValid",$vipValid->count());
+  ->with("vipValid",$vipValid->count())
+  ->with("waitCollectionCount",$waitCollectionCount->count());
 
   
 }
+
+public function waitCollection(){
+  $regions = region::all();
+  $category = category::all();
+  $inactivatedCount = ads::where("isValidate","=","0")->get();
+  $activatedCount = ads::where("isValidate","=","1")->get();
+  $isBlockedCount = ads::where("isBlocked","=","1")->get();
+  $waitCollectionCount  = ads::where("buyNow","=","2")->get();
+  $vipRequestCount  = ads::where("buyNow","=","1")->get();
+  $vipValid  = ads::where("buyNow","=","3")->get();
+  $ads = DB::table('ads')->where("buyNow",'2')->paginate(10);
+
+  //$ads= ads::where("isBlocked",'1')->get();
+  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads)
+  ->with("inactivatedCount",$inactivatedCount->count())
+  ->with("isBlockedCount",$isBlockedCount->count())
+  ->with("activatedCount",$activatedCount->count())
+  ->with("vipCount",$vipRequestCount->count())
+  ->with("vipValid",$vipValid->count())
+  ->with("waitCollectionCount",$waitCollectionCount->count());
+
+  
+}
+
 
 
 
@@ -482,6 +538,9 @@ public function editAd(Request $request){
 
       $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
       $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
+
+
+
 
 
 
@@ -789,6 +848,14 @@ public function deleteAd(Request $request){
  $category = category::all();
  $ads = ads::all();
  return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
+
+}
+
+public function deleteUser(Request $request){ 
+
+ user::destroy($request->get('id'));
+ 
+ return redirect("manageUsers");
 
 }
 
@@ -1173,22 +1240,22 @@ public function blockUsers(Request $request){
  $data = $request->input();  
 
  $user = User::find($data['id']);
-        //dd($request->input());
- if($user->isBlocked==1)
+        
+ if($user->isBlocked=="1")
  {
 
-   $user->isBlocked = 0;
+   $user->isBlocked ="0" ;
  }
  
  else {
-  $user->isBlocked = 1;
+  $user->isBlocked = "1";
+
 }
+// dd($user->isBlocked);
+ $user->save();
 
-$user->save();
 
-
-$userInfos = UserInfo::all();
-return view('admin_manage_users')->with("userInfo",$userInfos);
+return redirect("manageUsers");
 
 }
 

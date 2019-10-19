@@ -28,6 +28,7 @@ Route::get('/filter', 'UserController@filter')->name('filter');
 
 
 Route::get('/search', 'UserController@search')->name('search');
+Route::get('/searchInitiator', 'UserController@searchInitiator')->name('searchInitiator');
 
 
 
@@ -52,9 +53,9 @@ Route::get('/faq', function () {
 })->name('faq');
 
 
-Route::get('/blog', function () {
-	return view('clients.blog');
-})->name('blog');
+
+Route::get('/blogArticle','UserController@blogArticle')->name('blogArticle');
+Route::get('/blog','UserController@blog')->name('blog');
 
 
 Route::get('/contact', function () {
@@ -124,12 +125,9 @@ Route:: group (['middleware'=>['clients']],function(){
 	})->name('profile');
 
 
-
-	Route::get('/myAccount', function () {
-		return view('clients.myAccount');
+Route::get('/myAccount','UserController@myAccount')->name('myAccount');
 
 
-	})->name('myAccount');
 
 
 
@@ -177,6 +175,8 @@ Route:: group (['middleware'=>['auth']],function(){
 	Route:: get ('/blockedAds','AdminController@blockedAds')->name('blockedAds');
 	Route:: get ('/vipRequest','AdminController@vipRequest')->name('vipRequest');
 	Route:: get ('/vipAds','AdminController@vipAds')->name('vipAds');
+	Route:: get ('/waitCollection','AdminController@waitCollection')->name('waitCollection');
+	Route:: get ('/deleteUser','AdminController@deleteUser')->name('deleteUser');
 
 
 
@@ -197,9 +197,9 @@ Route:: group (['middleware'=>['auth']],function(){
 	Route:: post ('/addSubCategory','AdminController@addSubCategory')->name('addSubCategory');
 
 	Route:: post ('/admin/manageUsers/updateUser','AdminController@updateUsers')->name('updateUsers');
-	Route:: post ('/admin/manageUsers/blockUsers','AdminController@blockUsers')->name('blockUsers');
+	Route:: get ('/admin/manageUsers/blockUsers','AdminController@blockUsers')->name('blockUsers');
 
-	Route:: get ('/admin/dashboard','AdminController@dashboard');
+	Route:: get ('/admin/dashboard','AdminController@dashboard')->name("dashboard");
 	Route:: match (['get','post'],'/admin/admin_change_password','AdminController@updatePassword')->name('admin_change_password');
 });
 

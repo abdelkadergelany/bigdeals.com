@@ -37,8 +37,10 @@
          <div class="alert alert-danger " role="alert">oops! no ad was found matching your search try again!!!</div>
 
          @endforelse
-         {{ $ad->appends(['action' => $action,'val' => $val])->links() }}
+         
+         {{ $ad->appends(['city'=>$cit,'subCat'=>$subcat,'input'=>$input])->links() }}
 
+         
        </div>
 
      </div>
@@ -117,7 +119,11 @@
    $('#filter').submit(function(e){
 
      e.preventDefault();
-   
+   //console.log($('#first-disabled').val());
+
+// var city = $('#cityFilter').val();
+//    var subCat = $('#subCatFilter').val();
+//    var input = $('#inputFilter').val();
 
 var action="";
 var city = $('#first-disabled').val();
@@ -294,11 +300,11 @@ function paginationFilter(page,href,min,max,type,action)
 }
 
 
-//pagination by condition
+//filter by condition
 
 
 $(".condition").click(function(e){
-console.log("cava");
+
  var value = this.value;
  var action="";
  var city = $('#first-disabled').val();
@@ -348,8 +354,8 @@ console.log("cava");
 
 //end filter by condition
 
+//beguin pagination condition
 
-//pagination by condition
 function paginationCondition(href,value,type,action,city,subCat,input)
 
 {
@@ -392,8 +398,8 @@ function paginationCondition(href,value,type,action,city,subCat,input)
 
 }
 
+//end pagination condition
 
-//end pagination by condition
 
 //filtring by VIP
 
@@ -496,6 +502,8 @@ function paginationVip(href,value,type,action,city,subCat,input)
 
 
 //end of pagination vip
+
+
 
 
 

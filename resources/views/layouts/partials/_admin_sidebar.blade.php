@@ -1,12 +1,12 @@
 <nav id="sidebar" >
 			<div class="sidebar-header ">
-				<a href="index.html" ><img src="{{asset('img/logo.png')}}" alt="bigdeal logo"
+				<a href="{{route('welcome')}}" ><img src="{{asset('img/logo.png')}}" alt="bigdeal logo"
             class="d-none d-md-inline-block" width="200em"><img src="{{asset('img/logo-small.png')}}" alt="bigdeals.com"
             class="d-inline-block d-md-none " ><span class="sr-only">bigdeals.com</span></a>
 			</div>
 
 			<ul class="list-unstyled components">
-				<a href="#"><p><i class="fas fa-landmark"></i>&nbsp;Dashboard</p></a>
+				<a href="{{route('dashboard')}}"><p><i class="fas fa-landmark"></i>&nbsp;Dashboard</p></a>
 				<li >
 					<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-list-ul"></i>&nbsp;Category</a>
 					<ul class="collapse list-unstyled" id="homeSubmenu">

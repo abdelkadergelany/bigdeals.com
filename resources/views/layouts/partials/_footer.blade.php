@@ -3,20 +3,20 @@
         <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6">
-            <h4 class="mb-3">Pages</h4>
-            <hr>
+            
+            <h6>ELECTRONIC</h6>
             <ul class="list-unstyled">
-                <li><a href="text.html">About us</a></li>
-                <li><a href="text.html">Terms and conditions</a></li>
-                <li><a href="faq.html">FAQ</a></li>
-                <li><a href="contact.html">Contact us</a></li>
+                <li><a href="category.html">Laptop and desktop</a></li>
+                <li><a href="category.html">Computer accessories</a></li>
+                <li><a href="category.html">Cameras, camcorders and accessories</a></li>
+                <li><a href="category.html">Video game consoles and accessories</a></li>
             </ul>
-            <hr>
-            <h4 class="mb-3">Account</h4>
-            <ul class="list-unstyled">
-                <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
-                <li><a href="register.html">Regiter</a></li>
-            </ul>
+
+
+
+            
+           <hr>
+          
             </div>
             <!-- /.col-lg-3-->
             <div class="col-lg-3 col-md-6">
@@ -28,13 +28,12 @@
                 <li><a href="category.html">Tablets</a></li>
                 <li><a href="category.html">Phone Accessories</a></li>
             </ul>
-            <h6>ELECTRONIC</h6>
+           <!--    <h4 class="mb-3">Account</h4>
             <ul class="list-unstyled">
-                <li><a href="category.html">Laptop and desktop</a></li>
-                <li><a href="category.html">Computer accessories</a></li>
-                <li><a href="category.html">Cameras, camcorders and accessories</a></li>
-                <li><a href="category.html">Video game consoles and accessories</a></li>
-            </ul>
+                <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
+                <li><a href="register.html">Regiter</a></li>
+            </ul> -->
+           
             </div>
 
             <div class="col-lg-3 col-md-6">
