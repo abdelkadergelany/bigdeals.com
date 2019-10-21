@@ -122,23 +122,23 @@ if(!function_exists('getOutput')){
     foreach($add as $ads)
     {
 
-  $title=reduceString($ads->title);
+      $title=reduceString($ads->title);
 
-        $date = $ads->created_at->diffForHumans();
-        if($ads->isUsed=="1")
-        {
+      $date = $ads->created_at->diffForHumans();
+      if($ads->isUsed=="1")
+      {
 
-          $condition ="Used";
+        $condition ="Used";
 
-        }
-        else{
-          $condition ="New";
+      }
+      else{
+        $condition ="New";
 
-        }
+      }
 
 
       if($ads->buyNow!="3"){
-      
+        
 
         $output .="<a href=/product-details?id=".$ads->id." ". "class='border_all_categories'>
         <div class='row'>
@@ -160,10 +160,10 @@ if(!function_exists('getOutput')){
       }
 
       if($ads->buyNow=="3"){
-         
-      $output.= "<div class='offer offer-info' ><div class='shape'><div class='shape-text'>VIP</div></div>".
-      "<a href=/product-details?id=".$ads->id." "." class='border_all_categories'><div class='offer-content'>".
-      "<div class='row'><div class='col-sm-4'>"."<img src='publication/".$ads->pict1."' class='img-thumbnail' alt='images' width='100'
+       
+        $output.= "<div class='offer offer-info' ><div class='shape'><div class='shape-text'>VIP</div></div>".
+        "<a href=/product-details?id=".$ads->id." "." class='border_all_categories'><div class='offer-content'>".
+        "<div class='row'><div class='col-sm-4'>"."<img src='publication/".$ads->pict1."' class='img-thumbnail' alt='images' width='100'
         height='100'> </div><div class='col-sm-8'>
         <h5><b>".$title."(".$condition.")"."</b></h5>
         <span>".$ads->subCategoryName."</span><br>
@@ -172,9 +172,9 @@ if(!function_exists('getOutput')){
         <span class='time_all_categories'>".$date."</span><br></div></a></div><hr>";
         
         
-                    
         
-    
+        
+        
 
 
 

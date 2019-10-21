@@ -97,6 +97,7 @@
 
         <hr>
         @if($ads->buyNow == "3")
+        @auth
         <div class="list-group">
           <button type="button" class="list-group-item list-group-item-action active text-center" data-title="Add" data-toggle="modal" data-target="#order">
             <i class="fas fa-shopping-cart"></i> Place Your Order
@@ -107,6 +108,7 @@
         </div>
 
         <hr>
+        @endauth
         @endif
 
 
@@ -208,11 +210,11 @@
       <!--   <button  class="btn btn-success btn-sm" data-title="Add" data-toggle="modal" data-target="#add" ><i class="fas fa-plus-circle"></i>Post new Ads<div class="spinner-grow text-primary"></div></button> -->
 
 
-      <hr>
-      <a class="fa_product" href="#"> <img src="img/facebook_product.jpg" alt="facebook_product"
+      <!-- <hr> -->
+    <!--   <a class="fa_product" href="#"> <img src="img/facebook_product.jpg" alt="facebook_product"
         width="20%"></a>
         <a class="fa_product" href="#"> <img src="img/twitter_product.jpg" alt="twitter_product"
-          width="20%"></a>
+          width="20%"></a> -->
           <hr><br><br><br>
 
 
@@ -430,6 +432,9 @@
 
 
     </script>
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5dab60f661a5f118"></script>
+
     @stop
 
 

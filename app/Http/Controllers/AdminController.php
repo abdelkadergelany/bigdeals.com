@@ -15,6 +15,7 @@ use App\modele;
 use App\conversations;
 use App\chat;
 use App\order;
+use App\email;
 
 
 use Illuminate\Http\Request;
@@ -34,6 +35,22 @@ class AdminController extends Controller
       $data = $request->input();
       if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password'],'admin'=>'1']))
       {
+        $unreadEmail = DB::table('emails')->where("state","0")->get();
+
+
+        if($unreadEmail->count()!=0){
+
+          session(['newemail' => 'true']);
+
+        }
+        else{
+          session(['newemail' => 'false']);
+
+        }
+
+
+
+
         return redirect ('admin/dashboard');
       }
       else{
@@ -115,9 +132,9 @@ class AdminController extends Controller
 
 
   }
- if($data['action']=="deleteModel")
-   {
-          
+  if($data['action']=="deleteModel")
+  {
+
     modele::destroy($request->get('value'));
     return redirect("manageBrand?action=displayModel");
     
@@ -135,6 +152,22 @@ class AdminController extends Controller
 
 
   //end manage brand
+
+
+public function readMail(Request $request){
+
+
+
+ DB::table('emails')->where("state","0")->update(['state' => "1"]);
+ session(['newemail' => 'false']);
+
+ $email = DB::table('emails')->orderBy("created_at","desc")->paginate(10);
+
+
+
+ return view('manage_email')->with("email",$email);
+
+}
 
 
 public function allorders(Request $request){
@@ -229,8 +262,23 @@ public function userLogin(Request $request){
     $data = $request->input();
     if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password'],'isBlocked'=>'0']))
     {
+
+      $unreadEmailUser = DB::table('chats')->where("state","0")->where("to",Auth::user()->id)->get();
+
+
+        if($unreadEmailUser->count()!=0){
+         
+          session(['newemailUser' => 'true']);
+
+        }
+        else{
+          session(['newemailUser' => 'false']);
+
+        }
+
+
       return redirect("myAccount");
-     
+
     }
     else{
       return redirect ('/userLogin')->with('flash_message_error','Invalid username or Password');
@@ -285,26 +333,26 @@ public function dashboard(){
   $subCatCount =sub_category::all();
   $cityCount =city::all();
   $totalOrderCount = order::all();
-   $pendingOrderCount = order::where("state","=","0")->get();
- $deliveredOrderCount = order::where("state","=","2")->get();
-$newAdCount = ads::where("isValidate","=","0")->get();
-$waitCollectionCount  = ads::where("buyNow","=","2")->get();
-$vipRequestCount  = ads::where("buyNow","=","1")->get();
-$vipValid  = ads::where("buyNow","=","3")->get();
+  $pendingOrderCount = order::where("state","=","0")->get();
+  $deliveredOrderCount = order::where("state","=","2")->get();
+  $newAdCount = ads::where("isValidate","=","0")->get();
+  $waitCollectionCount  = ads::where("buyNow","=","2")->get();
+  $vipRequestCount  = ads::where("buyNow","=","1")->get();
+  $vipValid  = ads::where("buyNow","=","3")->get();
 
   return view('admin.dashboard')
   ->with("userCount",$userCount->count())
   ->with("adsCount",$adsCount->count())
-   ->with("catCount",$catCount->count())
-   ->with("subCatCount",$subCatCount->count())
-   ->with("cityCount",$cityCount->count())
-   ->with("totalOrderCount",$totalOrderCount->count())
-   ->with("pendingOrderCount",$pendingOrderCount->count())
-   ->with("deliveredOrderCount",$deliveredOrderCount->count())
-   ->with("newAdCount",$newAdCount->count())
-   ->with("waitCollectionCount",$waitCollectionCount->count())
-   ->with("vipRequestCount",$vipRequestCount->count())
-   ->with("vipValid",$vipValid->count());
+  ->with("catCount",$catCount->count())
+  ->with("subCatCount",$subCatCount->count())
+  ->with("cityCount",$cityCount->count())
+  ->with("totalOrderCount",$totalOrderCount->count())
+  ->with("pendingOrderCount",$pendingOrderCount->count())
+  ->with("deliveredOrderCount",$deliveredOrderCount->count())
+  ->with("newAdCount",$newAdCount->count())
+  ->with("waitCollectionCount",$waitCollectionCount->count())
+  ->with("vipRequestCount",$vipRequestCount->count())
+  ->with("vipValid",$vipValid->count());
 
 }
 
@@ -495,7 +543,29 @@ public function waitCollection(){
 
 
 
+public function editRegion(Request $request){ 
 
+ if($request->isMethod('get')){
+
+  $reg = region::find($request->get("id"));
+
+  return view('edit_region')->with("regId",$reg->id)->with("regName",$reg->regionName);
+
+
+}
+
+
+if($request->isMethod('post')){
+
+  $reg = region::find($request->get("id"));
+  $reg->regionName=strtolower($request->get("name")) ;
+  $reg->save();
+  return redirect('manageRegions');
+
+}
+
+
+}
 
 
 
@@ -1101,9 +1171,7 @@ public function updateCity(Request $request){
  $cit->save();
  
  
- $city = city::all()->sortBy("RegionName");
- $regions = region::all();
- return view('manage_cities')->with("city",$city)->with("region",$regions);
+ return redirect('manageCities');
 }
 
 
@@ -1240,7 +1308,7 @@ public function blockUsers(Request $request){
  $data = $request->input();  
 
  $user = User::find($data['id']);
-        
+
  if($user->isBlocked=="1")
  {
 
@@ -1252,7 +1320,7 @@ public function blockUsers(Request $request){
 
 }
 // dd($user->isBlocked);
- $user->save();
+$user->save();
 
 
 return redirect("manageUsers");

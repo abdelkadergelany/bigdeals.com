@@ -439,6 +439,7 @@ class ComposerStaticInit4fda040a71fd403457df7465aac19029
         'App\\chat' => __DIR__ . '/../..' . '/app/chat.php',
         'App\\city' => __DIR__ . '/../..' . '/app/city.php',
         'App\\conversations' => __DIR__ . '/../..' . '/app/conversations.php',
+        'App\\email' => __DIR__ . '/../..' . '/app/email.php',
         'App\\favorite' => __DIR__ . '/../..' . '/app/favorite.php',
         'App\\modele' => __DIR__ . '/../..' . '/app/modele.php',
         'App\\order' => __DIR__ . '/../..' . '/app/order.php',

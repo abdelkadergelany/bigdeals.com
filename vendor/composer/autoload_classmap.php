@@ -43,6 +43,7 @@ return array(
     'App\\chat' => $baseDir . '/app/chat.php',
     'App\\city' => $baseDir . '/app/city.php',
     'App\\conversations' => $baseDir . '/app/conversations.php',
+    'App\\email' => $baseDir . '/app/email.php',
     'App\\favorite' => $baseDir . '/app/favorite.php',
     'App\\modele' => $baseDir . '/app/modele.php',
     'App\\order' => $baseDir . '/app/order.php',

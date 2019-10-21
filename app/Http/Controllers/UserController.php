@@ -25,6 +25,7 @@ use App\brand;
 use App\ads;
 use App\favorite;
 use App\rating;
+use App\email;
 
 class UserController extends Controller
 {
@@ -104,81 +105,103 @@ class UserController extends Controller
     public function userRegister(){
 
 
-
       return view('auth.userRegister');
     }
 
+    public function contactUs(Request $request){
+      
+       $data = $request->input();
+
+     if($request->isMethod('get')){
+
+       return view('clients.contact');
+     }
 
 
-
-    public function myAccount(Request $request){
-
-      $adsCount =  ads::where("userId","=",Auth::user()->id);
-      $favoriteCount = favorite::where("userId","=",Auth::user()->id);
-      $orderCount = order::where("userId","=",Auth::user()->id);
-
-      return view('clients.myAccount')
-      ->with("adsCounter",$adsCount->count())
-      ->with("favoriteCount",$favoriteCount->count())
-      ->with("orderCount",$orderCount->count());
-    }
-
-
-
-
-    public function manageorder(Request $request){
-     $data = $request->input();
 
      if($request->isMethod('post')){
-       if($data['action']=='store')
-       {
+        email::create([
+        'name' => $data['name'] ,
+        'email' =>strtoupper($data['email']) ,
+        'message' => $data['message'],
+      ]); 
+       
+      return view('clients.contact')->with("confirmationSent","your message was successfully sent. we will reply to you shortly. ");
 
-        order::create([
-          'orderCode' => $data['orderCode'] ,
-          'fullName' =>strtoupper($data['name']) ,
-          'phone' => $data['phone'],
-          'address' => strtoupper($data['address']) ,
-          'adId' => $data['adId'],
-          'userId' => Auth::user()->id,
-          'price' => $data['price'],
-          'state' => "0",
-          'title' => $data['title'],
-
-        ]); 
-
-        return redirect("manageorder?action=userDisplay");
-
-      }
-
-    }
+     }
 
 
+   }
 
 
-    if($request->isMethod('get')){
-     if($data['action']=='userDisplay')
+   public function myAccount(Request $request){
+
+    $adsCount =  ads::where("userId","=",Auth::user()->id);
+    $favoriteCount = favorite::where("userId","=",Auth::user()->id);
+    $orderCount = order::where("userId","=",Auth::user()->id);
+
+    return view('clients.myAccount')
+    ->with("adsCounter",$adsCount->count())
+    ->with("favoriteCount",$favoriteCount->count())
+    ->with("orderCount",$orderCount->count());
+  }
+
+
+
+
+  public function manageorder(Request $request){
+   $data = $request->input();
+
+   if($request->isMethod('post')){
+     if($data['action']=='store')
      {
 
-      $orders = order::where("userId",Auth::id())->get();
+      order::create([
+        'orderCode' => $data['orderCode'] ,
+        'fullName' =>strtoupper($data['name']) ,
+        'phone' => $data['phone'],
+        'address' => strtoupper($data['address']) ,
+        'adId' => $data['adId'],
+        'userId' => Auth::user()->id,
+        'price' => $data['price'],
+        'state' => "0",
+        'title' => $data['title'],
 
-      return view("clients.myorders")->with("orders",$orders);
-
-
-    }
-
-
-
-    if($data['action']=='cancel')
-    {
-
-      $orders = order::find($data['order_id']);
-      $orders->state = "1";
-      $orders->save();
+      ]); 
 
       return redirect("manageorder?action=userDisplay");
 
-
     }
+
+  }
+
+
+
+
+  if($request->isMethod('get')){
+   if($data['action']=='userDisplay')
+   {
+
+    $orders = order::where("userId",Auth::id())->get();
+
+    return view("clients.myorders")->with("orders",$orders);
+
+
+  }
+
+
+
+  if($data['action']=='cancel')
+  {
+
+    $orders = order::find($data['order_id']);
+    $orders->state = "1";
+    $orders->save();
+
+    return redirect("manageorder?action=userDisplay");
+
+
+  }
 
 /* order = 0 means cpending
   order =1 means canceled
@@ -277,7 +300,7 @@ public function rating(Request $request){
              // dd( $rating);
 
     $totalCount =(float)$rating->total + (float)$data['val'];   
-    $overmark =5* (int)$rating->voteCount; 
+    $overmark =5* ((int)$rating->voteCount + 1); 
     $average= (5*(int)$totalCount)/ $overmark;
 
     $rating->total =$totalCount ;
@@ -823,8 +846,8 @@ if($val=="both")
 
 //beging VIP FILTER
 
- if($data['type']=="vip")
- {
+if($data['type']=="vip")
+{
 
   $val = $data['val'];
 

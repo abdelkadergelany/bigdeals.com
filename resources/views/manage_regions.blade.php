@@ -36,7 +36,7 @@
                                  <td>{{"$reg->updated_at"}}</td>
                     
                                  <td>
-                                    <p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><i class="fas fa-pen"></i></button></p>
+                                   <a href="{{route('editRegion')}}?id={{$reg->id}}"> <p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><i class="fas fa-pen"></i></button></p>
                                  </td>
                               
                                

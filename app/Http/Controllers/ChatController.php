@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use  Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class ChatController extends Controller
 {
@@ -24,6 +25,9 @@ class ChatController extends Controller
     public function index(Request $request)
     {
         //
+      DB::table('chats')->where("state","0")->where("to",Auth::user()->id)->update(['state' => "1"]);
+       session(['newemailUser' => 'false']);
+
             $conversation = conversations::where("userId",Auth::user()->id)->orderBy('created_at','desc')->get();
             $chat  = chat::where("from",Auth::user()->id)->orWhere("to",Auth::user()->id)->orderBy('created_at','asc')->get();
             //dd( $conversation);

@@ -63,7 +63,11 @@
 				</li>
 				
 				<li>
-					<a href="#"><i class="fas fa-envelope"></i>&nbsp;Email</a>
+					<a href="{{route('readMail')}}"><i class="fas fa-envelope"></i>&nbsp;Email 
+                        @if(session('newemail')=="true")
+						<div class="spinner-grow text-primary"> <i style="color: yellow" class="fas  fa-comment-medical"></i></div>
+						@endif
+					</a>
 				</li>
 		
 			</ul>

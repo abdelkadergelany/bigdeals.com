@@ -6,10 +6,10 @@
             
             <h6>ELECTRONIC</h6>
             <ul class="list-unstyled">
-                <li><a href="category.html">Laptop and desktop</a></li>
-                <li><a href="category.html">Computer accessories</a></li>
-                <li><a href="category.html">Cameras, camcorders and accessories</a></li>
-                <li><a href="category.html">Video game consoles and accessories</a></li>
+                <li><a href="{{route('displayAds')}}?action=subCat&type=one&val=laptop and desktop">Laptop and desktop</a></li>
+                <li><a href="{{route('displayAds')}}?action=subCat&type=one&val=Computer accessories">Computer accessories</a></li>
+                <li><a href="{{route('displayAds')}}?action=subCat&type=one&val=cameras, camcorders and accessories">Cameras, camcorders and accessories</a></li>
+                <li><a href="{{route('displayAds')}}?action=subCat&type=one&val=video game consoles and accessories">Video game consoles and accessories</a></li>
             </ul>
 
 
@@ -24,9 +24,9 @@
             <hr>
             <h6>MOBILE PHONE</h6>
             <ul class="list-unstyled">
-                <li><a href="category.html">Smartphones</a></li>
-                <li><a href="category.html">Tablets</a></li>
-                <li><a href="category.html">Phone Accessories</a></li>
+                <li><a href="{{route('displayAds')}}?action=subCat&type=one&val=Smartphones">Smartphones</a></li>
+                <li><a href="{{route('displayAds')}}?action=subCat&type=one&val=Tablets">Tablets</a></li>
+                <li><a href="{{route('displayAds')}}?action=subCat&type=one&val=Phone Accessories">Phone Accessories</a></li>
             </ul>
            <!--    <h4 class="mb-3">Account</h4>
             <ul class="list-unstyled">

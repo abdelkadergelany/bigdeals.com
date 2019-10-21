@@ -58,9 +58,10 @@ Route::get('/blogArticle','UserController@blogArticle')->name('blogArticle');
 Route::get('/blog','UserController@blog')->name('blog');
 
 
-Route::get('/contact', function () {
-	return view('clients.contact');
-})->name('contact');
+
+
+
+Route:: match (['get','post'],'/contact','UserController@contactUs')->name("contact");
 
 
 //htsf = how to sell fast page
@@ -156,6 +157,10 @@ Route:: group (['middleware'=>['auth']],function(){
 
 
 
+	Route:: get ('/readMail','AdminController@readMail')->name('readMail');
+
+
+
 
 	Route:: get ('/allorders','AdminController@allorders')->name('allorders');
 	Route:: get ('/pendingorder','AdminController@pendingorder')->name('pendingorder');
@@ -165,8 +170,7 @@ Route:: group (['middleware'=>['auth']],function(){
 
 
 
-
-
+    Route:: match (['get','post'],'/editRegion','AdminController@editRegion')->name('editRegion');
 
 
 

@@ -63,6 +63,8 @@
                     <strong>{!! Session('flash_message_error')!!}</strong> 
                </div>      
                   @endif
+                  
+                
     <form method="POST" action="{{url('userLogin')}}">{{csrf_field()}}
         <h2 class="text-center">Log in</h2>       
         <div class="form-group">
