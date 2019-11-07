@@ -15,7 +15,7 @@
 
           <span>{{$ads->subCategoryName}}</span><br>
            <span style="color: #7B1FA2;text-transform: capitalize;">{{$ads->cityName}}&nbsp;&nbsp;</span><span style="text-transform: capitalize;">{{$ads->address}}</span><br>
-          <span class="price_all_categories">TK {{$ads->price}}</span>
+          <span class="price_all_categories">Fcfa {{$ads->price}}</span>
           
         </div>
       </div>
@@ -41,12 +41,12 @@
                                  
                 </div>
                 <div class="col-sm-8">
-                  <h5><b>{{reduceString($ads->title)}}...(@if($ads->isUsed==0){{"New"}}@else{{"Used"}}@endif)     
+                  <h5><b style="text-transform: capitalize;">{{reduceString($ads->title)}}...(@if($ads->isUsed==0){{"New"}}@else{{"Used"}}@endif)     
                   </b></h5>
 
                   <span>{{$ads->subCategoryName}}</span><br>
                   <span style="color: #7B1FA2;text-transform: capitalize;">{{$ads->cityName}}&nbsp;&nbsp;</span><span style="text-transform: capitalize;">{{$ads->address}}</span><br>
-                  <span class="price_all_categories">TK {{$ads->price}}</span>
+                  <span class="price_all_categories">Fcfa {{$ads->price}}</span>
                   
                 </div>
               </div>

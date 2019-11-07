@@ -132,7 +132,7 @@
 
 
     // Enable pusher logging - don't include this in production
-    //Pusher.logToConsole = true;
+    Pusher.logToConsole = true;
 
     var pusher = new Pusher('16cd61370fc9eee60b71', {
       cluster: 'ap2',
@@ -231,7 +231,7 @@
     if (this.readyState == 4 && this.status == 200) {
      document.getElementById("msg_history").innerHTML = this.responseText;
 
-     console.log(this.responseText);
+     //console.log(this.responseText);
     }
   };
   xhttp.open("GET", "/loadMessage?convId="+conv, true);

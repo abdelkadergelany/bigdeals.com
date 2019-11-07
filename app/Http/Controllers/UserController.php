@@ -476,6 +476,7 @@ public function filter(Request $request)
      ->where("isValidate","1")
      ->where("isBlocked","0")
      ->where("isUsed","=","0")
+     ->orderBy("buyNow","desc")
      ->orderBy("created_at","desc")
      ->paginate(10);
      $output = getOutput($ad);
@@ -493,6 +494,7 @@ public function filter(Request $request)
     ->where("isValidate","1")
     ->where("isBlocked","0")
     ->where("isUsed","=","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -509,6 +511,7 @@ public function filter(Request $request)
    ->where("isValidate","1")
    ->where("isBlocked","0")
    ->where("isUsed","=","0")
+   ->orderBy("buyNow","desc")
    ->orderBy("created_at","desc")
    ->paginate(10);
    $output = getOutput($ad);
@@ -525,6 +528,7 @@ public function filter(Request $request)
    ->where("title","like","%".$input."%")
    ->where("isBlocked","0")
    ->where("isUsed","=","0")
+   ->orderBy("buyNow","desc")
    ->orderBy("created_at","desc")
    ->paginate(10);
    $output = getOutput($ad);
@@ -542,6 +546,7 @@ public function filter(Request $request)
   ->where("title","like","%".$input."%")
   ->where("isBlocked","0")
   ->where("isUsed","=","0")
+ ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
   ->paginate(10);
   $output = getOutput($ad);
@@ -559,6 +564,7 @@ if($data['action']=="110")
  ->where("subCategoryName","like","%".$subCat."%")
  ->where("isBlocked","0")
  ->where("isUsed","=","0")
+ ->orderBy("buyNow","desc")
  ->orderBy("created_at","desc")
  ->paginate(10);
  $output = getOutput($ad);
@@ -578,6 +584,7 @@ if($data['action']=="111")
   ->where("title","like","%".$input."%")
   ->where("isBlocked","0")
   ->where("isUsed","=","0")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
   ->paginate(10);
   $output = getOutput($ad);
@@ -600,6 +607,7 @@ if($val=="used")
    ->where("isValidate","1")
    ->where("isBlocked","0")
    ->where("isUsed","=","1")
+   ->orderBy("buyNow","desc")
    ->orderBy("created_at","desc")
    ->paginate(10);
    $output = getOutput($ad);
@@ -617,6 +625,7 @@ if($val=="used")
   ->where("isValidate","1")
   ->where("isBlocked","0")
   ->where("isUsed","=","1")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
   ->paginate(10);
   $output = getOutput($ad);
@@ -633,6 +642,7 @@ if($data['action']=="010")
  ->where("isValidate","1")
  ->where("isBlocked","0")
  ->where("isUsed","=","1")
+ ->orderBy("buyNow","desc")
  ->orderBy("created_at","desc")
  ->paginate(10);
  $output = getOutput($ad);
@@ -649,6 +659,7 @@ if($data['action']=="011")
  ->where("title","like","%".$input."%")
  ->where("isBlocked","0")
  ->where("isUsed","=","1")
+ ->orderBy("buyNow","desc")
  ->orderBy("created_at","desc")
  ->paginate(10);
  $output = getOutput($ad);
@@ -666,6 +677,7 @@ if($data['action']=="101")
   ->where("title","like","%".$input."%")
   ->where("isBlocked","0")
   ->where("isUsed","=","1")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
   ->paginate(10);
   $output = getOutput($ad);
@@ -683,6 +695,7 @@ if($data['action']=="110")
  ->where("subCategoryName","like","%".$subCat."%")
  ->where("isBlocked","0")
  ->where("isUsed","=","1")
+ ->orderBy("buyNow","desc")
  ->orderBy("created_at","desc")
  ->paginate(10);
  $output = getOutput($ad);
@@ -702,6 +715,7 @@ if($data['action']=="111")
   ->where("title","like","%".$input."%")
   ->where("isBlocked","0")
   ->where("isUsed","=","1")
+ ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
   ->paginate(10);
   $output = getOutput($ad);
@@ -723,6 +737,7 @@ if($val=="both")
     $ad = ads::where("cityName","like","%".$city."%")
     ->where("isValidate","1")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -739,6 +754,7 @@ if($val=="both")
     $ad = ads::where("title","like","%".$input."%")
     ->where("isValidate","1")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -756,6 +772,7 @@ if($val=="both")
     $ad = ads::where("subCategoryName","like","%".$subCat."%")
     ->where("isValidate","1")
     ->where("isBlocked","0")
+   ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -774,6 +791,7 @@ if($val=="both")
     ->where("isValidate","1")
     ->where("title","like","%".$input."%")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -791,6 +809,7 @@ if($val=="both")
     ->where("isValidate","1")
     ->where("title","like","%".$input."%")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -808,6 +827,7 @@ if($val=="both")
     ->where("isValidate","1")
     ->where("subCategoryName","like","%".$subCat."%")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -827,6 +847,7 @@ if($val=="both")
     ->where("subCategoryName","like","%".$subCat."%")
     ->where("title","like","%".$input."%")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -1117,6 +1138,7 @@ if($data['type']=="pricing")
      ->where("isValidate","1")
      ->where("isBlocked","0")
      ->where("negociable","=","1")
+     ->orderBy("buyNow","desc")
      ->orderBy("created_at","desc")
      ->paginate(10);
      $output = getOutput($ad);
@@ -1134,6 +1156,7 @@ if($data['type']=="pricing")
     ->where("isValidate","1")
     ->where("isBlocked","0")
     ->where("negociable","=","1")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -1150,6 +1173,7 @@ if($data['type']=="pricing")
    ->where("isValidate","1")
    ->where("isBlocked","0")
    ->where("negociable","=","1")
+   ->orderBy("buyNow","desc")
    ->orderBy("created_at","desc")
    ->paginate(10);
    $output = getOutput($ad);
@@ -1166,6 +1190,7 @@ if($data['type']=="pricing")
    ->where("title","like","%".$input."%")
    ->where("isBlocked","0")
    ->where("negociable","=","1")
+   ->orderBy("buyNow","desc")
    ->orderBy("created_at","desc")
    ->paginate(10);
    $output = getOutput($ad);
@@ -1183,6 +1208,7 @@ if($data['type']=="pricing")
   ->where("title","like","%".$input."%")
   ->where("isBlocked","0")
   ->where("negociable","=","1")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
   ->paginate(10);
   $output = getOutput($ad);
@@ -1200,6 +1226,7 @@ if($data['action']=="110")
  ->where("subCategoryName","like","%".$subCat."%")
  ->where("isBlocked","0")
  ->where("negociable","=","1")
+ ->orderBy("buyNow","desc")
  ->orderBy("created_at","desc")
  ->paginate(10);
  $output = getOutput($ad);
@@ -1219,6 +1246,7 @@ if($data['action']=="111")
   ->where("title","like","%".$input."%")
   ->where("isBlocked","0")
   ->where("negociable","=","1")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
   ->paginate(10);
   $output = getOutput($ad);
@@ -1241,6 +1269,7 @@ if($val=="fixed")
    ->where("isValidate","1")
    ->where("isBlocked","0")
    ->where("negociable","=","0")
+   ->orderBy("buyNow","desc")
    ->orderBy("created_at","desc")
    ->paginate(10);
    $output = getOutput($ad);
@@ -1258,6 +1287,7 @@ if($val=="fixed")
   ->where("isValidate","1")
   ->where("isBlocked","0")
   ->where("negociable","=","0")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
   ->paginate(10);
   $output = getOutput($ad);
@@ -1274,6 +1304,7 @@ if($data['action']=="010")
  ->where("isValidate","1")
  ->where("isBlocked","0")
  ->where("negociable","=","0")
+ ->orderBy("buyNow","desc")
  ->orderBy("created_at","desc")
  ->paginate(10);
  $output = getOutput($ad);
@@ -1290,6 +1321,7 @@ if($data['action']=="011")
  ->where("title","like","%".$input."%")
  ->where("isBlocked","0")
  ->where("negociable","=","0")
+ ->orderBy("buyNow","desc")
  ->orderBy("created_at","desc")
  ->paginate(10);
  $output = getOutput($ad);
@@ -1307,6 +1339,7 @@ if($data['action']=="101")
   ->where("title","like","%".$input."%")
   ->where("isBlocked","0")
   ->where("negociable","=","0")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
   ->paginate(10);
   $output = getOutput($ad);
@@ -1324,6 +1357,7 @@ if($data['action']=="110")
  ->where("subCategoryName","like","%".$subCat."%")
  ->where("isBlocked","0")
  ->where("negociable","=","0")
+ ->orderBy("buyNow","desc")
  ->orderBy("created_at","desc")
  ->paginate(10);
  $output = getOutput($ad);
@@ -1343,6 +1377,7 @@ if($data['action']=="111")
   ->where("title","like","%".$input."%")
   ->where("isBlocked","0")
   ->where("negociable","=","0")
+  ->orderBy("buyNow","desc")
   ->orderBy("created_at","desc")
   ->paginate(10);
   $output = getOutput($ad);
@@ -1364,6 +1399,7 @@ if($val=="both")
     $ad = ads::where("cityName","like","%".$city."%")
     ->where("isValidate","1")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -1380,6 +1416,7 @@ if($val=="both")
     $ad = ads::where("title","like","%".$input."%")
     ->where("isValidate","1")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -1397,6 +1434,7 @@ if($val=="both")
     $ad = ads::where("subCategoryName","like","%".$subCat."%")
     ->where("isValidate","1")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -1415,6 +1453,7 @@ if($val=="both")
     ->where("isValidate","1")
     ->where("title","like","%".$input."%")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -1432,6 +1471,7 @@ if($val=="both")
     ->where("isValidate","1")
     ->where("title","like","%".$input."%")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -1449,6 +1489,7 @@ if($val=="both")
     ->where("isValidate","1")
     ->where("subCategoryName","like","%".$subCat."%")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -1468,6 +1509,7 @@ if($val=="both")
     ->where("subCategoryName","like","%".$subCat."%")
     ->where("title","like","%".$input."%")
     ->where("isBlocked","0")
+    ->orderBy("buyNow","desc")
     ->orderBy("created_at","desc")
     ->paginate(10);
     $output = getOutput($ad);
@@ -1500,6 +1542,7 @@ if($data['type']=="minmax")
    ->where("isBlocked","0")
    ->where("price",">=",$min)
    ->where("price","<=",$max)
+   ->orderBy("buyNow","desc")
    ->orderBy("created_at","desc")
    ->paginate(10);
    $output = getOutput($ad);
@@ -1509,6 +1552,129 @@ if($data['type']=="minmax")
 
  }
 
+
+ // case 001
+  if($data['action']=="001")
+  {
+
+   $ad = ads::where("title","like","%".$input."%")
+   ->where("isValidate","1")
+   ->where("isBlocked","0")
+   ->where("price",">=",$min)
+   ->where("price","<=",$max)
+   ->orderBy("buyNow","desc")
+   ->orderBy("created_at","desc")
+   ->paginate(10);
+   $output = getOutput($ad);
+   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
+
+   return ($output);
+
+ }
+
+//case 010
+
+ if($data['action']=="010")
+  {
+
+   $ad = ads::where("subCategoryName","like","%".$subCat."%")
+   ->where("isValidate","1")
+   ->where("isBlocked","0")
+   ->where("price",">=",$min)
+   ->where("price","<=",$max)
+   ->orderBy("buyNow","desc")
+   ->orderBy("created_at","desc")
+   ->paginate(10);
+   $output = getOutput($ad);
+   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
+
+   return ($output);
+
+ }
+
+ //case 011
+
+ if($data['action']=="011")
+  {
+
+   $ad = ads::where("subCategoryName","like","%".$subCat."%")
+   ->where("isValidate","1")
+   ->where("isBlocked","0")
+   ->where("title","like","%".$input."%")
+   ->where("price",">=",$min)
+   ->where("price","<=",$max)
+   ->orderBy("buyNow","desc")
+   ->orderBy("created_at","desc")
+   ->paginate(10);
+   $output = getOutput($ad);
+   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
+
+   return ($output);
+
+ }
+
+//case 101
+  if($data['action']=="101")
+  {
+
+   $ad = ads::where("cityName","like","%".$data['city']."%")
+   ->where("isValidate","1")
+   ->where("isBlocked","0")
+   ->where("title","like","%".$input."%")
+   ->where("price",">=",$min)
+   ->where("price","<=",$max)
+   ->orderBy("buyNow","desc")
+   ->orderBy("created_at","desc")
+   ->paginate(10);
+   $output = getOutput($ad);
+   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
+
+   return ($output);
+
+ }
+
+
+ //case 110
+  if($data['action']=="110")
+  {
+
+   $ad = ads::where("cityName","like","%".$data['city']."%")
+   ->where("isValidate","1")
+   ->where("isBlocked","0")
+   ->where("subCategoryName","like","%".$subCat."%")
+   ->where("price",">=",$min)
+   ->where("price","<=",$max)
+   ->orderBy("buyNow","desc")
+   ->orderBy("created_at","desc")
+   ->paginate(10);
+   $output = getOutput($ad);
+   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
+
+   return ($output);
+
+ }
+
+
+  //case 111
+  if($data['action']=="110")
+  {
+
+   $ad = ads::where("cityName","like","%".$data['city']."%")
+   ->where("isValidate","1")
+   ->where("isBlocked","0")
+    ->where("title","like","%".$input."%")
+   ->where("subCategoryName","like","%".$subCat."%")
+   ->where("price",">=",$min)
+   ->where("price","<=",$max)
+   ->orderBy("buyNow","desc")
+   ->orderBy("created_at","desc")
+   ->paginate(10);
+   $output = getOutput($ad);
+   $output = $output.$ad->appends(['city' => $data['city'],'subCat' =>"",'input' => ""])->links() ;
+
+   return ($output);
+
+ }
 
 
 }

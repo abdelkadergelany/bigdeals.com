@@ -112,7 +112,7 @@
         @endif
 
 
-        <span class="tag_price_product"><b>{{$ads->price}}</b> tk </span>
+        <span class="tag_price_product"><b>{{$ads->price}}</b> Fcfa </span>
         <span><em>
          @if($ads->negociable =="1")
          <span class="alert-dark">Negotiable</span> 
@@ -153,10 +153,10 @@
       @endif
 
       <span><b>City: </b></span>
-      <span>{{$ads->cityName}}</span>
+      <span class="text-capitalize">{{$ads->cityName}}</span>
       <hr>
       <span><b>Address:</b> </span>
-      <span>{{$ads->address}}</span>
+      <span class="text-capitalize">{{$ads->address}}</span>
       <hr>
       @auth
       <div class="like_button">
@@ -271,7 +271,7 @@
     <div class="col-md-3">
      <a style="text-decoration: none;" href="{{route('product-details')}}?id={{$sim->id}}"><img src="publication/{{$sim->pict1}}" class="mx-auto d-block" width="100%" height="200px"> 
        <h4 style="text-align: center;">{{reduceString($sim->title)}}</h4></a>
-       <p class="price_similar_product" style="text-align: center;">TK {{$sim->price}}</p>
+       <p class="price_similar_product" style="text-align: center;">Fcfa {{$sim->price}}</p>
      </div>
      @empty
      <div class="alert alert-danger " role="alert">No similar ads found</div>
@@ -311,7 +311,7 @@
           <input class="" type="tel" placeholder="  9 digits " pattern="[0-9]{9}" id="" name="phone" required>
         </div><br>
 
-        <i style="color: #512DA8;" class="far fa-3x fa-money-bill-alt"></i> Amount to pay :  <b>TK {{number_format($ads->price,0)}}</b> <br><br>
+        <i style="color: #512DA8;" class="far fa-3x fa-money-bill-alt"></i> Amount to pay :  <b>Fcfa {{number_format($ads->price,0)}}</b> <br><br>
         payment method :  <img src="img/cash.jpg" width="100px" height="30px" alt="une cuisiniere" class="img-fluid"><br><br>
 
         <input type="hidden" value="{{uniqid()}}" name="orderCode">

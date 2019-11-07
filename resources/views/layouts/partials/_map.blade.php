@@ -6,8 +6,8 @@
         <br>
         <p>Buy and sell everything from mobile phones to used computers and cars to finding real estate, jobs and more
           in Cameroon!
-          <br> at unbeatable prices and near you.<br> <span style="color: red;">choose the Region where the city and
-            category and get in 1 second what you are looking for.</span> </p>
+          <br> at unbeatable prices and near you.<br> <span style="color: red;">choose the Region or the city and
+             get in 1 second what you are looking for.</span> </p>
         <a href=" {{ route('postadd')}}"><button type="button" class="btn btn-outline-secondary " style="color: white;background-color: #512DA8;">
           <span class="sr-only">Post your add</span>Post your add</button></a>
       </div>

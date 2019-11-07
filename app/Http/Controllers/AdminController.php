@@ -30,11 +30,15 @@ use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
+
+
   public function login(Request $request){
     if($request->isMethod('post')){
       $data = $request->input();
       if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password'],'admin'=>'1']))
-      {
+      {  
+
+
         $unreadEmail = DB::table('emails')->where("state","0")->get();
 
 
@@ -44,6 +48,7 @@ class AdminController extends Controller
 
         }
         else{
+          
           session(['newemail' => 'false']);
 
         }
@@ -582,7 +587,7 @@ public function editAd(Request $request){
 
    
 
-   return view('edit_Ad')->with("category",$category)->with("ads",$ads);
+   return view('edit_ad')->with("category",$category)->with("ads",$ads);
  }
 
  if($request->isMethod('post')){

@@ -158,21 +158,21 @@
 
 
  <div class="form-group">
-   <label for="used"><b>More details</b>:  </label><br>
-   Used&nbsp;&nbsp;<input class=" " type="radio"  required value="1" id="used" name="isUsed">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   New&nbsp;&nbsp;&nbsp;<input class=" " type="radio" required  value="0" id="new" name="isUsed">
+   <label for=""><b>More details</b>:  </label><br>
+   <label for="used">Used</label>&nbsp;&nbsp;<input class="isUsed" type="radio"  required value="1" id="used" name="isUsed">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <label for="new">New</label>&nbsp;&nbsp;&nbsp;<input class=" " type="radio" required  value="0" id="new" name="isUsed">
 
  </div>
 
  <div class="form-group">
    <label for="authentic"><b>Authenticity</b>: </label><br>
-   Authentic&nbsp;&nbsp;<input class=" " type="radio"  required value="1" id="authentic" name="authenticity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   Refurnished&nbsp;&nbsp;&nbsp;<input class=" " type="radio" required value="0" id="refurnished" name="authenticity">
+   <label for="authentic">Authentic</label>&nbsp;&nbsp;<input class=" " type="radio"  required value="1" id="authentic" name="authenticity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <label for="refurnished">Refurnished</label>&nbsp;&nbsp;&nbsp;<input class=" " type="radio" required value="0" id="refurnished" name="authenticity">
  </div>
  <div class="form-group">
-   <label for="price"><b>Price (Tk)</b>: </label>
+   <label for="price"><b>Price (Fcfa)</b>: </label>
    <input class="form-control " required type="number" min="0" id="price" name="price"><br>&nbsp;&nbsp;
-   <input type="checkbox"  name="negociable" value="1" ><b>&nbsp;Negotiable</b>
+   <input type="checkbox"  name="negociable" value="1" id="negotiable" ><b>&nbsp;<label for="negotiable">Negotiable</label></b>
  </div>
 
  </fieldset > 
@@ -180,7 +180,7 @@
 <fieldset id="myFieldset">
                     <legend>Pictures</legend>
  <div class="form-group">
-  <label for="file"><b>Pictures</b>(<b><span style="color: red;">Less than 2Mb</span></b>): </label><br>
+  <label for="file"><b>Pictures</b>(<b><span style="color: red;">Less than 500kb</span></b>): </label><br>
                             <!-- imagae1:  <input type="file" name="file1" required>
                             imagae2:  <input type="file" name="file2" >
                             imagae3:  <input type="file" name="file3" >
@@ -227,7 +227,7 @@
 
                           <label ><b> Name  <i class="fas fa-user"> </i></b> : </label>
 
-                          <span >&nbsp;&nbsp;{{Auth::user()->name}}</span><br><br>
+                          <span style="text-transform: capitalize;">&nbsp;&nbsp;{{Auth::user()->name}}</span><br><br>
 
 
                           <label for="phone"><b> Phone  <i class="fas fa-phone"> </i></b> : </label><br>
