@@ -89,7 +89,8 @@
         </div><br><hr>
         
           <h3>Desciption :</h3>
-          <pre style="font-size: 18px;">{{$ads->description}}</pre><br>
+          <div class="text-left"  ><p  style="font-size: 18px;overflow: visible;">{{$ads->description}}</p><br></div>
+        
         
       </div>
       <div class="col-md-1"></div>

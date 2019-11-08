@@ -121,9 +121,8 @@ Route:: group (['middleware'=>['clients']],function(){
 
 
 
-	Route::get('/profile', function () {
-		return view('profile');
-	})->name('profile');
+	Route::match(['get','post'],'/profile','UserController@manageProfile')->name('profile');
+	Route::match(['get','post'],'/userUpdatPassword','UserController@userUpdatPassword')->name('userUpdatPassword');
 
 
 Route::get('/myAccount','UserController@myAccount')->name('myAccount');

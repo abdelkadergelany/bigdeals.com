@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use App\User;
 use App\order;
 use App\region;
-use App\UserInfo;
+use App\userInfo;
 use App\Phone;
 use App\city;
 use App\sub_category;
@@ -26,6 +26,7 @@ use App\ads;
 use App\favorite;
 use App\rating;
 use App\email;
+
 
 class UserController extends Controller
 {
@@ -132,6 +133,119 @@ class UserController extends Controller
 
 
    }
+
+
+
+
+   public function userUpdatPassword(Request $request){
+  if($request->isMethod('post')){
+    $data = $request->all();
+    $currentUser = User::where("id",Auth::user()->id)->first();
+    $currentPassword = $data['current'];
+
+    $inf = userInfo::where("userId",Auth::user()->id)->get();
+        $region = region::all();
+  
+
+    if(Hash::check($currentPassword,$currentUser->password))
+    {
+      $password = Hash::make( $data['password1']);
+      User::where("id",Auth::user()->id)->update(['password'=>$password]);
+        
+         
+      return view("clients.manageProfile")->with("info",$inf)->with("region",$region)->with("flashmessage","Your password was successfully updated");
+
+    }
+    else
+    {
+      return view("clients.manageProfile")->with("info",$inf)->with("region",$region)->with("flashmessage","operation failed. Your password did not match the current password try again.");
+    }
+
+
+  }
+
+  
+}
+
+
+ public function manageProfile(Request $request){
+       $data = $request->input();
+
+
+   if($request->isMethod('get'))
+   {
+       $inf = userInfo::where("userId",Auth::user()->id)->get();
+      
+       if($inf->count()==0)
+       {
+          
+         userInfo::create([
+        'userId' => Auth::user()->id,
+      ]);
+       
+       $inf = userInfo::where("userId",Auth::user()->id)->get();
+
+       }
+
+
+         $region = region::all();
+         //dd($inf);
+      return view("clients.manageProfile")->with("info",$inf)->with("region",$region);
+
+       //dd($inf);
+
+   }
+
+
+   if($request->isMethod('post'))
+   {
+         if($data["action"]=="pinfos")
+         {
+            $inf = userInfo::where("userId",Auth::user()->id)->first();
+            //dd($inf);
+           if(isset($data["address"]))    
+            $inf->address = $data["address"];
+
+            if(isset($data["name"]))  
+            $inf->FullName = $data["name"];
+
+            if(isset($data["cityName"])) 
+            $inf->cityName = $data["cityName"];
+
+             if(isset($data["RegionName"])) 
+            $inf->RegionName = $data["RegionName"];
+
+             if(isset($data["phone"]))
+            $inf->phone = $data["phone"];
+
+
+            $inf->save();
+            
+            $inf = userInfo::where("userId",Auth::user()->id)->get();
+            $region = region::all();
+         
+      return view("clients.manageProfile")->with("info",$inf)->with("region",$region)->with("flashmessage","Your informations were successfully updated");
+
+
+         }
+
+
+   }
+
+    
+      
+
+
+
+
+
+
+
+  }
+
+
+
+
 
 
    public function myAccount(Request $request){
@@ -2235,17 +2349,16 @@ public function postaddCategory( Request $request ){
    $regions = region::all();   
    $category = category::all();
    $size = size::all();
-
+   $info= userInfo::where("userId",Auth::user()->id)->get();
 
    $brand= brand::where("subCategoryName",$data['subCategoryName'])->get();
-
-
 
    return view('clients.postads')->with("category",$category)->with("region",$regions)
    ->with("catval",$data['category'])
    ->with("subCatval",$data['subCategoryName'])
    ->with("size",$size) 
-   ->with("brand",$brand);
+   ->with("brand",$brand)
+   ->with("info",$info);
 
 
  }
