@@ -22,51 +22,38 @@
                                     <label for="max">max</label>
                                 </div>
                                 <div class="col-70">
-                                   <input class="inp_all_cat" type="number" id="max" name="max" min="1" placeholder="max">
-                               </div>
-                           </div><br>
+                                 <input class="inp_all_cat" type="number" id="max" name="max" min="1" placeholder="max">
+                             </div>
+                         </div><br>
 
-                           <div class="row row_form_allcat"><br>
-                             &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<input class=" btn btn-success" type="submit" value="Apply filter">
-                         </div>
-                         <hr>
-                          <a href="#demo111" class="btn dropdown-toggle color_all_categories" data-toggle="collapse"><b
-                            class="color_all_categories">&nbsp;&nbsp;VIP</b></a>
-                            <div id="demo111" class="collapse">
-                                 <input  type="radio"  class="vip"  name="vip" value="3">VIP PRODUCT<br>
-                                 <input  type="radio"  class="vip" name="vip" value="0">ALL<br>
-                                                                  
-                            </div>
-                         <hr>
-                         <a href="#demo14" class="btn dropdown-toggle color_all_categories" data-toggle="collapse"><b
-                            class="color_all_categories">&nbsp;&nbsp;Condition</b></a>
-                            <div id="demo14" class="collapse">
-                                 <input  type="radio"  class="condition" name="condition" value="new">New<br>
-                                 <input  type="radio"  class="condition" name="condition" value="used">Used<br>
-                                 <input  type="radio"  class="condition" name="condition" value="both">Both                                   
-                            </div>
-                        </form>
-                        <hr>
-                        <a href="#demo15" class="btn dropdown-toggle color_all_categories" data-toggle="collapse"><b
-                            class="color_all_categories">&nbsp;&nbsp;Pricing</b></a>
-                            <div id="demo15" class="collapse">
-                                 <input  type="radio"  class="pricing" name="pricing" value="negociable">Negotiable<br>
-                                 <input class="pricing"  type="radio"  name="pricing" value="fixed">Fixed
-                                <br>
-                                <input class="pricing" type="radio"  name="pricing" value="both">Both    
-                            </div><br><br>
+                         <div class="row row_form_allcat"><br>
+                           &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<input class=" btn btn-success" type="submit" value="Apply filter">
+                       </div>
+                       <hr>
+                       <a href="#demo111" class="btn dropdown-toggle color_all_categories" data-toggle="collapse"><b
+                        class="color_all_categories">&nbsp;&nbsp;VIP</b></a>
+                        <div id="demo111" class="collapse">
+                           <input  type="radio"  class="vip" id="vip"  name="vip" value="3"><label for="vip"> VIP PRODUCT</label><br>
+                           <input  type="radio"  class="vip" id="nvip" name="vip" value="0"><label for="nvip">ALL</label><br>
 
-                            <hr>
-                         <!--    <a href="#demo16" class="btn dropdown-toggle color_all_categories" data-toggle="collapse"><b
-                                class="color_all_categories">&nbsp;&nbsp;Brand</b></a>
-                                <div id="demo16" class="collapse">
-                                    <a class="dropdown-item hover_all_categories" href="#">Customized Desktops</a>
-                                    <a class="dropdown-item hover_all_categories" href="#">Intel</a>
-                                    <a class="dropdown-item hover_all_categories" href="#">Other Brand</a>
-                                    <a class="dropdown-item hover_all_categories" href="#">Dell</a>
-                                    <a class="dropdown-item hover_all_categories" href="#">HP</a>
-                                    <a class="dropdown-item hover_all_categories" href="#">Acer</a>
-                                    <a class="dropdown-item hover_all_categories" href="#">Asus</a>
-                                </div>
+                       </div>
+                       <hr>
+                       <a href="#demo14" class="btn dropdown-toggle color_all_categories" data-toggle="collapse"><b
+                        class="color_all_categories">&nbsp;&nbsp;Condition</b></a>
+                        <div id="demo14" class="collapse">
+                           <input  type="radio"  class="condition" name="condition" value="new" id="new"><label for="new">New</label><br>
+                           <input  type="radio"  class="condition" name="condition" id="used" value="used"><label for="used">Used</label><br>
+                           <input  type="radio"  class="condition" name="condition" id="both1" value="both"><label for="both1">Both</label>                                   
+                       </div>
+                   </form>
+                   <hr>
+                   <a href="#demo15" class="btn dropdown-toggle color_all_categories" data-toggle="collapse"><b
+                    class="color_all_categories">&nbsp;&nbsp;Pricing</b></a>
+                    <div id="demo15" class="collapse">
+                       <input  type="radio"  class="pricing" name="pricing" value="negociable" id="negociable"><label for="negociable">Negotiable</label><br>
+                       <input class="pricing"  type="radio"  name="pricing" value="fixed" id="fixed"><label for="fixed">Fixed</label>
+                       <br>
+                       <input class="pricing" type="radio"  name="pricing" value="both" id="both2"><label for="both2">Both</label>    
+                   </div><br><br>
 
-                                <hr> -->
+                   <hr>
