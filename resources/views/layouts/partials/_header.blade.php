@@ -12,34 +12,34 @@
                             <li class="list-inline-item"><a href="{{ route('userLogin') }}"  >Login</a></li>
                             
                             <li class="list-inline-item"><a href="{{ route('userRegister') }}">Register</a></li>
-                           
+                            
                             @endguest
 
                             @auth
                             <li class="list-inline-item"><a href="{{route('userLogout')}}"  >Logout</a></li>
                             <li class="list-inline-item"><a href="{{route('mychat')}}">My chats 
-                               @if(session('newemailUser')=="true")
-                              <div class="spinner-grow text-primary"> <i style="color: yellow" class="fas fa-3x fa-comment-medical"></i></div>
-                               @endif
-                           </a></li>
-                           <li class="list-inline-item"><a href="{{route('myAccount')}}">My account</a></li>
-                           @endauth
+                             @if(session('newemailUser')=="true")
+                             <div class="spinner-grow text-primary"> <i style="color: yellow" class="fas fa-3x fa-comment-medical"></i></div>
+                             @endif
+                         </a></li>
+                         <li class="list-inline-item"><a href="{{route('myAccount')}}">My account</a></li>
+                         @endauth
 
 
-                       </ul>
-                   </div>
-               </div>
-           </div>
-  
+                     </ul>
+                 </div>
+             </div>
+         </div>
+         
 
 
-    </div>
+     </div>
 
 
-    <!-- our mega menu start here -->
+     <!-- our mega menu start here -->
 
 
-    <nav class="navbar navbar-expand-lg" style="background-color: #512DA8;padding-bottom: 0rem; padding-top: 0rem; ">
+     <nav class="navbar navbar-expand-lg" style="background-color: #512DA8;padding-bottom: 0rem; padding-top: 0rem; ">
         <div class="container"><a href="/" class="navbar-brand home"><img src="img/logo.png" alt="Sassaye logo"
             class="d-none d-md-inline-block"><img src="img/logo-small.png" alt="bigdeals.com"
             class="d-inline-block d-md-none " width="100px"><span class="sr-only">bigdeals.com</span></a>
@@ -59,7 +59,7 @@
                             <li>
                                 <div class="cityname row">
 
-                                 <div class="col-md-3 col-lg-2">
+                                   <div class="col-md-3 col-lg-2">
                                     <p>Leisure, Sports and Children</p>
                                     <ul class="list-unstyled mb-3">
                                         <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Leisure, Sports and Children" 
@@ -108,7 +108,7 @@
                                                 <div class="col-md-3 col-lg-2">
                                                     <p> Health and Beauty</p>
                                                     <ul class="list-unstyled mb-3">
-                                                     <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Health and Beauty" 
+                                                       <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Health and Beauty" 
                                                         class="nav-link">All in Health and Beauty</a></li>
 
 
@@ -122,7 +122,7 @@
                                                 <div class="col-md-3 col-lg-1">
                                                     <p>Pets</p>
                                                     <ul class="list-unstyled mb-3">
-                                                     <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Pets" 
+                                                       <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Pets" 
                                                         class="nav-link">All in Pets</a></li>
 
 
@@ -150,7 +150,7 @@
                                                     <div class="col-md-3 col-lg-1">
                                                         <p>Jobs</p>
                                                         <ul class="list-unstyled mb-3">
-                                                           <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Jobs" 
+                                                         <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Jobs" 
                                                             class="nav-link">All in Jobs</a></li>
 
 
@@ -167,7 +167,7 @@
                                                   <div class="col-md-3  col-lg-2">
                                                     <p>Electronics</p>
                                                     <ul class="list-unstyled mb-3">
-                                                       <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Electronics" 
+                                                     <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Electronics" 
                                                         class="nav-link">All in Electronics</a></li>
 
 
@@ -183,7 +183,7 @@
                                                 <div class="col-md-3 col-lg-2">
                                                     <p>House and kitchens</p>
                                                     <ul class="list-unstyled mb-3">
-                                                     <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=House and kitchens" 
+                                                       <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=House and kitchens" 
                                                         class="nav-link">All in House and kitchens</a></li>
 
 
@@ -198,7 +198,7 @@
                                                 <div class="col-md-3 col-lg-2">
                                                     <p>Real estate </p>
                                                     <ul class="list-unstyled mb-3">
-                                                     <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Real estate" 
+                                                       <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Real estate" 
                                                         class="nav-link">All in Real estate</a></li>
 
 
@@ -212,7 +212,7 @@
                                                 <div class="col-md-3 col-lg-2">
                                                     <p>Fashion and Clothing</p>
                                                     <ul class="list-unstyled mb-3">
-                                                     <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Fashion and Clothing" 
+                                                       <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Fashion and Clothing" 
                                                         class="nav-link">All in Fashion and Clothing</a></li>
 
 
@@ -238,7 +238,7 @@
                                                     <div class="col-md-3 col-lg-2">
                                                         <p>Agriculture and Foodstuff</p>
                                                         <ul class="list-unstyled mb-3">
-                                                         <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Agriculture and Foodstuff" 
+                                                           <li class="nav-item"><a href="{{route('displayAds')}}?action=Cat&type=all&val=Agriculture and Foodstuff" 
                                                             class="nav-link">All in Agriculture and Foodstuff</a></li>
 
 
@@ -313,7 +313,7 @@
                                                                 <div class="col-md-3 col-lg-1">
                                                                     <p>North</p>
                                                                     <ul class="list-unstyled mb-3">
-                                                                     <li class="nav-item"><a href="{{route('displayAds')}}?action=Region&type=all&val=North" 
+                                                                       <li class="nav-item"><a href="{{route('displayAds')}}?action=Region&type=all&val=North" 
                                                                         class="nav-link">All in North</a></li>
 
 
@@ -340,7 +340,7 @@
                                                                     <div class="col-md-3 col-lg-1">
                                                                         <p>Littoral</p>
                                                                         <ul class="list-unstyled mb-3">
-                                                                           <li class="nav-item"><a href="{{route('displayAds')}}?action=Region&type=all&val=Littoral" 
+                                                                         <li class="nav-item"><a href="{{route('displayAds')}}?action=Region&type=all&val=Littoral" 
                                                                             class="nav-link">All in Littoral</a></li>
 
 
@@ -366,7 +366,7 @@
                                                                         <div class="col-md-3 col-lg-1">
                                                                             <p>Adamawa</p>
                                                                             <ul class="list-unstyled mb-3">
-                                                                             <li class="nav-item"><a href="{{route('displayAds')}}?action=Region&type=all&val=Adamawa" 
+                                                                               <li class="nav-item"><a href="{{route('displayAds')}}?action=Region&type=all&val=Adamawa" 
                                                                                 class="nav-link">All in Adamawa</a></li>
 
 
@@ -416,7 +416,7 @@
             <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block">
 
                 <a href=" {{ route('postadd')}}" class="btn btn-success btn-lg navbar-btn"><i class="fa fa-tag"></i>
-                    <span>Post add</span></a></div>
+                    <span>Post ad</span></a></div>
                 </div>
             </div>
         </div>

@@ -166,7 +166,7 @@ public function loadMessage(Request $request)
                           # code...
  
               if($value->from != Auth::user()->id ){
-
+                 $output .= "<br/><br/>";
                $output .= "<div class='incoming_msg'>";
               $output .= "<div class='incoming_msg_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'>";
              $output .= "</div>";

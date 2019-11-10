@@ -18,7 +18,7 @@
         
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-          <h4 class="modal-title custom_align" id="Heading">Add a new Ads</h4>
+          <h4 class="modal-title custom_align" id="Heading">Edit Ads</h4>
         </div>
         <div class="modal-body">
 
@@ -30,43 +30,43 @@
 
            @if($ads->isValidate == 0)
            
-          &nbsp;&nbsp;&nbsp;<input class=" "  checked type="radio" required  value="0" id="" name="isValidate"> <b>Desactivated</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;<input class=" "  checked type="radio" required  value="0" id="isValidate1" name="isValidate"> <b><label for="isValidate1">Desactivated</label></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            @endif
 
            @if($ads->isValidate == 1)
            
-          &nbsp;&nbsp;&nbsp;<input class=" "   type="radio" required  value="0" id="" name="isValidate"> <b>Desactivated</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;<input class=" "   type="radio" required  value="0" id="isValidate11" name="isValidate"> <b><label for="isValidate11">Desactivated</label></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            @endif
            @if($ads->isValidate == 1)
-           &nbsp;&nbsp;&nbsp;<input class=" " checked type="radio" required  value="1" id="" name="isValidate"><b>Activated</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;<input class=" " checked type="radio" required  value="1" id="isValidate2" name="isValidate"><b><label for="isValidate2">Activated</label></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            @endif
            @if($ads->isValidate == 0)
-           &nbsp;&nbsp;&nbsp;<input class=" "  type="radio" required  value="1" id="" name="isValidate"><b>Activated</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;<input class=" "  type="radio" required  value="1" id="isValidate22" name="isValidate"><b><label for="isValidate22">Activated</label></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            @endif
            
-             <br><br>
-             <label for="used"><b><span style="color: red;">BLOCK STATE</span></b>:  </label><br>&nbsp;&nbsp;
+           <br><br>
+           <label for="used"><b><span style="color: red;">BLOCK STATE</span></b>:  </label><br>&nbsp;&nbsp;
            @if($ads->isBlocked == 1)
-          &nbsp;&nbsp;<input class=" " type="radio" checked required value="1" id="" name="isBlocked"> <b>Blocked</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;<input class=" " type="radio" checked required value="1" id="isBlocked1" name="isBlocked"> <b><label for="isBlocked1">Blocked</label></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            @endif
 
            @if($ads->isBlocked == 0)
-           &nbsp;&nbsp;<input class=" " type="radio"  required value="1" id="used" name="isBlocked"><b>Blocked</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;<input class=" " type="radio"  required value="1" id="isBlocked11" name="isBlocked"><b><label for="isBlocked11">Blocked</label></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            @endif
            @if($ads->isBlocked == 0)
-           &nbsp;&nbsp;<input class=" " type="radio" checked required value="0" id="" name="isBlocked"><b>Unblocked</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;<input class=" " type="radio" checked required value="0" id="Unblocked1" name="isBlocked"><b><label for="Unblocked1">Unblocked</label></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            @endif
            @if($ads->isBlocked == 1)
-           &nbsp;&nbsp;<input class=" " type="radio"  required value="0" id="" name="isBlocked"><b>Unblocked</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;<input class=" " type="radio"  required value="0" id="Unblocked2" name="isBlocked"><b><for for="Unblocked2">Unblocked</for></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            @endif
          </div><br><br>
          <div class="form-group">
            <label for="used"><b><span style="color: red;">VIP STATUS</span></b>:  </label><br>
            @if($ads->buyNow == "0")
-           &nbsp;&nbsp;<input class=" " type="radio" checked required value="0" id="" name="buyNow"><b>Cancel</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           &nbsp;&nbsp;<input class=" " type="radio"  required value="1" id="" name="buyNow"><b>Requested</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           &nbsp;&nbsp;<input class=" " type="radio"  required value="2" id="" name="buyNow"><b>WaitingForCollection</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           <b>Confirmed</b>&nbsp;&nbsp;<input class=" " type="radio"  required value="3" id="" name="buyNow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;<input class=" " type="radio" checked required value="0" id="Cancel" name="buyNow"><b><label for="Cancel">Cancel</label></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;<input class=" " type="radio"  required value="1" id="Requested" name="buyNow"><b><label for="Requested">Requested</label></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;<input class=" " type="radio"  required value="2" id="WaitingForCollection" name="buyNow"><b><label for="WaitingForCollection">WaitingForCollection</label></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;<input class=" " type="radio"  required value="3" id="Confirmed" name="buyNow"><b><label for="Confirmed">Confirmed</label></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            @endif
 
            @if($ads->buyNow == "1")
@@ -84,7 +84,7 @@
            @endif
            @if($ads->buyNow == "2")
            &nbsp;&nbsp;<input class=" " type="radio"  required value="0" id="" name="buyNow"><b>Cancel</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;<input class=" " type="radio"  required value="1" id="" name="buyNow"><b>Requested</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;<input class=" " type="radio"  required value="1" id="" name="buyNow"><b>Requested</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;<input class=" " checked type="radio"  required value="2" id="" name="buyNow"><b>WaitingForCollection</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;<input class=" " type="radio"  required value="3" id="" name="buyNow"><b>Confirmed</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            @endif

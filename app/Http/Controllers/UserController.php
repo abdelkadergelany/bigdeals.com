@@ -2351,6 +2351,17 @@ public function postaddCategory( Request $request ){
    $size = size::all();
    $info= userInfo::where("userId",Auth::user()->id)->get();
 
+     if($info->count()==0)
+       {
+          
+         userInfo::create([
+        'userId' => Auth::user()->id,
+      ]);
+       
+       }
+          $info= userInfo::where("userId",Auth::user()->id)->get();
+
+
    $brand= brand::where("subCategoryName",$data['subCategoryName'])->get();
 
    return view('clients.postads')->with("category",$category)->with("region",$regions)

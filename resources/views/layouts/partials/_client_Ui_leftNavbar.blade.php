@@ -13,7 +13,7 @@
                    
                     <hr>
                     <div class="row">
-                    <div class="col-md-8"> <h5><a href="{{route('myadd')}}?action=display">My Adds</a></h5></div>
+                    <div class="col-md-8"> <h5><a href="{{route('myadd')}}?action=display">My Ads</a></h5></div>
                     <div class="col-md-4"><span>&#8250;</span></div>
                     </div>
                     <hr>

@@ -87,17 +87,15 @@
                @if($inf->address == null)
                <input type="text" placeholder=" enter your address" class="form-control"  id="address" name="address" value="" >
                @endif
-
-
-
-
-
-
                
              </div>
 
 
-           </fieldset ><br><br>
+
+
+           </fieldset >
+<div class="alert alert-warning " role="alert">you can click <a href="{{route('profile')}}">here</a> to edit your personal informations so that next time when posting you will not have to reenter them again ! </div>
+           <br/>
 
            <fieldset id="myFieldset">
             <legend>Ads Category</legend>

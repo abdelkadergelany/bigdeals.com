@@ -23,7 +23,7 @@
                              
                               
                               <th>Block</th>
-                              <th>Delete</th>
+                              <!-- <th>Delete</th> -->
                            </thead>
                            <tbody>
                               @foreach ($userInfo as $info) 
@@ -41,9 +41,9 @@
                                     <a href="{{route('blockUsers')}}?id={{$info->id}}"><p data-placement="top" data-toggle="tooltip" title="UnBlock"><button class="btn btn-success btn-xs" data-title="Edit" data-toggle="modal" data-target="#block" ><i class="fas fa-lock-open"></i></button></p></a>
                                     @endif
                                  </td>
-                                 <td>
+                                <!--  <td>
                                    <a href="{{route('deleteUser')}}?id={{$info->id}}"> <p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><i class="fas fa-trash-alt"></i></button></p></a>
-                                 </td>
+                                 </td> -->
                               </tr>
                               @endforeach
                            </tbody>

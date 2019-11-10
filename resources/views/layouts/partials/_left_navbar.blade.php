@@ -8,7 +8,7 @@
                             <li class="nav-item"><a href="{{url('htsf')}}" class="nav-link 
                                 @if(Route::is('htsf')) active @endif">How to sell fast</a></li>
                         
-                            <li class="nav-item"><a href="{{url('membership')}}" class="nav-link @if(Route::is('membership')) active @endif">Membership</a></li>
+                            <li class="nav-item"><a href="{{url('membership')}}" class="nav-link @if(Route::is('membership')) active @endif">VIP badge</a></li>
                             <li class="nav-item"><a href="{{url('contact')}}" class="nav-link @if(Route::is('contact')) active @endif">Contact us</a></li>
                             <li class="nav-item"><a href="{{url('blog')}}" class="nav-link @if(Route::is('blog')) active @endif">Blog</a></li>
                             <li class="nav-item"><a href="{{url('faq')}}" class="nav-link @if(Route::is('faq')) active @endif">FAQ</a></li>

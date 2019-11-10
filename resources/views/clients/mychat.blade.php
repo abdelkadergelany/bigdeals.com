@@ -67,7 +67,7 @@
           <div id="msg_history" class="msg_history">
 
         @if(!$conversation->isEmpty() )
-            <span id="conv" data-with="{{$conversation->first()->with}}" class="d-block p-2 bg-primary text-white"> From {{returnNAme($conversation->first()->with)}}</span><br><br>
+            <span id="conv" data-with="{{$conversation->first()->with}}" class="d-block p-2 bg-primary text-white">  {{returnNAme($conversation->first()->with)}}</span><br><br>
              
              @foreach ($chat as $chat)
            
@@ -186,7 +186,7 @@
  var token=$('#token-message').val();
      $.ajax({
              type:'post',
-             url:'{{URL::to('/sendMessage')}}',
+             url:'/sendMessage',
              data:{
                  message:message,
                  recever:document.getElementById("conv").getAttribute("data-with"),
