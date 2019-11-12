@@ -138,7 +138,7 @@ if(!function_exists('getOutput')){
 
 
       if($ads->buyNow!="3"){
-        
+
 
         $output .="<a href=/product-details?id=".$ads->id." ". "class='border_all_categories'>
         <div class='row'>
@@ -160,7 +160,7 @@ if(!function_exists('getOutput')){
       }
 
       if($ads->buyNow=="3"){
-       
+
         $output.= "<div class='offer offer-info' ><div class='shape'><div class='shape-text'>VIP</div></div>".
         "<a href=/product-details?id=".$ads->id." "." class='border_all_categories'><div class='offer-content'>".
         "<div class='row'><div class='col-sm-4'>"."<img src='publication/".$ads->pict1."' class='img-thumbnail' alt='images' width='100'
@@ -277,23 +277,13 @@ if(!function_exists('returnLastMessage')){
   {
 
 
-
-// //
-// DB::table('chat')
-//             ->where('from', '=', '$user')
-//             ->orWhere(function($query)
-//             {
-//                 $query->where('votes', '>', 100)
-//                       ->where('title', '<>', 'Admin');
-//             })
-//             ->get();
-//     //
-
-
     $chat  = chat::where("from",$with)->orWhere("to",$with)->orderBy('created_at','DESC')->first();
-    if($chat != null)
-     return "$chat->message";
-
+    if($chat != null){
+    
+    $mess = str_limit($chat->message, 40);
+         $mess=$mess."...";
+          return $mess;
+   }
  }
 }
 
@@ -378,3 +368,121 @@ if(!function_exists('returnImage')){
    return "$cat->image";
  }
 }
+
+if(!function_exists('getConversationId')){
+
+  function getConversationId($_userId,$_with)
+  {
+   $conversation = conversations::where("userId",$_userId)->where("with",$_with)->first();
+
+   return $conversation->id;
+ }
+}
+
+if(!function_exists('getLatestConversationId')){
+
+  function getLatestConversationId($_userId)
+  {
+   $conversation = conversations::where("userId",$_userId)->orderBy('updated_at','desc')->first();
+    
+   return $conversation;
+ }
+}
+
+
+
+if(!function_exists('getAllConversation')){
+
+  function getAllConversation($_userId)
+  {
+   $conversation = conversations::where("userId",Auth::user()->id)->orderBy('updated_at','desc')->get();
+
+   return $conversation;
+ }
+}
+
+
+
+
+if(!function_exists('createConversation')){
+
+  function createConversation($_userId,$_with)
+  {
+   $isConversationExistOnUserId = checkConversation($_userId,$_with);
+
+   if($isConversationExistOnUserId==0)
+   {
+
+    conversations::create([
+     'userId' => $_userId,
+     'with' => $_with,
+     "created_at"=>now(),
+     "updated_at"=>now()
+   ]); 
+
+
+  }
+  if($isConversationExistOnUserId == 1)
+  {
+   $updatconv = conversations::where("userId",$_userId)->where("with",$_with)->first();
+
+   $updatconv->updated_at = now();
+   $updatconv->save();
+
+ }
+      $convId = getConversationId($_userId,$_with);
+      return $convId;
+
+
+}
+}
+
+
+if(!function_exists('checkConversation')){
+
+  function checkConversation($_userId,$_with)
+  {
+   $isExist = conversations::where("userId",$_userId)->where("with",$_with)->get();
+   if($isExist->count()==0)
+   {
+     return  0;
+
+   }
+   return 1;
+ }
+}
+
+
+
+if(!function_exists('createMessage')){
+
+  function createMessage($_convId,$_owner,$_message,$_from,$_to)
+  {
+ 
+  chat::create([
+                   'message' => $_message,
+                   'owner' => $_owner,
+                   'convId' => $_convId,
+                    "created_at"=>now(),
+                    "updated_at"=>now(),
+                    'from' => $_from,
+                     'to' => $_to,
+                     'state' => '0'
+                       ]); 
+return 1;
+ }
+   
+}
+
+
+if(!function_exists('loadMessage')){
+
+  function loadMessage($_convId)
+  {
+ 
+     $chat  = chat::where("convId",$_convId)->orderBy('created_at','asc')->get();
+   return  $chat ;
+ }
+  
+}
+

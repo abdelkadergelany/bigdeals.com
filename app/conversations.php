@@ -8,6 +8,6 @@ class conversations extends Model
 {
     //
     protected $fillable = [
-        'userId','with','created_at'
+        'userId','with','created_at','updated_at'
     ];
 }

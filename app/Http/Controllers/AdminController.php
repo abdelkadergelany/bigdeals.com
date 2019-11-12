@@ -48,7 +48,7 @@ class AdminController extends Controller
 
         }
         else{
-          
+
           session(['newemail' => 'false']);
 
         }
@@ -271,15 +271,15 @@ public function userLogin(Request $request){
       $unreadEmailUser = DB::table('chats')->where("state","0")->where("to",Auth::user()->id)->get();
 
 
-        if($unreadEmailUser->count()!=0){
-         
-          session(['newemailUser' => 'true']);
+      if($unreadEmailUser->count()!=0){
 
-        }
-        else{
-          session(['newemailUser' => 'false']);
+        session(['newemailUser' => 'true']);
 
-        }
+      }
+      else{
+        session(['newemailUser' => 'false']);
+
+      }
 
 
       return redirect("myAccount");
@@ -576,19 +576,18 @@ if($request->isMethod('post')){
 
 
 public function editAd(Request $request){ 
+
   if($request->isMethod('get')){
 
-  // $regions = region::all();   
+
    $category = category::all();
-   //$size = size::all();
-   $ads = ads::find($request->get("id"));
-
-   //$brand= brand::where("subCategoryName",$request->get("subCategoryName"))->get();
-
    
+   $ads = ads::find($request->get("id"));
 
    return view('edit_ad')->with("category",$category)->with("ads",$ads);
  }
+
+
 
  if($request->isMethod('post')){
 
@@ -606,46 +605,21 @@ public function editAd(Request $request){
 
     if ($data['isValidate'] == "1") {
 
-      $message = "Congratulation Your Ad <".$ad->title."> has been validated. you can now see it online";
+      $message = "Congratulation Your Ad >>".$ad->title."<< has been validated. you can now see it online";
       $recever = $ad->userId;
       
 
 
-      $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
-      $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
+      $ownerConvSender = createConversation(Auth::user()->id,$recever);
+      $ownerConvRecever = createConversation($recever,Auth::user()->id);
 
 
 
+      $testSender = createMessage($ownerConvSender,Auth::user()->id,$message,Auth::user()->id,$recever);
+      $testRcever = createMessage($ownerConvRecever,$recever,$message,Auth::user()->id,$recever);
 
 
 
-      if($checkIfConversationExist->count() == 0)
-      {
-
-        conversations::create([
-         'userId' => Auth::user()->id,
-         'with' => $recever,
-         "created_at"=>now()
-       ]); 
-
-      }
-
-      if($checkIfConversationExistWith->count() == 0)
-      {
-        conversations::create([
-         'userId' => $recever,
-         'with' => Auth::user()->id,
-         "created_at"=>now()
-       ]); 
-
-      }
-
-      chat::create([
-       'message' => $message,
-       "created_at"=>now(),
-       'from' => Auth::user()->id,
-       'to' => $recever
-     ]); 
 
 
     }
@@ -660,86 +634,41 @@ public function editAd(Request $request){
 
     if ($data['isBlocked'] == "1") {
 
-      $message = " Your Ad <".$ad->title."> has been Blocked.For more details check our Terms and conditions";
+      $message = " Your Ad >>".$ad->title."<< has been Blocked.For more details check our Terms and conditions";
       $recever = $ad->userId;
       
 
-
-      $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
-      $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
-
+      $ownerConvSender = createConversation(Auth::user()->id,$recever);
+      $ownerConvRecever = createConversation($recever,Auth::user()->id);
 
 
-      if($checkIfConversationExist->count() == 0)
-      {
 
-        conversations::create([
-         'userId' => Auth::user()->id,
-         'with' => $recever,
-         "created_at"=>now()
-       ]); 
+      $testSender = createMessage($ownerConvSender,Auth::user()->id,$message,Auth::user()->id,$recever);
+      $testRcever = createMessage($ownerConvRecever,$recever,$message,Auth::user()->id,$recever);
 
-      }
 
-      if($checkIfConversationExistWith->count() == 0)
-      {
-        conversations::create([
-         'userId' => $recever,
-         'with' => Auth::user()->id,
-         "created_at"=>now()
-       ]); 
 
-      }
-
-      chat::create([
-       'message' => $message,
-       "created_at"=>now(),
-       'from' => Auth::user()->id,
-       'to' => $recever
-     ]); 
 
 
     }
 
+
+
     if ($data['isBlocked'] == "0") {
 
-      $message = " Your Ad <".$ad->title."> has been UnBlocked.";
+      $message = " Your Ad >>".$ad->title."<< has been UnBlocked.please read ourterms and conditions to know more";
       $recever = $ad->userId;
       
 
-
-      $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
-      $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
-
+      $ownerConvSender = createConversation(Auth::user()->id,$recever);
+      $ownerConvRecever = createConversation($recever,Auth::user()->id);
 
 
-      if($checkIfConversationExist->count() == 0)
-      {
 
-        conversations::create([
-         'userId' => Auth::user()->id,
-         'with' => $recever,
-         "created_at"=>now()
-       ]); 
+      $testSender = createMessage($ownerConvSender,Auth::user()->id,$message,Auth::user()->id,$recever);
+      $testRcever = createMessage($ownerConvRecever,$recever,$message,Auth::user()->id,$recever);
 
-      }
 
-      if($checkIfConversationExistWith->count() == 0)
-      {
-        conversations::create([
-         'userId' => $recever,
-         'with' => Auth::user()->id,
-         "created_at"=>now()
-       ]); 
-
-      }
-
-      chat::create([
-       'message' => $message,
-       "created_at"=>now(),
-       'from' => Auth::user()->id,
-       'to' => $recever
-     ]); 
 
 
     }
@@ -753,162 +682,81 @@ public function editAd(Request $request){
 
     if ($data['buyNow'] == "3") {
 
-      $message = "We have succesfully collect the product  of your Ad <".$ad->title.">. it will now be display online as VIP and you will be notified after the sale. 5% of the sale amount will be deduced";
+      $message = "We have succesfully collect the product  of your Ad >>".$ad->title."<<. it will now be display online as VIP and you will be notified after the sale. 5% of the sale amount will be deduced";
       $recever = $ad->userId;
       
 
 
-      $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
-      $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
+      $ownerConvSender = createConversation(Auth::user()->id,$recever);
+      $ownerConvRecever = createConversation($recever,Auth::user()->id);
 
 
 
-      if($checkIfConversationExist->count() == 0)
-      {
-
-        conversations::create([
-         'userId' => Auth::user()->id,
-         'with' => $recever,
-         "created_at"=>now()
-       ]); 
-
-      }
-
-      if($checkIfConversationExistWith->count() == 0)
-      {
-        conversations::create([
-         'userId' => $recever,
-         'with' => Auth::user()->id,
-         "created_at"=>now()
-       ]); 
-
-      }
-
-      chat::create([
-       'message' => $message,
-       "created_at"=>now(),
-       'from' => Auth::user()->id,
-       'to' => $recever
-     ]); 
+      $testSender = createMessage($ownerConvSender,Auth::user()->id,$message,Auth::user()->id,$recever);
+      $testRcever = createMessage($ownerConvRecever,$recever,$message,Auth::user()->id,$recever);
 
 
     }
 
     if ($data['buyNow'] == "2") {
 
-      $message =" Your VipRequest for  Ad <".$ad->title."> has been Examinated and approved. it will be display online as vip once we have collected the product. 5% of the sale amount will be deduced";
+      $message =" Your VipRequest for  Ad >>".$ad->title."<< has been Examinated and approved. it will be display online as vip once we have collected the product. 5% of the sale amount will be deduced";
 
 
       $recever = $ad->userId;
       
 
-
-      $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
-      $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
-
+      $ownerConvSender = createConversation(Auth::user()->id,$recever);
+      $ownerConvRecever = createConversation($recever,Auth::user()->id);
 
 
-      if($checkIfConversationExist->count() == 0)
-      {
 
-        conversations::create([
-         'userId' => Auth::user()->id,
-         'with' => $recever,
-         "created_at"=>now()
-       ]); 
+      $testSender = createMessage($ownerConvSender,Auth::user()->id,$message,Auth::user()->id,$recever);
+      $testRcever = createMessage($ownerConvRecever,$recever,$message,Auth::user()->id,$recever);
 
-      }
-
-      if($checkIfConversationExistWith->count() == 0)
-      {
-        conversations::create([
-         'userId' => $recever,
-         'with' => Auth::user()->id,
-         "created_at"=>now()
-       ]); 
-
-      }
-
-      chat::create([
-       'message' => $message,
-       "created_at"=>now(),
-       'from' => Auth::user()->id,
-       'to' => $recever
-     ]); 
 
 
     }
 
     if ($data['buyNow'] == "0") {
 
-     $message = " Your VipRequest for  Ad <".$ad->title."> has been Denied . Check our terms and condition for more details or contact us ";
+      $message = " Your VipRequest for  Ad >>".$ad->title."<< has been Denied . Check our terms and condition for more details or contact us ";
      $recever = $ad->userId;
 
 
-
-     $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
-     $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
-
+     $ownerConvSender = createConversation(Auth::user()->id,$recever);
+     $ownerConvRecever = createConversation($recever,Auth::user()->id);
 
 
-     if($checkIfConversationExist->count() == 0)
-     {
 
-      conversations::create([
-       'userId' => Auth::user()->id,
-       'with' => $recever,
-       "created_at"=>now()
-     ]); 
+     $testSender = createMessage($ownerConvSender,Auth::user()->id,$message,Auth::user()->id,$recever);
+     $testRcever = createMessage($ownerConvRecever,$recever,$message,Auth::user()->id,$recever);
+     
+   }
 
-    }
-
-    if($checkIfConversationExistWith->count() == 0)
-    {
-      conversations::create([
-       'userId' => $recever,
-       'with' => Auth::user()->id,
-       "created_at"=>now()
-     ]); 
-
-    }
-
-    chat::create([
-     'message' => $message,
-     "created_at"=>now(),
-     'from' => Auth::user()->id,
-     'to' => $recever
-   ]); 
-  }
-
-}
+ }
       //end of buyNow flag
 
 
 
 
 
-$ad->buyNow = $data['buyNow'];
-$ad->subCategoryName = $data['subCategoryName'];
-$ad->categoryName = $data['category'];
+ $ad->buyNow = $data['buyNow'];
+ $ad->subCategoryName = $data['subCategoryName'];
+ $ad->categoryName = $data['category'];
 
 
 
-$ad->isBlocked = $data['isBlocked'];
-$ad->isValidate = $data['isValidate'];
+ $ad->isBlocked = $data['isBlocked'];
+ $ad->isValidate = $data['isValidate'];
 
 
 
 
-$ad->save();
-
-  // $regions = region::all();
-  // $category = category::all();
-  // $ads = ads::all();
-  // return view('manage_ads')->with("category",$category)->with("region",$regions)->with("ads",$ads);
-return redirect('manageAds');
+ $ad->save();
 
 
-
+ return redirect('manageAds');
 
 
 }

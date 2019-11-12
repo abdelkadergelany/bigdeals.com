@@ -16,9 +16,9 @@
       <div class="row">
        <span><b>List of Orders</b></span>
 
-   
 
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <a href="{{route('allorders')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-info btn-sm"   >All orders ({{$allOrderCount}})<div class="spinner-grow text-primary"></div></button></a><br><br>
+
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <a href="{{route('allorders')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-info btn-sm"   >All orders ({{$allOrderCount}})<div class="spinner-grow text-primary"></div></button></a><br><br>
 
        <a href="{{route('pendingorder')}}"><button style="position: relative;margin-right: 15px;" class="btn btn-primary btn-sm" data-title="Add" data-toggle="modal"  >Pending Orders ({{$pendingOrderCount}})<div class="spinner-grow text-primary"></div></button></a><br><br>
 
@@ -78,36 +78,46 @@
               @if($order->state == "2")
               <td><span class="alert-primary">Delivered</span></td>
               @endif   
-
+              @if($order->state == "2")
               <td>
-               <a href="{{route('manageorder')}}?action=editorder&order_id={{$order->id}}"><p data-placement="top" data-toggle="tooltip" 
+               <a onclick="return false;"  href="{{route('manageorder')}}?action=editorder&order_id={{$order->id}}"><p data-placement="top" 
+                data-toggle="tooltip" 
                 title="Edit">
-                <button class="btn btn-success btn-xs " data-title="Edit"   >
+                <button disabled class="btn btn-success btn-xs " data-title="Edit"  >
                   <i class="fas fa-pen"></i></button></p></a>
 
                 </td>
+                @endif 
+                @if($order->state != "2")
+                <td>
+                 <a href="{{route('manageorder')}}?action=editorder&order_id={{$order->id}}"><p data-placement="top" data-toggle="tooltip" 
+                  title="Edit">
+                  <button class="btn btn-success btn-xs " data-title="Edit"  >
+                    <i class="fas fa-pen"></i></button></p></a>
 
-              </tr>
-              @empty
-              <p class="alert-warning">No Order Yet!!!</p>
-              @endforelse
-            </tbody>
+                  </td>
+                  @endif 
+                </tr>
+                @empty
+                <p class="alert-warning">No Order Yet!!!</p>
+                @endforelse
+              </tbody>
 
 
-          </table>
+            </table>
 
-          {{ $orders->links() }}
-          <div class="clearfix"></div>
+            {{ $orders->links() }}
+            <div class="clearfix"></div>
+          </div>
         </div>
       </div>
     </div>
+
+
+
+
+
   </div>
-
-
-
-
-
-</div>
 </div>
 
 

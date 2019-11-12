@@ -9,7 +9,7 @@ class chat extends Model
     //
 
     protected $fillable = [
-        'from','to','message','created_at'
+        'from','to','message','created_at','owner','convId'
     ];
 
 }

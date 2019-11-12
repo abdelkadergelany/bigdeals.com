@@ -102,6 +102,9 @@ Route:: group (['middleware'=>['clients']],function(){
 
 
 
+
+
+
 	Route::post('/deleteConversation', 'ChatController@deleteConversation')->name('deleteConversation');
 	Route::get('/mychat', 'ChatController@index')->name('mychat');
 

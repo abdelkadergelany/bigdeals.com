@@ -26,20 +26,40 @@ class ChatController extends Controller
     {
         //
       DB::table('chats')->where("state","0")->where("to",Auth::user()->id)->update(['state' => "1"]);
-       session(['newemailUser' => 'false']);
-
-            $conversation = conversations::where("userId",Auth::user()->id)->orderBy('created_at','desc')->get();
-            $chat  = chat::where("from",Auth::user()->id)->orWhere("to",Auth::user()->id)->orderBy('created_at','asc')->get();
-            //dd( $conversation);
-            if($conversation->count()==0)
-            {
-             return view('clients.noConversation')->with("conversation",$conversation);
+      session(['newemailUser' => 'false']);
 
 
-            }
 
-         return view('clients.mychat')->with("conversation",$conversation)->with("chat",$chat);
+      $conversation = getAllConversation(Auth::user()->id);
+      $lastConvId = getLatestConversationId(Auth::user()->id);
+
+      if( $lastConvId==null)
+      {
+        return view('clients.noConversation')->with("conversation",$conversation);
+
+      }
+
+      $chat  = chat::where("convId",$lastConvId->id)->orderBy('created_at','asc')->get();
+
+
+      return view('clients.mychat')->with("conversation",$conversation)->with("chat",$chat);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -50,149 +70,116 @@ class ChatController extends Controller
     {
         //
     }
-   
 
 
-public function startConversation (Request $request)
-{
 
-
-       
-       $data = $request->input();
-       $message = $data["message"];
-       $recever = $data["recever"];
-      
-
-
-       $checkIfConversationExist = conversations::where("userId",Auth::user()->id)->where("with",$recever);
-       $checkIfConversationExistWith = conversations::where("userId",$recever)->where("with",Auth::user()->id);
-           
-        
-
-           if($checkIfConversationExist->count() == 0)
-           {
-               
-                conversations::create([
-                   'userId' => Auth::user()->id,
-                    'with' => $recever,
-                    "created_at"=>now()
-                       ]); 
-   
-           }
-
-            if($checkIfConversationExistWith->count() == 0)
-           {
-                conversations::create([
-                   'userId' => $recever,
-                    'with' => Auth::user()->id,
-                     "created_at"=>now()
-                       ]); 
-   
-           }
-                
-                chat::create([
-                   'message' => $message,
-                    "created_at"=>now(),
-                    'from' => Auth::user()->id,
-                     'to' => $recever
-                       ]); 
-
-                 return redirect ('/mychat');
-          
-       
-}
-
-
-public function sendMessage (Request $request)
-{
-      $data = $request->input();
-      $message = $data["message"];
-       $recever = $data["recever"];
-       $sender = Auth::user()->id;
-
-     // var $checkIfConversationExist = conversations::where("with",Auth::user()->id)->where("userId",$recever);
-
-        chat::create([
-                   'message' => $message,
-                    "created_at"=>now(),
-                    'from' => Auth::user()->id,
-                     'to' => $recever
-                       ]); 
-
-        event(new newMessage($message,$recever,$sender));
-
-
-}
-
-    public function deleteConversation(Request $request)
+    public function startConversation (Request $request)
     {
-        //
-          
-        conversations::destroy($request->get('convId'));
-        
-        // $collection = chat::where('from', Auth::user()->id)->with("to",)->get(['id']);
-        //   ModelName::destroy($collection->toArray());
 
+
+
+     $data = $request->input();
+     $message = $data["message"];
+     $recever = $data["recever"];
+
+     $ownerConvSender = createConversation(Auth::user()->id,$recever);
+     $ownerConvRecever = createConversation($recever,Auth::user()->id);
+
+
+
+     $testSender = createMessage($ownerConvSender,Auth::user()->id,$message,Auth::user()->id,$recever);
+     $testRcever = createMessage($ownerConvRecever,$recever,$message,Auth::user()->id,$recever);
+
+
+     return redirect ('/mychat');          
+
+   }
+
+
+   public function sendMessage (Request $request)
+   {
+    $data = $request->input();
+    $message = $data["message"];
+    $recever = $data["recever"];
+    $sender = Auth::user()->id;
+
+
+
+
+    $ownerConvSender = createConversation(Auth::user()->id,$recever);
+    $ownerConvRecever = createConversation($recever,Auth::user()->id);
+
+
+
+    $testSender = createMessage($ownerConvSender,Auth::user()->id,$message,Auth::user()->id,$recever);
+    $testRcever = createMessage($ownerConvRecever,$recever,$message,Auth::user()->id,$recever);
+
+
+
+    event(new newMessage($message,$recever,$sender));
+
+
+  }
+
+
+
+
+  public function deleteConversation(Request $request)
+  {
+
+    conversations::destroy($request->get('convId'));
+
+    return redirect("mychat");
+
+
+  }
+
+
+
+  public function loadMessage(Request $request)
+  {
+        //
+
+
+   $conversation = conversations::find($request->convId);
+   $with = $conversation->with;
+   $chat  = loadMessage($request->convId);
          
 
+   $output = "<span id='conv' data-with=".$with." class='d-block p-2 bg-primary text-white'>". returnNAme($with)."</span>";
 
-
-         return redirect("mychat");
-        
-        // return view('clients.mychat')->with("conversation",$conversation)->with("chat",$chat);
-    }
-
-
-
-public function loadMessage(Request $request)
-    {
-        //
-          
-      
-         $conversation = conversations::find($request->convId);
-         $with = $conversation->with;
-            $chat  = chat::where("from",Auth::user()->id)
-                       ->where("to",$with)
-                        ->orWhere("to",Auth::user()->id)
-                        ->where("from",$with)
-                        ->orderBy('created_at','asc')
-                        ->get();
-         //   dd($chat);
-
-                 $output = "<span id='conv' data-with=".$with." class='d-block p-2 bg-primary text-white'>". returnNAme($with)."</span>";
-
-                          //   dd($output);
-                      foreach ($chat as $key => $value) {
+                          
+   foreach ($chat as $key => $value) {
                           # code...
- 
-              if($value->from != Auth::user()->id ){
-                 $output .= "<br/><br/>";
-               $output .= "<div class='incoming_msg'>";
-              $output .= "<div class='incoming_msg_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'>";
-             $output .= "</div>";
-             $output .= "<div class='received_msg'>";
-                $output .= "<div class='received_withd_msg'>";
-                 $output .= "<p class='sms'>".$value->message."</p>";
-                 $output .= "<span class='time_date'>" . $value->created_at->format('h : i : s | d M Y ')."</span>";
-                $output .= "</div> </div> </div>";
-                }
-              else{
-               $output .= "<div class='outgoing_msg'>";
-              $output .= "<div class='sent_msg'>";
-               $output .=  "<p>" .$value->message."</p>";
-                $output .= "<span class='time_date'>". $value->created_at->format('h : i : s | d M Y ')."</span>";
-              $output .= "</div> </div>";
-              }
-             
-                      }
 
-                    $output .= "<input type='hidden'  id='openedConversation' value=".Auth::user()->id.">";
-                    $output .=  "<input type='hidden'  id='openedConversation2' value=".$with.">";
-                  //  dd($output);
-                    return $output;
+    if($value->from != Auth::user()->id ){
+     $output .= "<br/><br/>";
+     $output .= "<div class='incoming_msg'>";
+     $output .= "<div class='incoming_msg_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'>";
+     $output .= "</div>";
+     $output .= "<div class='received_msg'>";
+     $output .= "<div class='received_withd_msg'>";
+     $output .= "<p class='sms'>".$value->message."</p>";
+     $output .= "<span class='time_date'>" . $value->created_at->format('h : i  / d M Y ')."</span>";
+     $output .= "</div> </div> </div>";
+   }
+   else{
+     $output .= "<div class='outgoing_msg'>";
+     $output .= "<div class='sent_msg'>";
+     $output .=  "<p>" .$value->message."</p>";
+     $output .= "<span class='time_date'>". $value->created_at->format('h : i  / d M Y ')."</span>";
+     $output .= "</div> </div>";
+   }
 
-         //return view('clients.mychat')->with("conversation",$conversation)->with("chat",$chat);
-    }
+ }
+
+ $output .= "<input type='hidden'  id='openedConversation' value=".Auth::user()->id.">";
+ $output .=  "<input type='hidden'  id='openedConversation2' value=".$with.">";
+
+ return $output;
+
+
+}
 
 
 
@@ -251,4 +238,4 @@ public function loadMessage(Request $request)
     {
         //
     }
-}
+  }
