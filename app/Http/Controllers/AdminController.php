@@ -263,7 +263,10 @@ public function deliveredorder(Request $request){
 
 
 public function userLogin(Request $request){
+
   if($request->isMethod('post')){
+
+    
     $data = $request->input();
     if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password'],'isBlocked'=>'0']))
     {
@@ -290,8 +293,17 @@ public function userLogin(Request $request){
     }
   }
 
+
+
+
   return view('clients.userLogin');
 }
+
+
+
+
+
+
 
 
 

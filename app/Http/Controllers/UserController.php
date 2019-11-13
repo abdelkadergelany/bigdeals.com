@@ -2277,6 +2277,8 @@ if (isset($data['phone3'])) {
 
 
 $ad->title = strtolower($data['title']) ;
+              
+
 $ad->description = $data['description'];
 
 
@@ -2285,8 +2287,15 @@ if(isset($data['brandName']) )
 {
   $ad->brand = $data['brandName'];
 
+}
+
+
+if(isset($data['modelName']) )
+{
+
   $ad->model = $data['modelName'];
 }
+
 
 if(isset($data['size']))
 {

@@ -69,7 +69,7 @@
       @endif
 
       @if($ads->isValidate=="0")
-      &nbsp;&nbsp;&nbsp;<span style="color: green;"><i class="fas fa-times"></i>not validated</span>
+      &nbsp;&nbsp;&nbsp;<span style="color: red;"><i class="fas fa-times"></i>waiting for validation</span>
       @endif
       @if($ads->isBlocked=="1")
       <span style="color: red;float: right;"><i  class="fas fa-2x  fa-exclamation-triangle"></i>blocked</span>

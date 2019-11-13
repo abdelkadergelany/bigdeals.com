@@ -134,7 +134,7 @@
      document.getElementById('msg_history').scrollTop = document.getElementById('msg_history').scrollHeight;
 
     // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+   // Pusher.logToConsole = true;
 
     var pusher = new Pusher('16cd61370fc9eee60b71', {
       cluster: 'ap2',
