@@ -2462,7 +2462,7 @@ if($request->isMethod('post')){
 }
 public function homePage( Request $request ){
 
-  $ads = ads::where("isValidate","1")->orderBy("created_at",'desc')->paginate(5); 
+  $ads = ads::where("isValidate","1")->where("isBlocked","0")->orderBy("created_at",'desc')->paginate(5); 
   return view('welcome')->with("ad",$ads);
 }
 
