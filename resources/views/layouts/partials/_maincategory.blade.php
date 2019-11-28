@@ -15,11 +15,12 @@
         <div class="col-md-4 ">
           <div class="box clickable d-flex flex-column justify-content-center mb-0 h-100">
             <div><img src="img/smartphone.png" alt="smartphone" class="img-fluid"></div>
-            <h3><a href="{{route('displayAds')}}?action=Cat&type=all&val=Mobile Phones">Mobile Phones</a></h3>
+            <h3><a href="">Mobile Phones</a></h3>
             <p class="mb-0">Buy and sell new and used Telephone and accessories in Cameroon. Choose from the biggest
               brands, including Apple, Techno, Samsung. </p>
           </div>
         </div>
+
         <div class="col-md-4 ">
           <div class="box clickable d-flex flex-column justify-content-center mb-0 h-100">
             <div><img src="img/cuisine.png" alt="une cuisiniere" class="img-fluid"></div>
@@ -28,6 +29,7 @@
               and other items for your garden.</p>
           </div>
         </div>
+
       </div>
       <div class="row mb-4">
         <div class="col-md-4 zom">
