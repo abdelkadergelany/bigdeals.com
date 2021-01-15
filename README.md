@@ -20,4 +20,4 @@ To install all the dependencies run:
  # screenshots
 
 
-<a href="https://postimg.cc/gallery/SpZFM79" target="_blank">
+<a href="https://postimg.cc/fky6FzR9" target="_blank"><img src="https://i.postimg.cc/fky6FzR9/Annotation-2021-01-15-235421.png" alt="Annotation-2021-01-15-235421"/></a> <a href="https://postimg.cc/Cd2Wp3R6" target="_blank"><img src="https://i.postimg.cc/Cd2Wp3R6/Annotation-2021-01-15-235446.png" alt="Annotation-2021-01-15-235446"/></a> <a href="https://postimg.cc/gLxQ6DTD" target="_blank"><img src="https://i.postimg.cc/gLxQ6DTD/Annotation-2021-01-15-235504.png" alt="Annotation-2021-01-15-235504"/></a><br/><br/>
